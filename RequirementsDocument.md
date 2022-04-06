@@ -8,7 +8,8 @@ Version: 1.0
  
 | Version number | Change |
 | ----------------- |:-----------|
-| 1.0 | Added stakeholders, actors, interfaces, stories and personas, functional requirements and non functional requirements ,use cases and scenarios, system design | 
+| 1.0 | Added stakeholders, actors, interfaces, stories and personas, functional requirements and non functional requirements ,use cases and scenarios, system design |
+| 2.0 | Added context diagram, use cases diagram, glossary and deployment diagram | 
 
 
 # Contents
@@ -56,15 +57,12 @@ EZWH (EaSy WareHouse) is a software application to support the management of a w
 | Retailer                                                        | Small shops with a small warehouse that need to be managed                               |
 | Payment company                                                 | Organization in charge of managing transactions                                          |
 | Shipping company                                                | Organization in charge of delivering items                                               |
-|                                                                 |                                                                                          |
-|                                                                 |                                                                                          |
-|                                                                 |                                                                                          |
 
 # Context Diagram and interfaces
 
 ## Context Diagram
 
-
+![Context Diagram](/Diagrams/Context_diagram.png "Context Diagram")
 
 ## Interfaces
 
@@ -142,8 +140,17 @@ Ginevra is 30, she is the CEO of an italian clothes brand. She wants to increase
 
 # Use case diagram and use cases
 
-
 ## Use case diagram
+
+![Use Case Diagram 1](/Diagrams/Use_case_diagram_1.png "Use Case Diagram 1")
+
+![Use Case Diagram 2](/Diagrams/Use_case_diagram_2.png "Use Case Diagram 2")
+
+![Use Case Diagram 3](/Diagrams/Use_case_diagram_3.png "Use Case Diagram 3")
+
+![Use Case Diagram 4](/Diagrams/Use_case_diagram_4.png "Use Case Diagram 4")
+
+![Use Case Diagram 5](/Diagrams/Use_case_diagram_5.png "Use Case Diagram 5")
 
 ### UC1 Create new order
 | Actors involved  | Manager |
@@ -678,9 +685,7 @@ Scenario 4.4
 
 # Glossary
 
-\<use UML class diagram to define important terms, or concepts in the domain of the system, and their relationships> 
-
-\<concepts are used consistently all over the document, ex in use cases, requirements etc>
+![Glossary](/Diagrams/Glossary.png "Glossary")
 
 # System Design
 
@@ -688,5 +693,5 @@ Not really meaningful in this case.  Only software components are needed.
 
 # Deployment Diagram 
 
-\<describe here deployment diagram >
+![Deployment Diagram](/Diagrams/Deployment_diagram.png "Deployment Diagram")
 
