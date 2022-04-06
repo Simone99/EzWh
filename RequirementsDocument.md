@@ -9,7 +9,8 @@ Version: 1.0
 | Version number | Change |
 | ----------------- |:-----------|
 | 1.0 | Added stakeholders, actors, interfaces, stories and personas, functional requirements and non functional requirements ,use cases and scenarios, system design |
-| 2.0 | Added context diagram, use cases diagram, glossary and deployment diagram | 
+| 2.0 | Added context diagram, use cases diagram, glossary and deployment diagram |
+| 2.1 | "Organizational Units" renamed to "Organizational Unit chief", edited glossary | 
 
 
 # Contents
@@ -52,7 +53,7 @@ EZWH (EaSy WareHouse) is a software application to support the management of a w
 | Manager (administrator)                                         | The person who is in charge of the final order and the supervisor of warehouse employees |
 | Quality office                                                  | It's in charge of items acceptance                                                       |
 | Supplier                                                        | People who provide ordered items                                                         |
-| Organizational units (production/manufacturing office, IT area) | Entities placing internal orders                                                         |
+| Organizational unit chief (production/manufacturing office chief, IT area chief) | People placing internal orders                                                         |
 | Warehouse employee                                              | People organizing the warehouse, managing available space and items already stored in it |
 | Retailer                                                        | Small shops with a small warehouse that need to be managed                               |
 | Payment company                                                 | Organization in charge of managing transactions                                          |
@@ -71,7 +72,7 @@ EZWH (EaSy WareHouse) is a software application to support the management of a w
 | Retailer             | GUI                  | Device screen                    |
 | Manager              | GUI                  | Device screen                    |
 | Warehouse employee   | GUI                  | Device screen                    |
-| Organizational Units | GUI, command line    | Device screen, keyboard, computer|
+| Organizational unit chief | GUI, command line    | Device screen, keyboard, computer|
 | Payment company      | API                  | Internet connection              |
 | Supplier             | Email or web service | Internet connection              |
 | Shipping company     | API                  | Internet connection              |
@@ -395,21 +396,21 @@ Scenario 4.4
 
 
 ### UC7 Create and sent an internal order
-| Actors Involved        | Warehouse Employee and OU |
+| Actors Involved        | Warehouse Employee and Organizational Unit chief OUC |
 | ------------- |:-------------:| 
 |  Precondition     | Internal Order does not exist |
 |  Post condition     | Internal Order  is created and sent |
-|  Nominal Scenario     | OU places the order, employee E collects the items, sets up them for the shipping and delivers them to a pick up area  |
+|  Nominal Scenario     | OUC places the order, employee E collects the items, sets up them for the shipping and delivers them to a pick up area  |
 |  Variants     | - |
 |  Exceptions     | Not enough quantity available |
 
 
 | Nominal Scenario | |
 | ------------- |:-------------:| 
-|  Precondition     | Internal Orderm IO does not exist, employee E and OU logged in |
+|  Precondition     | Internal Orderm IO does not exist, employee E and OUC logged in |
 |  Post condition     | Internal Order IO is created and sent |
 | Step#        | Description  |
-|  1     | OU creates internal order IO |  
+|  1     | OUC creates internal order IO |  
 |  2     | E takes charge of internal order IO|
 |  3     | When IO is completed it is sent |
 |  4	 | Number of items automatically decreased from the warehouse inventory by the EZWH system |
@@ -417,40 +418,40 @@ Scenario 4.4
 
 | Exception | |
 | ------------- |:-------------:| 
-|  Precondition     | Internal Order IO does not exist, employee E and OU logged in |
+|  Precondition     | Internal Order IO does not exist, employee E and OUC logged in |
 |  Post condition     | Internal Order IO is rejected |
 | Step#        | Description  |
-|  1     | OU creates an internal order |  
+|  1     | OUC creates an internal order |  
 |  2     | E takes charge of internal order IO |
 |  3     | IO cannot be completed by E because the requested quantity of items is not available in the warehouse |
 |  4	 | E reject internal order IO |
 
 
 ### UC8 Modify or revoke an internal order
-| Actors Involved        | Organisational Unit |
+| Actors Involved        | Organisational Unit chief OUC |
 | ------------- |:-------------:| 
 |  Precondition     | Internal Order exist and it is not shipped yet |
 |  Post condition     | Internal Order is modified or removoked |
-|  Nominal Scenario     | OU provides an update for an internal order or revokes it  |
+|  Nominal Scenario     | OUC provides an update for an internal order or revokes it  |
 |  Variants     | - |
 |  Exceptions     | An error occurs if the internal order is already shipped |
 
 
 | Nominal Scenario | |
 | ------------- |:-------------:| 
-|  Precondition     | Internal Order IO exists, OU logged in |
+|  Precondition     | Internal Order IO exists, OUC logged in |
 |  Post condition     | Internal Order IO is modified or removoked |
 | Step#        | Description  |
-|  1     | OU selects internal order IO created before |  
-|  2     | If order IO results not sent yet, OU can modify or revoke it |
+|  1     | OUC selects internal order IO created before |  
+|  2     | If order IO results not sent yet, OUC can modify or revoke it |
 |  3     | Changes are visible also to the E of the warehouse who doesn't process order IO or change it |
 
 | Exception | |
 | ------------- |:-------------:| 
-|  Precondition     | Internal Order IO exists, OU logged in |
+|  Precondition     | Internal Order IO exists, OUC logged in |
 |  Post condition     | Internal Order IO is not modified or removoked |
 | Step#        | Description  |
-|  1     | OU selects internal order IO created before |  
+|  1     | OUC selects internal order IO created before |  
 |  2     | IO is already in "sent" status |
 |  3     | IO can't be modified or revoked |
 
