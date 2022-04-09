@@ -51,7 +51,7 @@ EZWH (EaSy WareHouse) is a software application to support the management of a w
 | Stakeholder name                                                | Description                                                                              |
 |-----------------------------------------------------------------|------------------------------------------------------------------------------------------|
 | Manager (administrator)                                         | The person who is in charge of the final order and the supervisor of warehouse employees |
-| Quality office                                                  | It's in charge of items acceptance                                                       |
+| Quality tester                                                  | It's in charge of items acceptance                                                       |
 | Supplier                                                        | People who provide ordered items                                                         |
 | Organizational unit chief (production/manufacturing office chief, IT area chief) | People placing internal orders                                                         |
 | Warehouse employee                                              | People organizing the warehouse, managing available space and items already stored in it |
@@ -63,7 +63,7 @@ EZWH (EaSy WareHouse) is a software application to support the management of a w
 
 ## Context Diagram
 
-![Context Diagram](/Diagrams/Context_diagram.png "Context Diagram")
+![Context Diagram](Diagrams/Context_diagram.png "Context Diagram")
 
 ## Interfaces
 
@@ -79,10 +79,23 @@ EZWH (EaSy WareHouse) is a software application to support the management of a w
 | Quality tester       | GUI                  | Device screen                    |
 
 # Stories and personas
-Ylenia is 23, she works as employee inside the warehouse of a confectionary manufacturer company. She advices her manager to switch to EZWH software to manage better the inventory and reduce the waste of prducts. She wants to use new functionalities like item map, sorting list and internal order management in order to increase the productivity of the warehouse and its employee.
+Ylenia is 23 and works as employee in the warehouse of a confectionary manufacturer company.
+She advices her manager to switch to a new software she heard about in order to manage better the inventory and reduce the waste of prducts.
+On top of that, she would like some functionalities like item mapping, sorting list and internal order management in order to increase the productivity of the warehouse and its employees.
 
-Ginevra is 30, she is the CEO of an italian clothes brand. She wants to increase the workflow of the company and interactions between the warehouse and all the design offices and manufactures around Italy. Ginevra wants also an application with a privileged access to all the catalogues, the inventory and to manage orders with suppliers. She is going to invest money in EZWH software to reach her business goal.
+Ginevra is 30, she is the CEO of an italian clothes brand. Her dream is to increase the workflow of the company and interactions between warehouses, design offices and manufactures around Italy. Ginevra wants also an application with a privileged access to all the catalogues, the inventory and to manage orders with suppliers. She is going to invest money in EZWH software to reach her business goal.
 
+Mr. Giancarlo is the manager of a supermarket warehouse. The warehouse stores every kind of product, from fresh food to electronics, so keeping track of every type of product is really important but kinda hard.
+He returns home every day around 10pm because he has to contact 1 by 1 every supplier in order to make new orders for the warehouse and his wife does not like his long working shifts.
+Mr. Giancarlo would immediatley start using an application that could help him sending new orders to suppliers in just some clicks and going back home for dinner.
+
+Carmelo is 64 years old and owns a small family business in Castellamare di Stabia. Everything was going good, until the abrupt rising of all these new technologies.
+Now suppliers are asking for digital payments, identies and certifications but Carmelo doesn't understand a thing.
+His nephew bought him a new smartphone and installed on it EZWH app. Carmelo was able to understand how EZWH works in just a couple of hours and 
+now he will have no more problems with payments.
+
+Jhonny is probably going to quit his job. He is a quality tester for Lorem Ipsum GmbH, but since the company has been acquired from Big G the workload doubled.
+He dreams about an app that could help him keeping track of all the test he makes and those he still has to make in order to simplify the work and increase its productivity without becoming crazy.
 
 # Functional and non functional requirements
 
@@ -143,15 +156,15 @@ Ginevra is 30, she is the CEO of an italian clothes brand. She wants to increase
 
 ## Use case diagram
 
-![Use Case Diagram 1](/Diagrams/Use_case_diagram_1.png "Use Case Diagram 1")
+![Use Case Diagram 1](Diagrams/Use_case_diagram_1.png "Use Case Diagram 1")
 
-![Use Case Diagram 2](/Diagrams/Use_case_diagram_2.png "Use Case Diagram 2")
+![Use Case Diagram 2](Diagrams/Use_case_diagram_2.png "Use Case Diagram 2")
 
-![Use Case Diagram 3](/Diagrams/Use_case_diagram_3.png "Use Case Diagram 3")
+![Use Case Diagram 3](Diagrams/Use_case_diagram_3.png "Use Case Diagram 3")
 
-![Use Case Diagram 4](/Diagrams/Use_case_diagram_4.png "Use Case Diagram 4")
+![Use Case Diagram 4](Diagrams/Use_case_diagram_4.png "Use Case Diagram 4")
 
-![Use Case Diagram 5](/Diagrams/Use_case_diagram_5.png "Use Case Diagram 5")
+![Use Case Diagram 5](Diagrams/Use_case_diagram_5.png "Use Case Diagram 5")
 
 ### UC1 Create new order
 | Actors involved  | Manager |
@@ -686,7 +699,11 @@ Scenario 4.4
 
 # Glossary
 
-![Glossary](/Diagrams/Glossary.png "Glossary")
+<<<<<<< HEAD
+![Glossary](Diagrams/Glossary.png "Glossary")
+=======
+![Glossary](/Diagrams/Glossary.jpg "Glossary")
+>>>>>>> 876d5219e96d2195368ae686f32e5dd4851f8f16
 
 # System Design
 
@@ -694,5 +711,5 @@ Not really meaningful in this case.  Only software components are needed.
 
 # Deployment Diagram 
 
-![Deployment Diagram](/Diagrams/Deployment_diagram.png "Deployment Diagram")
+![Deployment Diagram](Diagrams/Deployment_diagram.png "Deployment Diagram")
 
