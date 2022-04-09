@@ -699,11 +699,7 @@ Scenario 4.4
 
 # Glossary
 
-<<<<<<< HEAD
-![Glossary](Diagrams/Glossary.png "Glossary")
-=======
 ![Glossary](/Diagrams/Glossary.jpg "Glossary")
->>>>>>> 876d5219e96d2195368ae686f32e5dd4851f8f16
 
 # System Design
 
@@ -711,5 +707,5 @@ Not really meaningful in this case.  Only software components are needed.
 
 # Deployment Diagram 
 
-![Deployment Diagram](Diagrams/Deployment_diagram.png "Deployment Diagram")
+![Deployment Diagram](/Diagrams/Deployment_diagram.png "Deployment Diagram")
 
