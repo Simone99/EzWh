@@ -28,9 +28,9 @@ Version: Desktop 1.0
 
 ![Item description](./GUI/Desktop/04%20Item%20description.png "Item description")
 
-### Item's quality test results
+### Add a new item
 
-![Test results](./GUI/Desktop/05%20Test%20results.png "Test results")
+![Add a new item](./GUI/Desktop/05%20New%20item.png "Add a new item")
 
 ### Warehouse map
 
