@@ -96,7 +96,7 @@ Version: 1.0
 ### Accounts management
 
 ![Acccount management](./GUI/Mobile/Profile%20Management.png "Acccount management")
-Only accessable from Manager account, other employee levels can only change their standard password.
+Accessable from Manager account, other employee levels can only change their default password.
 
 ### Home 1
 
@@ -145,7 +145,7 @@ The "+" is a manager functionality only.
 
 ### New Item for Inventory
 
-![New Item for Inventory](./GUI/Mobile/New%20Item%20for%20Inventory.png "New Item for Inventory")
+![New Item for Inventory](./GUI/Mobile/New%20Item%20for%20inventory.png "New Item for Inventory")
 ID is auto-generated.
 
 ### New Internal Order
