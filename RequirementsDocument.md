@@ -69,10 +69,10 @@ EZWH (EaSy WareHouse) is a software application to support the management of a w
 
 | Actor                | Logical Interface    | Physical Interface               |
 |----------------------|----------------------|----------------------------------|
-| Retailer             | GUI                  | Device screen                    |
-| Manager              | GUI                  | Device screen                    |
-| Warehouse employee   | GUI                  | Device screen                    |
-| Organizational unit chief | GUI, command line    | Device screen, keyboard, computer|
+| Retailer             | GUI                  | Device screen, keyboard, computer|
+| Manager              | GUI                  | Device screen, keyboard, computer|
+| Warehouse employee   | GUI                  | Device screen, keyboard, computer|
+| Organizational unit chief | GUI             | Device screen, keyboard, computer|
 | Payment company      | API                  | Internet connection              |
 | Supplier             | Email or web service | Internet connection              |
 | Shipping company     | API                  | Internet connection              |
@@ -699,7 +699,7 @@ Scenario 4.4
 
 # Glossary
 
-![Glossary](/Diagrams/Glossary.jpg "Glossary")
+![Glossary](./Diagrams/Glossary.png "Glossary")
 
 # System Design
 
@@ -707,5 +707,5 @@ Not really meaningful in this case.  Only software components are needed.
 
 # Deployment Diagram 
 
-![Deployment Diagram](/Diagrams/Deployment_diagram.png "Deployment Diagram")
+![Deployment Diagram](./Diagrams/Deployment_diagram.png "Deployment Diagram")
 
