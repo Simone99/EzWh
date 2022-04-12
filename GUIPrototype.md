@@ -91,7 +91,7 @@ Version: 1.0
 
 ### Create a new account
 
-![Create an account](.\GUI\Mobile\Sign%20Up.png "Create an account")
+![Create an account](./GUI/Mobile/Sign%20Up.png "Create an account")
 
 ### Accounts management
 
