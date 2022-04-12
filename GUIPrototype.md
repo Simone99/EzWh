@@ -106,7 +106,7 @@ Accessable from Manager account, other employee levels can only change their def
 ### Home 2
 
 ![Home 2](./GUI/Mobile/Home%202.png "Home 2")
-"New Int. Order" is a functionality for Employee and Org.Unit only.
+"New Int. Order" is a functionality for Org.Unit only.
 
 ### New External Order
 
