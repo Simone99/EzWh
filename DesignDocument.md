@@ -21,37 +21,22 @@ The design must satisfy the Official Requirements document, notably functional a
 
 # High level design 
 
-<discuss architectural styles used, if any>
-<report package diagram, if needed>
+The application can be developed in different ways using different architectural styles. Two of them are in particular suitable for EZWH: client-server and layered. Both of them are almost equivalent, but they highlight different features; the first is more related to where the application is deployed, while the second one is related to the software itself.
+The server has two components: the frontend, which is developed with web technologies (JavaScript, HTML, Css) and is in charge of collecting user inputs to send requests to the backend.
+Together, they implement a layered style: Presentation layer (front end), Application logic and data layer (back end). 
+Together, they implement also an MVC pattern, with the V on the front end and the MC on the back end.
 
+## Package Diagram
 
-
-
-
+![Package Diagram](./Diagrams/Package_diagram.png "Package Diagram")
 
 # Low level design
 
-<for each package in high level design, report class diagram. Each class should detail attributes and operations>
-
-
-
-
-
-
-
-
+![Class Diagram](./Diagrams/ClassDiagram1.jpg "Class Diagram")
 
 # Verification traceability matrix
 
 \<for each functional requirement from the requirement document, list which classes concur to implement it>
-
-
-
-
-
-
-
-
 
 
 
