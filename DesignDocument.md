@@ -46,6 +46,12 @@ Together, they implement also an MVC pattern, with the V on the front end and th
 ![UC3: Scenario 1 - Restock Order of SKU S Issued by quantity](./Diagrams/SD%20-%20UC3%20Scenario%201%20-%20Restock%20Order%20of%20SKU%20S%20issued%20by%20quantity.jpg "UC3: Scenario 1 - Restock Order of SKU S Issued by quantity")
 ![UC4: Scenario 1 - Create user and define rights](./Diagrams/SD%20-%20UC4%20Scenario%201%20-%20Create%20user%20and%20define%20rights.jpg "UC4: Scenario 1 - Create user and define rights")
 ![UC4: Scenario 2 - Modify user rights](./Diagrams/SD%20-%20UC4%20Scenario%202%20-%20Modify%20user%20rights.jpg "UC4: Scenario 2 - Modify user rights")
+
+![UC5: Scenario 1.1 - Record restock order arrival](./Diagrams/UC5.1.jpg "UC5: Scenario 1.1 - Record restock order arrival")
+![UC5: Scenario 2.2 - Record negative test results of all SKU items of a RestockOrder](./Diagrams/UC5.2.jpg "UC5: Scenario 2.2 - Record negative test results of all SKU items of a RestockOrder")
+![UC5: Scenario 3.3 - Stock some SKU items of a RO](./Diagrams/UC5.3.jpg "UC5: Scenario 3.3 - Stock some SKU items of a RO")
+![UC6: Scenario 2 - Return order of any SKU items](./Diagrams/UC6.2.jpg "UC6: Scenario 2 - Return order of any SKU items")
+
 ![UC9: Scenario 1 - Internal Order IO accepted](./Diagrams/SD%20-%20UC9%20Scenario%201.jpg "UC9: Scenario 1 - Internal Order IO accepted")
 ![UC10: Scenario 1 - Internal Order IO Completed](./Diagrams/SD%20-%20UC10%20Scenario%201.jpg "UC10: Scenario 1 - Internal Order IO Completed")
 ![UC11: Scenario 2 - Modify Item description and price](./Diagrams/SD%20-%20UC11%20Scenario%202.jpg "UC11: Scenario 2 - Modify Item description and price")
