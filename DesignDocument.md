@@ -33,6 +33,7 @@ Together, they implement also an MVC pattern, with the V on the front end and th
 # Low level design
 
 ![Class Diagram](./Diagrams/ClassDiagram1.jpg "Class Diagram")
+![Class Diagram](./Diagrams/ClassDiagram2.jpg "Class Diagram2")
 
 # Verification traceability matrix
 
@@ -41,7 +42,10 @@ Together, they implement also an MVC pattern, with the V on the front end and th
 
 
 # Verification sequence diagrams
- 
+
+![Create SKU](./Diagrams/Create%20SKU.jpg "Create SKU")
+![Modify SKU weight and volume](./Diagrams/Modify%20SKU%20weight%20and%20volume.jpg "Modify SKU weight and volume")
+![Modify postion P](./Diagrams/Modify%20postion%20P.jpg "Modify postion P") 
 ![UC2: Scenario 1 - Create position](./Diagrams/SD%20-%20UC2%20Scenario%201%20-%20Create%20position.jpg "UC2: Scenario 1 - Create position")
 ![UC3: Scenario 1 - Restock Order of SKU S Issued by quantity](./Diagrams/SD%20-%20UC3%20Scenario%201%20-%20Restock%20Order%20of%20SKU%20S%20issued%20by%20quantity.jpg "UC3: Scenario 1 - Restock Order of SKU S Issued by quantity")
 ![UC4: Scenario 1 - Create user and define rights](./Diagrams/SD%20-%20UC4%20Scenario%201%20-%20Create%20user%20and%20define%20rights.jpg "UC4: Scenario 1 - Create user and define rights")
