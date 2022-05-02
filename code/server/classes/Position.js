@@ -1,6 +1,5 @@
-class Position{
-    constructor(){}
-
+class Position {
+	constructor() {}
 }
 
 module.exports = Position;
