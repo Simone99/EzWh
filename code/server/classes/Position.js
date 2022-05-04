@@ -49,7 +49,7 @@ class Position {
 	}
 
 	increaseOccupiedWeight(weight) {
-		if (this.occupiedWeight + weight < this.maxWeight) {
+		if (this.occupiedWeight + weight < this.maxWeight && this.occupiedWeight + weight > 0) {
 			this.occupiedWeight = this.occupiedWeight + weight;
 			return true;
 		}
@@ -57,7 +57,7 @@ class Position {
 	}
 
 	increaseOccupiedVolume(volume) {
-		if (this.occupiedVolume + volume < this.maxVolume) {
+		if (this.occupiedVolume + volume < this.maxVolume && this.occupiedVolume + volume > 0) {
 			this.occupiedVolume = this.occupiedVolume + volume;
 			return true;
 		}
