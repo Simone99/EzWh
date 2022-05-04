@@ -213,7 +213,7 @@ class Warehouse{
 
     addReturnOrder(r, SKUItems, state){
         //TODO: edit ReturnOrder class constructor
-        const tmp = new this.ReturnOrder(r, SKUItems, state);
+        const tmp = new this.ReturnOrder(id, r, SKUItems, state);
         this.returnOrderList.push(tmp);
         //TODO: use DAO to insert it into db
     }
