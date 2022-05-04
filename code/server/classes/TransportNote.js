@@ -1,6 +1,13 @@
+const dayjs = require("dayjs");
 class TransportNote{
-    constructor(){}
+    constructor(){
+        this.shipmentDate = dayjs();
+    }
 
+    setDate(shipmentDate) {
+		this.shipmentDate = dayjs(shipmentDate, "YYYY/MM/DD");
+		return;
+	}
 }
 
 module.exports = TransportNote;
