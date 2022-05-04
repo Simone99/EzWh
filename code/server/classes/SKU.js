@@ -55,12 +55,12 @@ class SKU {
 		return;
 	}
 
-	increaseAvailableQuantity(value) {
+	increaseAvailableQuantityBy(value) {
 		this.availableQuantity += value;
 		return;
 	}
 
-	getavailableQuantity() {
+	getAvailableQuantity() {
 		return this.availableQuantity;
 	}
 

@@ -1,6 +1,8 @@
 const dayjs = require("dayjs");
 const RestockOrderItem = require("./RestockOrderItem");
 const TransportNote = require("./TransportNote");
+const Item = require('./Item');
+const SKUItem = require('./SKUItem');
 class restockOrder {
 	constructor(supplierID, state = null) {
 		this.id; // to be added from db
@@ -42,8 +44,12 @@ class restockOrder {
 		return;
 	}
 
-	createTageSKUItems() {
-		//I don't know what this function should do :)
+	createTagSKUItems() {
+		for(let roi in this.restockOrderItemsList){
+			let itm = roi.getItmObj();
+			let tmp = new SKUItem(itm.getSKUId(), true);
+			this.addSKUItems(tmp);
+		}
 		return;
 	}
 

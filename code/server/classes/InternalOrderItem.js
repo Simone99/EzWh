@@ -6,7 +6,7 @@ class InternalOrderItem{
     }
 
     setSKU(SKU) {
-        this.SKU = SKU;
+        this.SKUObj = SKU;
         return;
     }
 

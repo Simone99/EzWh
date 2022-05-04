@@ -25,10 +25,10 @@ class SKUItem {
 	}
 
 	isAvailable() {
-		return this.available === true ? true : false;
+		return this.available;
 	}
 
-	getSKUid() {
+	getSKUId() {
 		return this.SKUid;
 	}
 
