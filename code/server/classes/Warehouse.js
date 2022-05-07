@@ -11,6 +11,7 @@ class Warehouse{
     InternalOrder = require('./InternalOrder');
     Item = require('./Item');
     SKU = require('./SKU');
+    DAO = require('./DAO');
     
     constructor(){
         this.inventory = new this.Inventory();
@@ -24,6 +25,7 @@ class Warehouse{
         this.internalOrderList = [];
         this.supplierList = [];
         this.returnOrderList = [];
+        this.DAO = new this.DAO('./code/server/EZWarehouseDB.db');
     }
 
     getInventory(){
@@ -77,8 +79,8 @@ class Warehouse{
     }
 
     //TODO: check for filters, they are not needed concerning the APIs
-    printPositionList(){
-        return this.positionList;
+    async printPositionList(){
+        return await this.DAO.getAllPositions();
     }
 
     addCustomer(customerID, name, surname){

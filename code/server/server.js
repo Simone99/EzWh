@@ -1,3 +1,5 @@
+const fs = require('fs');
+const sqlite = require('sqlite3');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -55,6 +57,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const allFileContents = fs.readFileSync('./code/server/classes/DBCreationQuery.sql', 'utf-8');
+const db = new sqlite.Database('./code/server/EZWarehouseDB.db', err =>{
+  if(err) throw err;
+});
+allFileContents.split(';').forEach(query => db.run(query, undefined, err => {if(err) throw err;}));
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);

@@ -1,13 +1,13 @@
 class Position {
-	constructor(aisle, row, col, maxWeight, maxVolume) {
+	constructor(aisle, row, col, maxWeight, maxVolume, occupiedWeight = 0, occupiedVolume = 0) {
 		this.positionID = parseInt(aisle.toString() + row.toString() + col.toString());
 		this.aisle = aisle;
 		this.row = row;
 		this.col = col;
 		this.maxWeight = maxWeight;
 		this.maxVolume = maxVolume;
-		this.occupiedWeight = 0;
-		this.occupiedVolume = 0;
+		this.occupiedWeight = occupiedWeight;
+		this.occupiedVolume = occupiedVolume;
 	}
 
 	setMaxWeight(maxWeight) {
@@ -63,6 +63,7 @@ class Position {
 		}
 		return false;
 	}
+
 }
 
 module.exports = Position;
