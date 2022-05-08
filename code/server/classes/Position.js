@@ -64,6 +64,18 @@ class Position {
 		return false;
 	}
 
+	getMaxWeight(){
+		return this.maxWeight;
+	}
+
+	getMaxVolume(){
+		return this.maxVolume;
+	}
+
+	getPositionID(){
+		return this.positionID;
+	}
+
 }
 
 module.exports = Position;

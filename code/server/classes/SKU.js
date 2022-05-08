@@ -6,9 +6,11 @@ class SKU {
 		volume,
 		price,
 		notes = null,
-		position = null
+		position = null,
+		id = null,
+		availableQuantity = 0
 	) {
-		this.id; //initailize it to its id from db
+		this.id = id;
 		this.description = description;
 		this.weight = weight;
 		this.volume = volume;
@@ -16,7 +18,7 @@ class SKU {
 		this.notes = notes;
 		this.pos = position;
 		this.SKUItemsList = [];
-		this.availableQuantity = this.skuItemList.length;
+		this.availableQuantity = availableQuantity;
 		this.itemsList = [];
 	}
 	//Methods
@@ -107,6 +109,26 @@ class SKU {
 		// this implementation assumes that the item object is already created with all details and just needs to be linked with the propper SKU
 		this.itemsList.push(item);
 		return;
+	}
+
+	getDescription(){
+		return this.description;
+	}
+
+	getWeight(){
+		return this.weight;
+	}
+
+	getVolume(){
+		return this.volume;
+	}
+
+	getNotes(){
+		return this.notes;
+	}
+
+	getPrice(){
+		return this.price;
 	}
 }
 

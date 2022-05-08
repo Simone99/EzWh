@@ -14,7 +14,7 @@ class Warehouse{
     DAO = require('./DAO');
     
     constructor(){
-        this.inventory = new this.Inventory();
+        this.inventory = new this.Inventory('./code/server/EZWarehouseDB.db');
 
         //TODO: retrieve all lists from DAO
         this.positionList = [];

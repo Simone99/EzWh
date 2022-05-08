@@ -2,59 +2,43 @@ class Inventory{
 
     SKU = require('./SKU');
     SKUItem = require('./SKUItem');
+    DAO = require('./DAO');
 
-    constructor(){
-        //TODO: retrieve data from db using DAO
-        this.SKUList = [];
+    constructor(dbname){
+        this.DAO = new this.DAO(dbname);
     }
 
-    getSKUList(){
-        return this.SKUList;
+    async getSKUList(){
+        return await this.DAO.getAllSKUs();
     }
 
-    addSKU(item){
-        this.SKUList.push(item);
-        //TODO: insert it into db using DAO
+    async addSKU(item){
+        console.log(item);
+        await this.DAO.insertSKU(item);
     }
 
     //TODO: rename function parameter
-    deleteSKU(SKUID){
-        //TODO: add detSKUID method to SKU class
-        this.SKUList = this.SKUList.filter(sku => sku.getSKUID() !== SKUID);
+    async deleteSKU(SKUID){
+        //TODO: add getSKUID method to SKU class
+        await this.DAO.deleteSKU(SKUID);
         //TODO: delete it from db using DAO
     }
 
     //TODO: rename function parameter
-    searchSKU(SKUIDorDescription){
+    async searchSKU(SKUIDorDescription){
         //TODO: add getDescription method to SKU class
-        return this.SKUList.filter(sku => (typeof SKUIDorDescription === 'number')? sku.getSKUID() : sku.getDescription() === SKUIDorDescription)[0];
+        return await this.DAO.getSKUByID(SKUIDorDescription);
+        //return this.SKUList.filter(sku => (typeof SKUIDorDescription === 'number')? sku.getSKUID() : sku.getDescription() === SKUIDorDescription)[0];
     }
 
     //TODO: rename parameter and add parameters
-    editSKU(SKUID, newDescription, newWeight, newVolume, newNotes, newPrice, newAvailableQuantity){
-        this.SKUList = this.SKUList.map(sku => {
-            if(sku.getSKUID() === SKUID){
-                sku.setDescritpion(newDescription);
-                sku.setWeight(newWeight);
-                sku.setVolume(newVolume);
-                sku.setNotes(newNotes);
-                sku.setPrice(newPrice);
-                sku.setAvailableQuantity(newAvailableQuantity);
-                //TODO: update changes inside the db
-            }
-            return sku;
-        });
+    async editSKU(SKUID, newDescription, newWeight, newVolume, newNotes, newPrice, newAvailableQuantity){
+        return await this.DAO.updateSKU(SKUID, newDescription, newWeight, newVolume, newNotes, newPrice, newAvailableQuantity);
     }
 
     //TODO: add the following method inside SKU class
-    editSKUPosition(SKUID, position){
-        this.SKUList = this.SKUList.map(sku => {
-            if(sku.getSKUID() === SKUID){
-                sku.setPosition(position);
-                //TODO: update changes inside the db
-            }
-            return sku;
-        });
+    async editSKUPosition(SKUID, position){
+        return await this.DAO.updateSKUPosition(SKUID, position);
     }
 
     searchSKUItem(RFID){

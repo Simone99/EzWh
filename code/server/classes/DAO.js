@@ -9,6 +9,7 @@ const SKUDAO = require('./DAOs/SKUDAO');
 const SKUItemDAO = require('./DAOs/SKUItemDAO');
 const TestDescriptorDAO = require('./DAOs/TestDescriptorDAO');
 const TestResultDAO = require('./DAOs/TestResultDAO');
+const Position = require('./Position');
 class DAO{
 
     sqlite = require('sqlite3');
@@ -31,6 +32,59 @@ class DAO{
 
     async getAllPositions(){
         return await this.PositionDAO.getAllPositions();
+    }
+
+    async getAllSKUs(){
+        return await this.SKUDAO.getAllSKUs();
+    }
+
+    async getSKUByID(ID){
+        return await this.SKUDAO.getSKUByID(ID);
+    }
+
+    async insertSKU(sku){
+        await this.SKUDAO.insertSKU(sku);
+    }
+
+    async updateSKU(SKUID, newDescription, newWeight, newVolume, newNotes, newPrice, newAvailableQuantity){
+        const sku = await this.SKUDAO.getSKUByID(SKUID);
+        if(sku === undefined){
+            return 404;
+        }
+        if(newAvailableQuantity !== undefined){
+            const pos = await this.PositionDAO.getPosition(sku.getPosition());
+            if(pos !== undefined){
+                if(pos.getMaxWeight() >= newWeight * newAvailableQuantity && pos.getMaxVolume() >= newVolume * newAvailableQuantity){
+                    await this.PositionDAO.updatePosition(pos.getPositionID(), newVolume * newAvailableQuantity, newWeight * newAvailableQuantity);
+                }else{
+                    return 422;
+                }
+            }
+        }
+        await this.SKUDAO.updateSKU(SKUID, newDescription, newWeight, newVolume, newNotes, newPrice, newAvailableQuantity);
+    }
+
+    async updateSKUPosition(SKUID, newPositionID){
+        const sku = await this.SKUDAO.getSKUByID(SKUID);
+        if(sku === undefined){
+            return 404;
+        }
+        const pos = await this.PositionDAO.getPosition(newPositionID);
+        if(pos !== undefined){
+            console.log(pos);
+            const tmp_weight = sku.getWeight() * sku.getAvailableQuantity();
+            const tmp_volume = sku.getVolume() * sku.getAvailableQuantity();
+            if(pos.getMaxWeight() >= tmp_weight && pos.getMaxVolume() >= tmp_volume){
+                await this.PositionDAO.updatePosition(newPositionID, tmp_volume, tmp_weight);
+            }else{
+                return 422;
+            }
+        }
+        await this.SKUDAO.updateSKUPosition(SKUID, newPositionID);
+    }
+
+    async deleteSKU(SKUID){
+        await this.SKUDAO.deleteSKU(SKUID);
     }
 
 }

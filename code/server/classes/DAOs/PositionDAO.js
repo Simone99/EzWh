@@ -23,6 +23,35 @@ class PositionDAO{
         });
     }
     
+    getPosition(positionID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM POSITION_TABLE WHERE ID = ?";
+            this.db.get(sql, [positionID], (err, row) => {
+                if(err){
+                    reject(err);
+                    return
+                }
+                if(row === undefined){
+                    resolve(undefined);
+                    return;
+                }
+                resolve(new Position(row.AISLE, row.ROW, row.COL, row.MAX_WEIGHT, row.MAX_VOLUME, row.OCCUPIED_WEIGHT, row.OCCUPIED_VOLUME));
+            });
+        });
+    }
+
+    updatePosition(positionID, newOccupiedVolume, newOccupiedWeight){
+        return new Promise((resolve, reject) => {
+            const sql = "UPDATE POSITION_TABLE SET OCCUPIED_WEIGHT = ?, OCCUPIED_VOLUME = ? WHERE ID = ?";
+            this.db.run(sql, [newOccupiedWeight, newOccupiedVolume, positionID], err => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve('OK');
+                }
+            });
+        });
+    }
 }
 
 module.exports = PositionDAO;
