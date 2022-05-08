@@ -41,13 +41,28 @@ class Inventory{
         return await this.DAO.updateSKUPosition(SKUID, position);
     }
 
-    searchSKUItem(RFID){
-        for(let sku in this.SKUList){
-            const tmp = sku.getSKUItemsList().filter(skuitem => skuitem.getSKU_RFID());
-            if(tmp.length != 0)
-                return tmp[0];
-        }
-        return null;
+    async searchSKUItem(RFID){
+        return await this.DAO.getSKUItemByRFID(RFID);
+    }
+
+    async getSKUItems(){
+        return await this.DAO.getSKUItems();
+    }
+
+    async getSKUItemsAvailable(SKUID, available){
+        return await this.DAO.getSKUItemsAvailable(SKUID, available);
+    }
+
+    async addSKUItem(skuItem){
+        return await this.DAO.addSKUItem(skuItem);
+    }
+
+    async editSKUItem(newRFID, newAvailable, newDateOfStock, oldRFID){
+        return await this.DAO.editSKUItem(newRFID, newAvailable, newDateOfStock, oldRFID);
+    }
+
+    async deleteSKUItem(RFID){
+        await this.DAO.deleteSKUItem(RFID);
     }
 }
 

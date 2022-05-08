@@ -10,6 +10,7 @@ const SKUItemDAO = require('./DAOs/SKUItemDAO');
 const TestDescriptorDAO = require('./DAOs/TestDescriptorDAO');
 const TestResultDAO = require('./DAOs/TestResultDAO');
 const Position = require('./Position');
+const SKUItem = require('./SKUItem');
 class DAO{
 
     sqlite = require('sqlite3');
@@ -87,6 +88,37 @@ class DAO{
         await this.SKUDAO.deleteSKU(SKUID);
     }
 
+    async getSKUItems(){
+        return await this.SKUItemDAO.getSKUItems();
+    }
+
+    async getSKUItemsAvailable(SKUID, available){
+        return await this.SKUItemDAO.getSKUItemsAvailable(SKUID, available);
+    }
+
+    async getSKUItemByRFID(RFID){
+        return await this.SKUItemDAO.getSKUItemByRFID(RFID);
+    }
+
+    async addSKUItem(skuItem){
+        const sku = await this.SKUDAO.getSKUByID(skuItem.getSKUId());
+        if(sku === undefined){
+            return 404;
+        }
+        return await this.SKUItemDAO.addSKUItem(skuItem);
+    }
+
+    async editSKUItem(newRFID, newAvailable, newDateOfStock, oldRFID){
+        const skuItem = await this.SKUItemDAO.getSKUItemByRFID(oldRFID);
+        if(skuItem === 404){
+            return 404;
+        }
+        await this.SKUItemDAO.editSKUItem(newRFID, newAvailable, newDateOfStock, oldRFID);
+    }
+
+    async deleteSKUItem(RFID){
+        await this.SKUItemDAO.deleteSKUItem(RFID);
+    }
 }
 
 module.exports = DAO;

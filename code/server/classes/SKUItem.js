@@ -1,8 +1,8 @@
 const dayjs = require("dayjs");
 const TestResult = require("./TestResult");
 class SKUItem {
-	constructor(SKUid, available = false, dateOfStock = null) {
-		this.rfid = null; // need to discuss the value in the meeting
+	constructor(SKUid, available = false, dateOfStock = null, RFID = undefined) {
+		this.rfid = RFID; // need to discuss the value in the meeting
 		this.available = available;
 		this.SKUid = SKUid;
 		this.dateOfStock = dateOfStock;
@@ -68,6 +68,10 @@ class SKUItem {
 
 	getSKU_RFID() {
 		return this.rfid;
+	}
+
+	getDateOfStock(){
+		return this.dateOfStock;
 	}
 }
 

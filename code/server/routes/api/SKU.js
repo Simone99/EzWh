@@ -4,7 +4,6 @@ const Warehouse = require('../../classes/Warehouse');
 const Inventory = require('../../classes/Inventory');
 const SKU = require('../../classes/SKU');
 
-/* GET users listing. */
 router.get('/skus', async (req, res) => {
   const skus = await new Warehouse().getInventory().getSKUList();
   return res.status(200).json(skus);
