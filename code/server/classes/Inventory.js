@@ -69,6 +69,10 @@ class Inventory{
         return await this.DAO.getAllUsers();
     }
 
+    async getSupplierList() {
+        return await this.DAO.getAllSuppliers();
+    }
+    
     async addUser(user) {
         return await this.DAO.addUser(user);
     }

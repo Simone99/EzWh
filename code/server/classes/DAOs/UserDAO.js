@@ -53,6 +53,22 @@ class UserDAO{
             });
         });
     }
+
+    getAllSuppliers(){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM USER_TABLE WHERE TYPE = ?";
+            this.db.all(sql, ['Supplier'], (err, rows) => {
+                if(err){
+                    reject(500);
+                    return;
+                }
+                const suppliers = rows.map(row => {
+                    return new User(row.NAME, row.SURNAME, row.TYPE, row.USERNAME, row.PASSWORD, row.POSITION, row.ID);
+                });
+                resolve(suppliers);
+            });
+        });
+    }
 }
 
 module.exports = UserDAO;

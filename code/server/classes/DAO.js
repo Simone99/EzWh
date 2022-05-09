@@ -134,6 +134,10 @@ class DAO{
         }
     }
 
+    async getAllSuppliers() {
+        return await this.UserDAO.getAllSuppliers();
+    }
+
 }
 
 module.exports = DAO;
