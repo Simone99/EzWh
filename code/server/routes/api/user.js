@@ -34,17 +34,30 @@ router.get('/suppliers', async (req, res) => {
 });
 
 router.put('/users/:username', async (req, res) => {
-  if(!req.body.hasOwnProperty('type') ||
-     !req.params.hasOwnProperty('username')) {
+  if(!req.body.hasOwnProperty('oldType') ||
+    !req.body.hasOwnProperty('newType') ||
+    !req.params.hasOwnProperty('username')) {
     return res.status(422).end();
   }
   try{
-    const tmp = await new Warehouse().getInventory().editUser(req.params.id, req.body.newDescription, req.body.newWeight, req.body.newVolume, req.body.newNotes, req.body.newPrice, req.body.newAvailableQuantity);
-    if(tmp === 422){
-      return res.status(422).end();
-    }else if(tmp === 404){
+    const tmp = await new Warehouse().getInventory().editUser(req.params.username, req.body.oldType, req.body.newType);
+    if(tmp === 404){
       return res.status(404).end();
     }
+    return res.status(201).end();
+  }catch(err){
+    return res.status(503).end();
+  }
+});
+
+router.delete('/users/:username/:type', async (req, res) => {
+  if(!req.params.hasOwnProperty('type') ||
+    !req.params.hasOwnProperty('username')) {
+    return res.status(422).end();
+  }
+  try{
+    await new Warehouse().getInventory().deleteUser(req.params.username, req.params.type);
+    return res.status(204).end();
   }catch(err){
     return res.status(503).end();
   }

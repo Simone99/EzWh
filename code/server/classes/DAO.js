@@ -138,6 +138,18 @@ class DAO{
         return await this.UserDAO.getAllSuppliers();
     }
 
+    async editUser(username, oldType, newType){
+        const storedUser = await this.UserDAO.getUserByTypeAndUsername(oldType, username);
+        if(storedUser === undefined){
+            return 404;
+        }
+        await this.UserDAO.editUser(username, oldType, newType);
+    }
+
+    async deleteUser(username, type) {
+        await this.UserDAO.deleteUser(username, type);
+    }
+
 }
 
 module.exports = DAO;

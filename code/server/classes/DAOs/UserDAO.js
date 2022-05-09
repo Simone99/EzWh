@@ -69,6 +69,37 @@ class UserDAO{
             });
         });
     }
+
+    editUser(username, oldType, newType){
+        return new Promise((resolve, reject) => {
+            const sql = "UPDATE USER_TABLE SET "
+                        +
+                        "TYPE = ? "
+                        +
+                        "WHERE USERNAME = ? AND TYPE = ?";
+            this.db.run(sql, [newType, username, oldType], err => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve('ok');
+                }
+            });
+        });
+    }
+
+    deleteUser(username, type) {
+        return new Promise((resolve, reject) => {
+            const sql = "DELETE FROM USER_TABLE WHERE USERNAME = ? AND TYPE = ?";
+            console.log('ciao');
+            this.db.run(sql, [username, type], err => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve('OK');
+                }
+            });
+        });
+    }
 }
 
 module.exports = UserDAO;

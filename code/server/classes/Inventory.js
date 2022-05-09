@@ -76,6 +76,14 @@ class Inventory{
     async addUser(user) {
         return await this.DAO.addUser(user);
     }
+
+    async editUser(username, oldType, newType) {
+        return await this.DAO.editUser(username, oldType, newType);
+    }
+
+    async deleteUser(username, type) {
+        return await this.DAO.deleteUser(username, type);
+    }
 }
 
 module.exports = Inventory;
