@@ -119,6 +119,21 @@ class DAO{
     async deleteSKUItem(RFID){
         await this.SKUItemDAO.deleteSKUItem(RFID);
     }
+
+    async getAllUsers() {
+        return await this.UserDAO.getAllUsers();
+    }
+
+    async addUser(user){
+        const storedUser = await this.UserDAO.getUserByTypeAndUsername(user.getType(), user.getUsername());
+        if (storedUser === undefined) {
+            await this.UserDAO.insertUser(user);
+            return 201;
+        } else {
+            return 409;
+        }
+    }
+
 }
 
 module.exports = DAO;

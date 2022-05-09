@@ -115,7 +115,6 @@ class Warehouse{
     }
 
     searchUser(userID){
-        //TODO: add getID into User class
         return this.userList.filter(u => u.getID() === userID)[0];
     }
 
