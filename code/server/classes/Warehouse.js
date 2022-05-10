@@ -181,6 +181,10 @@ class Warehouse{
         return this.restockOrderList.filter(ro => ro.getRestockOrderID() === restockOrderID)[0];
     }
 
+    getRestockOrderList(){
+        return this.restockOrderList;
+    }
+
     //TODO: add parameter inside class diagram
     editRestockOrder(restockOrderID, newState){
         this.restockOrderList.map(ro => {
