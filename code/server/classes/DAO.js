@@ -189,7 +189,6 @@ class DAO{
         }
         return await RestockOrderDAO.deleteRestockOrder(ResOrderID);
     }
-
 }
 
 module.exports = DAO;
