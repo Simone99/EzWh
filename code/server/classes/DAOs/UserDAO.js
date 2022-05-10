@@ -90,7 +90,6 @@ class UserDAO{
     deleteUser(username, type) {
         return new Promise((resolve, reject) => {
             const sql = "DELETE FROM USER_TABLE WHERE USERNAME = ? AND TYPE = ?";
-            console.log('ciao');
             this.db.run(sql, [username, type], err => {
                 if(err){
                     reject(err);

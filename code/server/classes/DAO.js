@@ -150,6 +150,10 @@ class DAO{
         await this.UserDAO.deleteUser(username, type);
     }
 
+    async getTestResultsByRFID(RFID) {
+        return await this.TestResultDAO.getTestResultsByRFID(RFID);
+    }
+
 }
 
 module.exports = DAO;

@@ -84,6 +84,10 @@ class Inventory{
     async deleteUser(username, type) {
         return await this.DAO.deleteUser(username, type);
     }
+
+    async getTestResultsByRFID(RFID) {
+        return await this.DAO.getTestResultsByRFID(RFID);
+    }
 }
 
 module.exports = Inventory;

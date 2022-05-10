@@ -10,6 +10,7 @@ router.get('/users', async (req, res) => {
 });
 
 router.post('/newUser', async (req, res) => {
+  //TODO: insert ID
   if(!req.body.hasOwnProperty('name') ||
      !req.body.hasOwnProperty('surname') ||
      !req.body.hasOwnProperty('type') ||
@@ -34,6 +35,7 @@ router.get('/suppliers', async (req, res) => {
 });
 
 router.put('/users/:username', async (req, res) => {
+  //TODO: no managers
   if(!req.body.hasOwnProperty('oldType') ||
     !req.body.hasOwnProperty('newType') ||
     !req.params.hasOwnProperty('username')) {
