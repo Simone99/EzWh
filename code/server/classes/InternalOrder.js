@@ -17,11 +17,12 @@ class InternalOrder {
         this.SKUItemsList = [];
     }
 
-    //How we can add the relative SKUItem to the SKUItemsList?
-    //How retrive a specific SKUItem from a generic SKU id?
     addSKU(s, quantity) {
         const newIntOrdItem = new this.InternalOrderItem(s, quantity);
         this.internalOrderItemsList.push(newIntOrdItem);
+
+        //Where is the quantity of SKU/Sku items of our inventory???
+
         return;
     }
 
@@ -69,9 +70,9 @@ class InternalOrder {
         //TODO:??
     }
 
-    removeSKUFromWH() {
+    /*removeSKUFromWH() {
         //TODO: Maybe a SKU item, a SKU should not be deleted from wharehouse
-    }
+    }*/
 
     setCustomerId(id) {
         this.customerID = id;

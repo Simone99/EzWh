@@ -4,9 +4,7 @@ class InternalOrderDAO{
 
     constructor(db){
         this.db = db;
-        
     }
-
     
 }
 

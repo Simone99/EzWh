@@ -1,9 +1,150 @@
 const sqlite = require('sqlite3');
+const restockOrder = require('../RestockOrder');
+const SKUItem = require('../SKUItem');
 
 class RestockOrderDAO{
 
     constructor(db){
         this.db = db;
+    }
+    
+    getAllRestockOrders(){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM RESTOCKORDER_TABLE";
+            this.db.all(sql, [], (err, rows) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                const restockOrders = rows.map(row => {
+                    return new restockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE);
+                });
+                resolve(restockOrders);
+            });
+        });
+    }
+
+    getAllRestockOrdersIssued(){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM RESTOCKORDER_TABLE WHERE STATE = ISSUED";
+            this.db.all(sql, [], (err, rows) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                const ResOrdersIssued = rows.map(row => {
+                    return new restockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE);
+                });
+                resolve(ResOrdersIssued);
+            });
+        });
+    }
+
+    getRestockOrderByID(ID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM RESTOCKORDER_TABLE WHERE ID = ?";
+            this.db.get(sql, [ID], (err, row) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                if(row == undefined){
+                    resolve(undefined);
+                }else{
+                    resolve(new restockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE));
+                }
+            });
+        });
+    }
+
+    getSKUItemsWithNegTest(ResOrderID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT *" +
+                        "FROM SKUITEM_TABLE, SKUITEMSRESTOCKORDER_LIST, TESTRESULTSKUITEM_LIST, TESTRESULT_TABLE" +
+                        "WHERE SKUITEMSRESTOCKORDER_LIST.ID_SKUITEM = SKUITEM_TABLE.RFID AND " +
+                            "TESTRESULTSKUITEM_LIST.ID_SKUITEM =  SKUITEM_TABLE.RFID AND " +
+                            "TESTRESULT_TABLE.ID = TESTRESULTSKUITEM_LIST.ID_TESTRESULT AND" +
+                            "RESULT = 0 AND" +
+                            "ID = ?";
+            this.db.all(sql, [ResOrderID], (err, rows) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                const SKUItemsWIthNegTest = rows.map(row => {
+                    resolve( new SKUItem(row.RFID, row.AVAILABLE, row.SKUID, row.DATEOFSTOCK));
+                });
+            });
+        });
+    }
+
+    addIssuedRestockOrder(restockOrder){
+        return new Promise((resolve, reject) => {
+            const sql = "INSERT INTO RESTOCKORDER_TABLE(ID, ISSUEDATE, STATE, USERID, TRANSPORTNOTE) VALUES(?,?,?,?,?)";
+            restockOrder.issue();
+            this.db.run(sql, [restockOrder.ID, restockOrder.ISSUEDATE, restockOrder.STATE, restockOrder.USERID,], err => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                //With an empy list of SKU Items means no rows inside SKUITEMSRESTOCKORDER_LIST 
+                resolve('OK');
+            });
+        });
+    }
+
+    editState(ResOrderID, newState){
+        return new Promise ((resolve, reject) => {
+            const sql = "UPDATE RESTOCKORDER_TABLE SET STATE = ? WHERE ID = ?";
+            this.db.run(sql, [newState, ResOrderID], err => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                resolve('OK');
+            });
+        });
+    }
+    
+    addSKUItemsList(ResOrderID, SKUItemsList){
+        return new Promise ((resolve, reject) => {
+            const sql = "INSERT INTO SKUITEMSRESTOCKORDER_LIST(ID_SKUITEM, ID_RESTOCKORDER) VALUES (?,?)";
+            SKUItemsList.forEach(element => {
+                this.db.run(sql, [element.ID,ResOrderID], err => {
+                    if(err){
+                        reject(err);
+                        return;
+                    }
+                })
+            });
+            resolve('OK');            
+        });
+    }
+
+    setTransportNote(ResOrderID, TN){
+        return new Promise((resolve, reject) => {
+            const sql = "UPDATE RESTOCKORDER_TABLE SET TRANSPORTNOTE = ? WHERE ID = ?";
+            this.db.run(sql, [TN, ResOrderID], err => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                resolve('OK');
+            });
+        });
+    }
+
+    deleteRestockOrder(ResOrderID){
+        return new Promise((resolve, reject) => {
+            const sql = "DELETE FROM RESTOCKORDER_TABLE WHERE ID = ?";
+            this.db.run(sql, [ResOrderID], err => {
+                if(err){
+                    reject(err);
+                    return
+                }
+                resolve('OK');
+            });
+        });
     }
 
     

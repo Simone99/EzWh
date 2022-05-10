@@ -1,4 +1,5 @@
 const sqlite = require('sqlite3');
+const dayjs = require('dayjs');
 const UserDAO = require('./DAOs/UserDAO');
 const InternalOrderDAO = require('./DAOs/InternalOrderDAO');
 const ItemDAO = require('./DAOs/ItemDAO');
@@ -120,6 +121,74 @@ class DAO{
         await this.SKUItemDAO.deleteSKUItem(RFID);
     }
 
+    async getAllRestockOrders(){
+        return await RestockOrderDAO.getAllRestockOrders();
+    }
+
+    async getAllRestockOrdersIssued(){
+        return await RestockOrderDAO.getAllRestockOrdersIssued();
+    }
+
+    async getRestockOrderByID(ID){
+        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ID);
+        if(RestockOrder == undefined){
+            return 404;
+        }
+        if(ID < 0){
+            return 422;
+        }
+        return await RestockOrderDAO.getAllRestockOrdersIssued(ID);
+    }
+
+    async getSKUItemsWithNegTest(ResOrderID){
+        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ID);
+        if(RestockOrder == undefined){
+            return 404;
+        }
+        if(ID < 0 || RestockOrder.getState() != "COMPLETEDRETURN"){
+            return 422;
+        }
+        return await RestockOrderDAO.getSKUItemsWithNegTest(ResOrderID);
+    }
+
+    async addIssuedRestockOrder(restockOrder){
+        return await RestockOrderDAO.addIssuedRestockOrder(restockOrder);
+    }
+    
+    async editState(ResOrderID, newState){
+        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ID);
+        if(RestockOrder == undefined){
+            return 404;
+        }
+        return await RestockOrderDAO.editState(ResOrderID, newState);
+    }
+    
+    async addSKUItemsList(ResOrderID, SKUItemsList){
+        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
+        if(RestockOrder == undefined){
+            return 404;
+        }
+        return await RestockOrderDAO.addSKUItemsList(ResOrderID, SKUItemsList);
+    }
+
+    async setTransportNote(ResOrderID, TN){
+        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
+        if(RestockOrder == undefined){
+            return 404;
+        }
+        if(ResOrderID < 0 || RestockOrder.getState() != "DELIVERY"
+            || RestockOrder.getDeliveryDate().isBefore(RestockOrder.getIssueDate())){
+                return 422;
+        }
+        return await RestockOrderDAO.setTransportNote(ResOrderID, TN);
+    }
+
+    async deleteRestockOrder(ResOrderID){
+        if(ResOrderID < 0){
+            return 422;
+        }
+        return await RestockOrderDAO.deleteRestockOrder(ResOrderID);
+    }
     async getAllUsers() {
         return await this.UserDAO.getAllUsers();
     }

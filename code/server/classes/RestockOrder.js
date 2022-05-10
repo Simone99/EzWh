@@ -7,6 +7,7 @@ class restockOrder {
 	constructor(supplierID, state = null) {
 		this.id; // to be added from db
 		this.issueDate = dayjs();
+		this.deliveryDate = dayjs();
 		this.state = state;
 		this.restockOrderItemsList = [];
 		this.supplierID = supplierID;
@@ -83,6 +84,18 @@ class restockOrder {
 
 	getAllSKUItems() {
 		return this.SKUItemsList;
+	}
+
+	getState(){
+		return this.state;
+	}
+
+	getIssueDate(){
+		return this.issueDate;
+	}
+
+	getDeliveryDate(){
+		return this.deliveryDate;
 	}
 }
 
