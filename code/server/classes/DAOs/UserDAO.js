@@ -10,14 +10,14 @@ class UserDAO{
 
     getAllUsers(){
         return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM USER_TABLE";
-            this.db.all(sql, [], (err, rows) => {
+            const sql = "SELECT * FROM USER_TABLE WHERE TYPE <> ?";
+            this.db.all(sql, ['Manager'], (err, rows) => {
                 if(err){
                     reject(500);
                     return;
                 }
                 const users = rows.map(row => {
-                    return new User(row.NAME, row.SURNAME, row.TYPE, row.USERNAME, row.PASSWORD, row.POSITION, row.ID);
+                    return new User(row.NAME, row.SURNAME, row.TYPE, row.USERNAME, row.PASSWORD, row.ID);
                 });
                 resolve(users);
             });
@@ -63,7 +63,7 @@ class UserDAO{
                     return;
                 }
                 const suppliers = rows.map(row => {
-                    return new User(row.NAME, row.SURNAME, row.TYPE, row.USERNAME, row.PASSWORD, row.POSITION, row.ID);
+                    return new User(row.NAME, row.SURNAME, row.TYPE, row.USERNAME, row.PASSWORD, row.ID);
                 });
                 resolve(suppliers);
             });

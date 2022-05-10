@@ -154,6 +154,10 @@ class DAO{
         return await this.TestResultDAO.getTestResultsByRFID(RFID);
     }
 
+    async getTestResultByRFIDAndID(RFID, ID) {
+        return await this.TestResultDAO.getTestResultByRFIDAndID(RFID, ID);
+    }
+
 }
 
 module.exports = DAO;

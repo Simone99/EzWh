@@ -8,7 +8,7 @@ router.get('/skuitems/:rfid/testResults', async (req, res) => {
         return res.status(422).end();
     }
     try{
-        const testResults = await new Warehouse().getInventory().getTestResultsByRFID(req.params.rfid);
+        const testResults = await new Warehouse().getTestResultsByRFID(req.params.rfid);
         if(testResults === 404){
           return res.status(404).end();
         }
@@ -17,6 +17,23 @@ router.get('/skuitems/:rfid/testResults', async (req, res) => {
         return res.status(500).end();
       }
     
+});
+
+router.get('/skuitems/:rfid/testResults/:id', async (req, res) => {
+  if(!req.params.hasOwnProperty('rfid') ||
+     !req.params.hasOwnProperty('id')) {
+      return res.status(422).end();
+  }
+  try{
+      const testResults = await new Warehouse().getTestResultByRFIDAndID(req.params.rfid, req.params.id);
+      if(testResults === 404){
+        return res.status(404).end();
+      }
+      return res.status(200).json(testResults);
+    }catch(err){
+      return res.status(500).end();
+    }
+  
 });
 
 module.exports = router;
