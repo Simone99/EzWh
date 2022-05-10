@@ -43,29 +43,38 @@ app.use('/api', internalOrderRouter);
 app.use('/api', itemRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+	next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+	// render the error page
+	res.status(err.status || 500);
+	res.render('error');
 });
 
-const allFileContents = fs.readFileSync('./code/server/classes/DBCreationQuery.sql', 'utf-8');
-const db = new sqlite.Database('./code/server/EZWarehouseDB.db', err =>{
-  if(err) throw err;
+const allFileContents = fs.readFileSync(
+	path.resolve(__dirname, './classes/DBCreationQuery.sql'),
+	'utf-8'
+);
+
+const db = new sqlite.Database('./EZWarehouseDB.db', (err) => {
+	if (err) throw err;
 });
-allFileContents.split(';').forEach(query => db.run(query, undefined, err => {if(err) throw err;}));
+
+allFileContents.split(';').forEach((query) =>
+	db.run(query, undefined, (err) => {
+		if (err) throw err;
+	})
+);
 
 app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+	console.log(`Server listening at http://localhost:${port}`);
 });
 
 module.exports = app;
