@@ -189,6 +189,40 @@ class DAO{
         }
         return await RestockOrderDAO.deleteRestockOrder(ResOrderID);
     }
+    async getAllUsers() {
+        return await this.UserDAO.getAllUsers();
+    }
+
+    async addUser(user){
+        const storedUser = await this.UserDAO.getUserByTypeAndUsername(user.getType(), user.getUsername());
+        if (storedUser === undefined) {
+            await this.UserDAO.insertUser(user);
+            return 201;
+        } else {
+            return 409;
+        }
+    }
+
+    async getAllSuppliers() {
+        return await this.UserDAO.getAllSuppliers();
+    }
+
+    async editUser(username, oldType, newType){
+        const storedUser = await this.UserDAO.getUserByTypeAndUsername(oldType, username);
+        if(storedUser === undefined){
+            return 404;
+        }
+        await this.UserDAO.editUser(username, oldType, newType);
+    }
+
+    async deleteUser(username, type) {
+        await this.UserDAO.deleteUser(username, type);
+    }
+
+    async getTestResultsByRFID(RFID) {
+        return await this.TestResultDAO.getTestResultsByRFID(RFID);
+    }
+
 }
 
 module.exports = DAO;
