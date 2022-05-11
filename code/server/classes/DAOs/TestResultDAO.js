@@ -43,7 +43,27 @@ class TestResultDAO{
         });
     }
 
-
+    addTestResult(rfid, idTestDescriptor, Date, Result) {
+        return new Promise((resolve, reject) => {
+            const sql = "INSERT INTO TESTRESULT_TABLE(DATE_, RESULT, DESCRIPTION) VALUES(?,?,?) ";
+            this.db.run(sql, [Date, Result, idTestDescriptor], err => {
+                if(err){
+                    reject(err);
+                }else{
+                    const sql = "SELECT last_insert_rowid()";
+                    this.db.get(sql, [], (err, row) => {
+                        if(err){
+                            reject(err);
+                            return;
+                        }
+                        console.log(row);
+                        const testResult = new TestResult(row.ID, Date, Result, idTestDescriptor);
+                        resolve(testResult);
+                    });
+                }
+            });
+        });
+    }
 
     addTestResultxSKUitem(rfid, idTestResult) {
         return new Promise((resolve, reject) => {

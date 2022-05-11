@@ -247,15 +247,12 @@ class DAO{
     }
 
     async addItem(item) {
+        //TODO
         //const storedItem = await this.ItemDAO.getItemById(item.getId());
         //if((storedItem.getSKUId() === item.getSKUId() || storedItem.getId() === item.getId()) && storedItem.getSupplierId() === item.getSupplierId()){
         //    return 422;
         //}
-        console.log(item.getDescription());
         const addedItem = await this.ItemDAO.addItem(item);
-        if(addedItem === 201) {
-            return await this.ItemDAO.addItemxSKU(item);
-        }
     }
 
     async editItem(id, newDescription, newPrice) {
@@ -263,7 +260,6 @@ class DAO{
         if(storedItem === undefined) {          
             return 404;
         }
-        
         return await this.ItemDAO.editItem(id, newDescription, newPrice);
     }
 

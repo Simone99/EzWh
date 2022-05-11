@@ -31,7 +31,7 @@ class ItemDAO{
                 if(row === undefined){
                     resolve(undefined);
                 }else{
-                    resolve(new Item(row.ID, row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID));
+                    resolve(new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID));
                 }
             });
         });
@@ -46,22 +46,9 @@ class ItemDAO{
                     return;
                 }
                 const items = rows.map(row => {
-                    return new Item(row.ID, row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID);
+                    return new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID);
                 });
                 resolve(items);
-            });
-        });
-    }
-
-    async addItemxSKU(item) {
-        return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO ITEMSSKU_LIST(ID_SKU, ID_ITEM) VALUES(?,?)";
-            this.db.run(sql, [item.getSKUId(), item.getId()], err => {
-                if(err){
-                    reject(err);
-                }else{
-                    resolve(201);
-                }
             });
         });
     }

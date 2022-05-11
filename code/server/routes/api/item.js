@@ -5,7 +5,6 @@ const Item = require('../../classes/Item');
 
 router.get('/items', async (req, res) => {
     try{
-        console.log('1');
         const items = await new Warehouse().getInventory().getItemList();
         return res.status(200).json(items);
     } catch(err) {
@@ -14,7 +13,8 @@ router.get('/items', async (req, res) => {
 });
 
   router.get('/items/:id', async (req, res) => {
-      if(!req.params.hasOwnProperty('id')) {
+    //TODO ISNAN  
+    if(!req.params.hasOwnProperty('id')) {
         return res.status(422).end();
       }
     try{

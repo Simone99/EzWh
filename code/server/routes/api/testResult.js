@@ -36,11 +36,11 @@ router.get('/skuitems/:rfid/testResults/:id', async (req, res) => {
   
 });
 
-router.get('/skuitems/testResult', async (req, res) => {
+router.post('/skuitems/testResult', async (req, res) => {
   if(!req.body.hasOwnProperty('rfid') ||
-      req.body.hasOwnProperty('idTestDescrpitor') ||
-      req.body.hasOwnProperty('Date') ||
-      req.body.hasOwnProperty('Result')) {
+    !req.body.hasOwnProperty('idTestDescriptor') ||
+    !req.body.hasOwnProperty('Date') ||
+    !req.body.hasOwnProperty('Result')) {
       return res.status(422).end();
   }
   try{
