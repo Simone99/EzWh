@@ -40,6 +40,8 @@ class SKUDAO{
         });
     }
 
+    getSKUBySKUitem
+
     insertSKU(sku){
         return new Promise((resolve, reject) => {
             const sql = "INSERT INTO SKU_TABLE(DESCRIPTION, WEIGHT, VOLUME, PRICE, NOTES, AVAILABLEQUANTITY) VALUES(?,?,?,?,?,?)";

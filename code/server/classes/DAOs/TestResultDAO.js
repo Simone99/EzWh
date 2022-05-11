@@ -42,6 +42,21 @@ class TestResultDAO{
             });
         });
     }
+
+
+
+    addTestResultxSKUitem(rfid, idTestResult) {
+        return new Promise((resolve, reject) => {
+            const sql = "INSERT INTO TESTRESULTSKUITEM_LIST(ID_TESTRESULT, ID_SKUITEM) VALUES(?,?) ";
+            this.db.run(sql, [idTestResult, rfid], err => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve('OK');
+                }
+            });
+        });
+    }
     
 }
 

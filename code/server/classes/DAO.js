@@ -12,6 +12,7 @@ const TestDescriptorDAO = require('./DAOs/TestDescriptorDAO');
 const TestResultDAO = require('./DAOs/TestResultDAO');
 const Position = require('./Position');
 const SKUItem = require('./SKUItem');
+const InternalOrderItem = require('./InternalOrderItem');
 class DAO{
 
     sqlite = require('sqlite3');
@@ -225,6 +226,40 @@ class DAO{
 
     async getTestResultByRFIDAndID(RFID, ID) {
         return await this.TestResultDAO.getTestResultByRFIDAndID(RFID, ID);
+    }
+
+    async addTestResult(rfid, idTestDescriptor, Date, Result) {
+        const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
+        const TestDescriptorxRFID = await this.TestDescriptorDAO.checkSKUID(idTestDescriptor, storedSKUitem.getSKUId());
+        if(TestDescriptorxRFID === 404) {
+            return 404;
+        }
+        await this.TestResultDAO.addTestResult(rfid, idTestDescriptor, Date, Result);
+        await this.TestResultDAO.addTestResultxSKUitem(rfid, idTestDescriptor);
+    }
+
+    async getAllItems() {
+        return await this.ItemDAO.getAllItems();
+    }
+
+    async getItemById(id) {
+        return await this.ItemDAO.getItemById(id);
+    }
+
+    async addItem(item) {
+        const storedItem = await this.ItemDAO.getItemById(item.getId());
+        if((storedItem.getSKUId() === item.getSKUId() || storedItem.getId() === item.getId()) && storedItem.getSupplierId() === item.getSupplierId()){
+            return 422;
+        }
+        console.log(item);
+
+        const addedItem = await this.ItemDAO.addItem(item);
+        console.log('ciao');
+        if(addedItem === 201) {
+            console.log('ciao');
+
+            return await this.ItemDAO.addItemxSKU(item);
+        }
     }
 
 }

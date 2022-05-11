@@ -64,6 +64,18 @@ class Inventory{
     async deleteSKUItem(RFID){
         await this.DAO.deleteSKUItem(RFID);
     }
+
+    async getItemList() {
+        return await this.DAO.getAllItems();
+    }
+
+    async getItemById(id) {
+        return await this.DAO.getItemById(id);
+    }
+
+    async addItem(item) {
+        return await this.DAO.addItem(item);
+    }
 }
 
 module.exports = Inventory;
