@@ -9,16 +9,9 @@ class ItemDAO{
 
     async addItem(item) {
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO ITEM_TABLE(ID, DESCRIPTION, PRICE, USERID, SKUID) VALUES(?,?,?,?,?)";
-            console.log(item.getId());
-            console.log(item.getDescription());
-            console.log(item.getPrice());
-            console.log(item.getSupplierId());
-            console.log(item.getSKUId());
-            this.db.run(sql, [item.getId(), item.getDescription(), item.getPrice(), item.getSupplierId(), item.getSKUId()], err => {
+            const sql = "INSERT INTO ITEM_TABLE(DESCRIPTION, PRICE, USERID, SKUID) VALUES(?,?,?,?)";
+            this.db.run(sql, [item.getDescription(), item.getPrice(), item.getSupplierId(), item.getSKUId()], err => {
                 if(err){
-                    console.log('err');
-
                     reject(err);
                 }else{
                     resolve(201);
@@ -68,6 +61,19 @@ class ItemDAO{
                     reject(err);
                 }else{
                     resolve(201);
+                }
+            });
+        });
+    }
+
+    editItem(id, newDescription, newPrice){
+        return new Promise((resolve, reject) => {
+            const sql = "UPDATE ITEM_TABLE SET DESCRIPTION = ?, PRICE = ? WHERE ID = ?";
+            this.db.run(sql, [newDescription, newPrice, id], err => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve('ok');
                 }
             });
         });

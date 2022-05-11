@@ -46,4 +46,21 @@ router.post('/item', async (req, res) => {
     }
   });
 
+  router.put('/item/:id', async (req, res) => {
+    if(isNaN(parseInt(req.params.id)) ||
+        !req.body.hasOwnProperty('newDescription') ||
+        !req.body.hasOwnProperty('newPrice')){
+      return res.status(422).end();
+    }
+    try{
+      updatedItem = await new Warehouse().getInventory().editItem(req.params.id, req.body.newDescription, req.body.newPrice);
+      if (updatedItem === 404) {
+          return res.status(404).end();
+      }
+      return res.status(200).end();
+    }catch(err){
+      return res.status(503).end();
+    }
+  });
+
 module.exports = router;

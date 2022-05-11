@@ -76,6 +76,10 @@ class Inventory{
     async addItem(item) {
         return await this.DAO.addItem(item);
     }
+
+    async editItem(id, newDescription, newPrice) {
+        return await this.DAO.editItem(id, newDescription, newPrice);
+    }
 }
 
 module.exports = Inventory;

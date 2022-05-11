@@ -247,19 +247,24 @@ class DAO{
     }
 
     async addItem(item) {
-        const storedItem = await this.ItemDAO.getItemById(item.getId());
-        if((storedItem.getSKUId() === item.getSKUId() || storedItem.getId() === item.getId()) && storedItem.getSupplierId() === item.getSupplierId()){
-            return 422;
-        }
-        console.log(item);
-
+        //const storedItem = await this.ItemDAO.getItemById(item.getId());
+        //if((storedItem.getSKUId() === item.getSKUId() || storedItem.getId() === item.getId()) && storedItem.getSupplierId() === item.getSupplierId()){
+        //    return 422;
+        //}
+        console.log(item.getDescription());
         const addedItem = await this.ItemDAO.addItem(item);
-        console.log('ciao');
         if(addedItem === 201) {
-            console.log('ciao');
-
             return await this.ItemDAO.addItemxSKU(item);
         }
+    }
+
+    async editItem(id, newDescription, newPrice) {
+        const storedItem = await this.ItemDAO.getItemById(id);
+        if(storedItem === undefined) {          
+            return 404;
+        }
+        
+        return await this.ItemDAO.editItem(id, newDescription, newPrice);
     }
 
 }
