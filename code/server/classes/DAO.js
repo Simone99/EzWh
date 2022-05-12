@@ -227,6 +227,41 @@ class DAO{
         return await this.TestResultDAO.getTestResultByRFIDAndID(RFID, ID);
     }
 
+    async getReturnOrderList(){
+        const roList = await this.ReturnOrderDAO.getReturnOrderList();
+        if(roList !== undefined && roList.length !== 0){
+            for(let ro of roList){
+                const skuItemList = await this.SKUItemDAO.getSKUItemByReturnOrder(ro.getID());
+                ro.addSKUItem(skuItemList);
+            }
+        }
+        return roList;
+    }
+
+    async getReturnOrder(returnOrderID){
+        const returnOrder = await this.ReturnOrderDAO.getReturnOrder(returnOrderID);
+        if(returnOrder !== undefined){
+            const skuItemList = await this.SKUItemDAO.getSKUItemByReturnOrder(returnOrder.getID());
+            returnOrder.addSKUItem(skuItemList)
+        }
+        return returnOrder;
+    }
+
+    async addReturnOrder(r, SKUItems, state){
+        const idReturned = await this.ReturnOrderDAO.addReturnOrder(r, state);
+        if(idReturned === undefined){
+            return 0;
+        }
+        const result = await this.ReturnOrderDAO.addSKUItemsList(idReturned, SKUItems);
+        if(result !== 0){
+            SKUItems.forEach(skuItem => this.SKUItemDAO.editSKUItem(skuItem.getSKU_RFID(), false, skuItem.getDateOfStock(), skuItem.getSKU_RFID()));
+        }
+        return result;
+    }
+
+    async deleteReturnOrder(returnOrderID){
+        await this.ReturnOrderDAO.deleteReturnOrder(returnOrderID);
+    }
 }
 
 module.exports = DAO;
