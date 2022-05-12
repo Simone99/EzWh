@@ -12,6 +12,7 @@ const TestDescriptorDAO = require('./DAOs/TestDescriptorDAO');
 const TestResultDAO = require('./DAOs/TestResultDAO');
 const Position = require('./Position');
 const SKUItem = require('./SKUItem');
+const InternalOrderItem = require('./InternalOrderItem');
 class DAO{
 
     sqlite = require('sqlite3');
@@ -262,6 +263,42 @@ class DAO{
     async deleteReturnOrder(returnOrderID){
         await this.ReturnOrderDAO.deleteReturnOrder(returnOrderID);
     }
+
+    async addTestResult(rfid, idTestDescriptor, Date, Result) {
+        const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
+        const TestDescriptorxRFID = await this.TestDescriptorDAO.checkSKUID(idTestDescriptor, storedSKUitem.getSKUId());
+        if(TestDescriptorxRFID === 404) {
+            return 404;
+        }
+        await this.TestResultDAO.addTestResult(rfid, idTestDescriptor, Date, Result);
+        await this.TestResultDAO.addTestResultxSKUitem(rfid, idTestDescriptor);
+    }
+
+    async getAllItems() {
+        return await this.ItemDAO.getAllItems();
+    }
+
+    async getItemById(id) {
+        return await this.ItemDAO.getItemById(id);
+    }
+
+    async addItem(item) {
+        //TODO
+        //const storedItem = await this.ItemDAO.getItemById(item.getId());
+        //if((storedItem.getSKUId() === item.getSKUId() || storedItem.getId() === item.getId()) && storedItem.getSupplierId() === item.getSupplierId()){
+        //    return 422;
+        //}
+        const addedItem = await this.ItemDAO.addItem(item);
+    }
+
+    async editItem(id, newDescription, newPrice) {
+        const storedItem = await this.ItemDAO.getItemById(id);
+        if(storedItem === undefined) {          
+            return 404;
+        }
+        return await this.ItemDAO.editItem(id, newDescription, newPrice);
+    }
+
 }
 
 module.exports = DAO;

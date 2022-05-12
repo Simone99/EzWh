@@ -36,4 +36,23 @@ router.get('/skuitems/:rfid/testResults/:id', async (req, res) => {
   
 });
 
+router.post('/skuitems/testResult', async (req, res) => {
+  if(!req.body.hasOwnProperty('rfid') ||
+    !req.body.hasOwnProperty('idTestDescriptor') ||
+    !req.body.hasOwnProperty('Date') ||
+    !req.body.hasOwnProperty('Result')) {
+      return res.status(422).end();
+  }
+  try{
+      const testResult = await new Warehouse().addTestResult(req.body.rfid, req.body.idTestDescriptor, req.body.Date, req.body.Result);
+      if(testResult === 404){
+        return res.status(404).end();
+      }
+      return res.status(201).end();
+    }catch(err){
+      return res.status(500).end();
+    }
+});
+
+
 module.exports = router;

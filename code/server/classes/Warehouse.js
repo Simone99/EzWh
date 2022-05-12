@@ -331,6 +331,10 @@ class Warehouse{
     async getTestResultByRFIDAndID(RFID, ID) {
         return await this.DAO.getTestResultByRFIDAndID(RFID, ID);
     }
+
+    async addTestResult(rfid, idTestDescriptor, Date, Result) {
+        await this.DAO.addTestResult(rfid, idTestDescriptor, Date, Result);
+    }
 }
 
 module.exports = Warehouse;
