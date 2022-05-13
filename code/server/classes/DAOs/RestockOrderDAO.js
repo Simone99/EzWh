@@ -71,9 +71,8 @@ class RestockOrderDAO{
                     reject(err);
                     return;
                 }
-                const SKUItemsWIthNegTest = rows.map(row => {
-                    resolve( new SKUItem(row.RFID, row.AVAILABLE, row.SKUID, row.DATEOFSTOCK));
-                });
+                const SKUItemsWIthNegTest = rows.map(row => new SKUItem(row.RFID, row.AVAILABLE, row.SKUID, row.DATEOFSTOCK));
+                resolve(SKUItemsWIthNegTest);
             });
         });
     }

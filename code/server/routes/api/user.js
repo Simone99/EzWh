@@ -24,8 +24,8 @@ router.post('/newUser', async (req, res) => {
      !req.body.hasOwnProperty('username') ||
      !req.body.hasOwnProperty('password') ||
       req.body.password.length < 8 ||
-      req.body.type == 'Manager' ||
-      req.body.type == 'Administrator'){
+      req.body.type == 'manager' ||
+      req.body.type == 'administrator'){
     return res.status(422).end();
   }
   try{
@@ -48,8 +48,8 @@ router.put('/users/:username', async (req, res) => {
   if(!req.body.hasOwnProperty('oldType') ||
     !req.body.hasOwnProperty('newType') ||
     !req.params.hasOwnProperty('username') ||
-    req.body.oldType == 'Manager' ||
-    req.body.oldType == 'Administrator') {
+    req.body.oldType == 'manager' ||
+    req.body.oldType == 'administrator') {
     return res.status(422).end();
   }
   try{
