@@ -8,13 +8,22 @@ class InternalOrder {
     InternalOrderItem = require('./InternalOrderItem');
     //SKUItem = require('./SKUItem');
 
-    constructor(state, customerID) {
+    constructor(id, state, ITN, customerID) {
+        this.id = id;
         this.issueDate = dayjs();
         this.state = state;
         this.internalOrderItemsList = [];
-        this.ITN = new this.InternalTransportNote(shipmentDate = dayjs());
+        this.ITN = ITN;
         this.customerID = customerID;
         this.SKUItemsList = [];
+    }
+
+    getID() {
+        return this.id;
+    }
+
+    getCustomerID() {
+        return this.customerID;
     }
 
     addSKU(s, quantity) {
@@ -86,6 +95,10 @@ class InternalOrder {
     addSKUItem(newSKU) {
         this.SKUItemsList.push(newSKU);
         return;
+    }
+
+    getState() {
+        return this.state;
     }
 
 }

@@ -222,40 +222,42 @@ class Warehouse{
         await this.DAO.deleteReturnOrder(returnOrderID);
     }
 
-    //TODO: add parameters
-    addInternalOrder(customerID, products, issueDate){
-        //TODO: edit InternalOrder class constructor
-        const io = new this.InternalOrder(customerID, products, issueDate);
-        this.internalOrderList.push(io);
-        //TODO: use DAO to insert it into db
+    async addInternalOrder(newInternlOrder){
+        await this.DAO.addInternalOrder(newInternlOrder);
     }
 
-    printInternalOrderList(filter){
-        //TODO: add getState method in InternalOrder class
-        return this.internalOrderList.filter(io => io.getState() === filter);
+    async getInternalOrdersList(){
+        return this.DAO.getInternalOrdersList();
     }
 
-    getInternalOrder(internalOrderID){
-        //TODO: add getInternalOrderID inside InternalOrder class
-        return this.internalOrderList.filter(io => io.getInternalOrderID() ==internalOrderID)[0];
+    async getInternalOrdersIssuedList(){
+        return this.DAO.getInternalOrdersIssuedList();
     }
 
-    deleteInternalOrder(internalOrderID){
+    async getInternalOrdersAcceptedList() {
+        return this.DAO.getInternalOrdersAcceptedList();
+    }
+
+
+    async getInternalOrder(internalOrderID){
+        return this.DAO.getInternalOrder(internalOrderID);
+    }
+
+    async deleteInternalOrder(internalOrderID){
         this.internalOrderList = this.internalOrderList.filter(io => io.getInternalOrderID !== internalOrderID);
-        //TODO: use DAO to delete it from db
+        
+        await this.DAO.deleteInternalOrder(internalOrderID);
     }
 
-    //TODO: add parameters
-    editInternalOrder(internalOrderID, newState, products){
+    async editInternalOrder(internalOrderID, newState, products){
         this.internalOrderList = this.internalOrderList.map(io => {
             if(io.getInternalOrderID() === internalOrderID){
                 io.changeState(newState);
                 if(products !== undefined)
                     io.addSKUItem(products);
             }
-            //TODO: use DAO to update db
-            return io;
         });
+        await this.DAO.editInternalOrder(internalOrderID, newState, products);
     }
 
     getItem(itemID){
@@ -309,7 +311,6 @@ class Warehouse{
     }
     
     async addUser(user) {
-    
         return await this.DAO.addUser(user);
     }
 
