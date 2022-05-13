@@ -34,9 +34,9 @@ class Position {
 	setPositionID(positionID) {
 		//TODO check if the format is correct
 		this.positionID = positionID;
-		this.aisle = parseInt(positionID.substring(0, 3));
-		this.row = parseInt(positionID.substring(4, 7));
-		this.col = parseInt(positionID.substring(8, 11));
+		this.aisle = parseInt(positionID.substring(0, 4));
+		this.row = parseInt(positionID.substring(4, 8));
+		this.col = parseInt(positionID.substring(8, 12));
 		//check duplicates
 	}
 
@@ -50,6 +50,26 @@ class Position {
 
 	getPositionID(){
 		return this.positionID;
+	}
+
+	getAisle(){
+		return this.aisle;
+	}
+
+	getRow(){
+		return this.row;
+	}
+
+	getCol(){
+		return this.col;
+	}
+
+	getOccupiedWeight(){
+		return this.occupiedWeight;
+	}
+
+	getOccupiedVolume(){
+		return this.occupiedVolume;
 	}
 
 }

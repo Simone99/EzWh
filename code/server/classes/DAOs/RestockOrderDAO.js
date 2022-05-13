@@ -26,7 +26,7 @@ class RestockOrderDAO{
 
     getAllRestockOrdersIssued(){
         return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM RESTOCKORDER_TABLE WHERE STATE = ISSUED";
+            const sql = "SELECT * FROM RESTOCKORDER_TABLE WHERE STATE = 'ISSUED'";
             this.db.all(sql, [], (err, rows) => {
                 if(err){
                     reject(err);
@@ -71,18 +71,16 @@ class RestockOrderDAO{
                     reject(err);
                     return;
                 }
-                const SKUItemsWIthNegTest = rows.map(row => {
-                    resolve( new SKUItem(row.RFID, row.AVAILABLE, row.SKUID, row.DATEOFSTOCK));
-                });
+                const SKUItemsWIthNegTest = rows.map(row => new SKUItem(row.RFID, row.AVAILABLE, row.SKUID, row.DATEOFSTOCK));
+                resolve(SKUItemsWIthNegTest);
             });
         });
     }
 
-    addIssuedRestockOrder(restockOrder){
+    addRestockOrder(restockOrder){
         return new Promise((resolve, reject) => {
             const sql = "INSERT INTO RESTOCKORDER_TABLE(ID, ISSUEDATE, STATE, USERID, TRANSPORTNOTE) VALUES(?,?,?,?,?)";
-            restockOrder.issue();
-            this.db.run(sql, [restockOrder.ID, restockOrder.ISSUEDATE, restockOrder.STATE, restockOrder.USERID,], err => {
+            this.db.run(sql, [restockOrder.ID, restockOrder.ISSUEDATE, restockOrder.STATE, restockOrder.USERID, restockOrder.TRANSPORTNOTE], err => {
                 if(err){
                     reject(err);
                     return;

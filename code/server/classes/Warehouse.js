@@ -22,6 +22,52 @@ class Warehouse{
         return this.inventory;
     }
 
+    async addPosition(positionID, aisle, row, col, weight, volume){
+        await this.DAO.addPosition(positionID, aisle, row, col, weight, volume);
+    }
+
+    async deletePosition(positionID){
+        await this.DAO.deletePosition(positionID);
+    }
+
+    //TODO: modify parameters in the design document
+    async editPositionID(oldPositionID, position){
+        return await this.DAO.editPositionID(oldPositionID, position);
+    }
+
+    async editPositionIDOnly(oldPositionID, newPositionID){
+        return await this.DAO.editPositionIDOnly(oldPositionID, newPositionID);
+    }
+
+
+    //TODO: check for filters, they are not needed concerning the APIs
+    async printPositionList(){
+        return await this.DAO.getAllPositions();
+    }
+
+
+    async addTestDescriptor(name, description, SKUID){
+        return await this.DAO.addTestDescriptor(name, description, SKUID);
+    }
+
+    //TODO: insert alla the parameters inside the class diagram
+    async editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId){
+        return await this.DAO.editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId);
+    }
+
+    async deleteTestDescriptor(testDescriptorID){
+        await this.DAO.deleteTestDescriptor(testDescriptorID);
+    }
+
+    async searchTestDescriptor(testDescriptorID){
+        return await this.DAO.getTestDescriporByID(testDescriptorID);
+    }
+
+    async printTestDescriptorList(){
+        return this.DAO.getAllTestDescriptors();
+    }
+
+   
     async getReturnOrderList(){
         return this.DAO.getReturnOrderList();
     }
@@ -38,11 +84,55 @@ class Warehouse{
 
     //TODO: rename parameter
     async deleteReturnOrder(returnOrderID){
-        await this.DAO.deleteReturnOrder(returnOrderID);
+        await await this.DAO.deleteReturnOrder(returnOrderID);
     }
+
+    async addInternalOrder(newInternlOrder){
+        await await this.DAO.addInternalOrder(newInternlOrder);
+    }
+
+    async getInternalOrdersList(){
+        return await this.DAO.getInternalOrdersList();
+    }
+
+    async getInternalOrdersIssuedList(){
+        return await this.DAO.getInternalOrdersIssuedList();
+    }
+
+    async getInternalOrdersAcceptedList() {
+        return await this.DAO.getInternalOrdersAcceptedList();
+    }
+
+
+    async getInternalOrder(internalOrderID){
+        return await this.DAO.getInternalOrder(internalOrderID);
+    }
+
+    async deleteInternalOrder(internalOrderID){
+        this.internalOrderList = this.internalOrderList.filter(io => io.getInternalOrderID !== internalOrderID);
+        
+        await this.DAO.deleteInternalOrder(internalOrderID);
+    }
+
+    async editInternalOrder(internalOrderID, newState, products){
+        this.internalOrderList = this.internalOrderList.map(io => {
+            if(io.getInternalOrderID() === internalOrderID){
+                io.changeState(newState);
+                if(products !== undefined)
+                    io.addSKUItem(products);
+            }
+        });
+        await this.DAO.editInternalOrder(internalOrderID, newState, products);
+    }
+
+ 
 
     async getUserList() {
         return await this.DAO.getAllUsers();
+    }
+
+    async getUser(username, type){
+        return await this.DAO.getUser(username, type);
     }
 
     async getSupplierList() {
@@ -50,7 +140,6 @@ class Warehouse{
     }
     
     async addUser(user) {
-    
         return await this.DAO.addUser(user);
     }
 
