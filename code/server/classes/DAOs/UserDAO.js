@@ -35,7 +35,7 @@ class UserDAO{
                 if(row === undefined){
                     resolve(undefined);
                 }else{
-                    resolve(new User(row.ID, row.NAME, row.SURNAME, row.TYPE, row.USERNAME, row.PASSWORD));
+                    resolve(new User(row.NAME, row.SURNAME, row.TYPE, row.USERNAME, row.PASSWORD, row.ID));
                 }
             });
         });

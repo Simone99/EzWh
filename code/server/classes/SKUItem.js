@@ -6,7 +6,6 @@ class SKUItem {
 		this.available = available;
 		this.SKUid = SKUid;
 		this.dateOfStock = dateOfStock;
-		this.testResultsList = [];
 	}
 	//Methods
 	setRFID(rfid) {

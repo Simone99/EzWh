@@ -1,6 +1,3 @@
-const { use } = require('../routes/api/restockOrder');
-const restockOrder = require('./RestockOrder');
-
 class Warehouse{
     
     Inventory = require('./Inventory');
@@ -35,46 +32,21 @@ class Warehouse{
         return this.inventory;
     }
 
-    addPosition(aisle, row, col, weight, volume){
-        const tmp = new this.Position(aisle, row, col, weight, volume);
-        this.positionList.push(tmp);
-        //TODO: use DAO to insert it into the database
-
+    async addPosition(positionID, aisle, row, col, weight, volume){
+        await this.DAO.addPosition(positionID, aisle, row, col, weight, volume);
     }
 
-    deletePosition(positionID){
-        //TODO: implement getPositionID in Position class
-        this.positionList = this.positionList.filter(pos => pos.getPositionID() !== positionID);
-        //TODO: use DAO to delete Position from db
+    async deletePosition(positionID){
+        await this.DAO.deletePosition(positionID);
     }
 
     //TODO: modify parameters in the design document
-    editPositionID(positionID, newAisleID, newRow, newCol, newMaxWeight, newMaxVolume, newOccupiedWeight, newOccupiedVolume){
-        this. positionList = this.positionList.map(pos => {
-            if(pos.getPositionID() === positionID){
-                pos.setAisle(newAisleID);
-                pos.setRow(newRow);
-                pos.setCol(newCol);
-                pos.setMaxWeight(newMaxWeight);
-                pos.setMaxVolume(newMaxVolume);
-                pos.setOccupiedWeight(newOccupiedWeight);
-                pos.setOccupiedVolume(newOccupiedVolume);
-                //TODO: use DAO to update db
-            }
-            return pos
-        });
+    async editPositionID(oldPositionID, position){
+        return await this.DAO.editPositionID(oldPositionID, position);
     }
 
-    //TODO: overload method
-    editPositionID(positionID, newPositionID){
-        this. positionList = this.positionList.map(pos => {
-            if(pos.getPositionID() === positionID){
-                pos.setPositionID(newPositionID);
-                //TODO: use DAO to update db
-            }
-            return pos
-        });
-
+    async editPositionIDOnly(oldPositionID, newPositionID){
+        return await this.DAO.editPositionIDOnly(oldPositionID, newPositionID);
     }
 
     searchPosition(positionID){
@@ -137,64 +109,58 @@ class Warehouse{
         })
     }
 
-    addTestDescriptor(name, description, SKUID){
-        const tmp = new this.TestDescriptor(name, description, SKUID);
-        this.testDescriptorList.push(tmp);
-        //TODO: use DAO to inser it into DB
+    async addTestDescriptor(name, description, SKUID){
+        return await this.DAO.addTestDescriptor(name, description, SKUID);
     }
 
     //TODO: insert alla the parameters inside the class diagram
-    editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId){
-        this.testDescriptorList.map(td => {
-            //TODO: add getTestDescriptorID inside the class diagram
-            if(td.getTestDescriptorID() === testDescriptorID){
-                td.setName(newName);
-                td.setDescription(newDescription);
-                td.setSKUID(newSKUId);
-            }
-            //TODO: use DAO to update DB
-            return td;
-        });
+    async editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId){
+        return await this.DAO.editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId);
     }
 
-    deleteTestDescriptor(testDescriptorID){
-        this.testDescriptorList = this.testDescriptorList.filter(td => td.getTestDescriptorID() !== testDescriptorID);
-        //TODO: use DAO to delete test descriptor from DB
+    async deleteTestDescriptor(testDescriptorID){
+        await this.DAO.deleteTestDescriptor(testDescriptorID);
     }
 
-    searchTestDescriptor(testDescriptorID){
-        return this.testDescriptorList.filter(td => td.getTestDescriptorID() === testDescriptorID)[0];
+    async searchTestDescriptor(testDescriptorID){
+        return await this.DAO.getTestDescriporByID(testDescriptorID);
     }
 
-    printTestDescriptorList(){
-        return this.testDescriptorList;
+    async printTestDescriptorList(){
+        return this.DAO.getAllTestDescriptors();
     }
 
     //TODO: add parameters inside class diagram
-    async addRestockOrder(restockOrder){
-        return this.DAO.addRestockOrder(restockOrder);
+    addRestockOrder(supplierID, issueDate, products){
+        //TODO: add parameters inside the constructor
+        const ro = new this.RestockOrder(supplierID, issueDate, products);
+        this.restockOrderList.push(ro);
+        //TODO: use DAO to insert it into db
     }
 
-    async getRestockOrderByID(restockOrderID){
+    getRestockOrder(restockOrderID){
         //TODO: Add getRestockOrderID inside RestockOrder class
-        return this.DAO.getRestockOrderByID(restockOrderID);
+        return this.restockOrderList.filter(ro => ro.getRestockOrderID() === restockOrderID)[0];
     }
 
-    async getRestockOrderList(){
-        return this.DAO.getAllRestockOrders();
-    }
-
-    async getAllRestockOrdersIssued(){
-        return this.DAO.getAllRestockOrdersIssued();
+    getRestockOrderList(){
+        return this.restockOrderList;
     }
 
     //TODO: add parameter inside class diagram
-    async editRestockOrderState(restockOrderID, newState){
-        return this.DAO.editState(restockOrderID,newState);
+    editRestockOrder(restockOrderID, newState){
+        this.restockOrderList.map(ro => {
+            if(ro.getRestockOrderID() === restockOrderID){
+                ro.changeState(newState);
+                //TODO: update DB using DAO
+            }
+            return ro;
+        })
     }
 
-    async deleteRestockOrder(restockOrderID){
-        return this.DAO.deleteRestockOrder(restockOrderID);
+    deleteRestockOrder(restockOrderID){
+        this.restockOrderList = this.restockOrderList.filter(ro => ro.getRestockOrderID() !== restockOrderID);
+        //TODO: use DAO to delete it
     }
 
     //TODO: update parameter name inside class diagram
@@ -306,6 +272,10 @@ class Warehouse{
         return await this.DAO.getAllUsers();
     }
 
+    async getUser(username, type){
+        return await this.DAO.getUser(username, type);
+    }
+
     async getSupplierList() {
         return await this.DAO.getAllSuppliers();
     }
@@ -332,10 +302,6 @@ class Warehouse{
 
     async addTestResult(rfid, idTestDescriptor, Date, Result) {
         await this.DAO.addTestResult(rfid, idTestDescriptor, Date, Result);
-    }
-
-    async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
-        await this.DAO.editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult);
     }
 }
 
