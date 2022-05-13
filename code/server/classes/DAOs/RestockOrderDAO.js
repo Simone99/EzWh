@@ -17,7 +17,7 @@ class RestockOrderDAO{
                     return;
                 }
                 const restockOrders = rows.map(row => {
-                    return new restockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE);
+                    return new restockOrder(row.ID, row.STATE, row.USERID, row.TRANSPORTNOTE);
                 });
                 resolve(restockOrders);
             });

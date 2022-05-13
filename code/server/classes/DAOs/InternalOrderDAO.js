@@ -59,7 +59,7 @@ class InternalOrderDAO {
     getInternalOrder(internalOrderID) {
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM INTERNALORDER_TABLE WHERE ID = ?";
-            this.db.all(sql, [internalOrderID], (err, row) => {
+            this.db.get(sql, [internalOrderID], (err, row) => {
                 if (err) {
                     reject(err);
                     return;

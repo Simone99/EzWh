@@ -50,9 +50,9 @@ router.get('/restockOrders/:id', async (req, res) => {
 
 /*has a problem*/
 router.get('/restockOrders/:id/returnItems', async (req, res) => {
-    const restockorderSKUItemsList = await new Warehouse().DAO.getSKUItemsWithNegTest(req.params.id);
+    const restockorderSKUItemsList = await new Warehouse().getSKUItemsWithNegTest(req.params.id);
 
-    if (isNaN(parseInt(req.params.id)) || restockorderSKUItemsList === 422) {
+    if (isNaN(parseInt(req.params.id))) {
         return res.status(422).end();
     }
     try {
@@ -69,7 +69,7 @@ router.get('/restockOrders/:id/returnItems', async (req, res) => {
 
 })
 
-/*404*/
+/*review the restock order class, supplierID*/
 router.post('/restockOrder', async (req, res) => {
     if (!req.body.hasOwnProperty('id') ||
         !req.body.hasOwnProperty('userID')) {
@@ -83,6 +83,7 @@ router.post('/restockOrder', async (req, res) => {
     }
 })
 
+/*review*/
 router.put('/restockOrder/:id', async (req, res) => {
     try {
         const tmp = await new Warehouse().editRestockOrderState(req.params.id, req.body.newState);
