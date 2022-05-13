@@ -4,7 +4,7 @@ const Warehouse = require('../../classes/Warehouse');
 const TestResult = require('../../classes/TestResult');
 
 router.get('/skuitems/:rfid/testResults', async (req, res) => {
-    if(!req.params.hasOwnProperty('rfid')) {
+    if(isNaN(parseInt(req.params.rfid))){
         return res.status(422).end();
     }
     try{
@@ -20,8 +20,8 @@ router.get('/skuitems/:rfid/testResults', async (req, res) => {
 });
 
 router.get('/skuitems/:rfid/testResults/:id', async (req, res) => {
-  if(!req.params.hasOwnProperty('rfid') ||
-     !req.params.hasOwnProperty('id')) {
+  if(isNaN(parseInt(req.params.rfid)) ||
+     isNaN(parseInt(req.params.id))) {
       return res.status(422).end();
   }
   try{
@@ -36,4 +36,40 @@ router.get('/skuitems/:rfid/testResults/:id', async (req, res) => {
   
 });
 
+router.post('/skuitems/testResult', async (req, res) => {
+  if(!req.body.hasOwnProperty('rfid') ||
+    !req.body.hasOwnProperty('idTestDescriptor') ||
+    !req.body.hasOwnProperty('Date') ||
+    !req.body.hasOwnProperty('Result')) {
+      return res.status(422).end();
+  }
+  try{
+      const testResult = await new Warehouse().addTestResult(req.body.rfid, req.body.idTestDescriptor, req.body.Date, req.body.Result);
+      if(testResult === 404){
+        return res.status(404).end();
+      }
+      return res.status(201).end();
+    }catch(err){
+      return res.status(500).end();
+    }
+});
+
+router.put('/skuitems/:rfid/testResult/:id', async (req, res) => {
+  if(isNaN(parseInt(req.params.rfid)) ||
+     isNaN(parseInt(req.params.id)) ||
+    !req.body.hasOwnProperty('newIdTestDescriptor') ||
+    !req.body.hasOwnProperty('newDate') ||
+    !req.body.hasOwnProperty('newResult')) {
+      return res.status(422).end();
+  }
+  try{
+      const testResult = await new Warehouse().editTestResult(req.params.rfid, req.params.id, req.body.newIdTestDescriptor, req.body.newDate, req.body.newResult);
+      if(testResult === 404){
+        return res.status(404).end();
+      }
+      return res.status(201).end();
+    }catch(err){
+      return res.status(500).end();
+    }
+});
 module.exports = router;

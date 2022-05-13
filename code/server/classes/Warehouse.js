@@ -17,7 +17,7 @@ class Warehouse{
     DAO = require('./DAO');
     
     constructor(){
-        this.inventory = new this.Inventory('./code/server/EZWarehouseDB.db');
+        this.inventory = new this.Inventory('./EZWarehouseDB.db');
 
         //TODO: retrieve all lists from DAO
         this.positionList = [];
@@ -28,7 +28,7 @@ class Warehouse{
         this.internalOrderList = [];
         this.supplierList = [];
         this.returnOrderList = [];
-        this.DAO = new this.DAO('./code/server/EZWarehouseDB.db');
+        this.DAO = new this.DAO('./EZWarehouseDB.db');
     }
 
     getInventory(){
@@ -203,27 +203,23 @@ class Warehouse{
         return this.restockOrderList.filter(ro => ro.getState() === filterState);
     }
 
-    getReturnOrderList(){
-        return this.returnOrderList;
+    async getReturnOrderList(){
+        return this.DAO.getReturnOrderList();
     }
 
     //TODO: rename parameter
-    getReturnOrder(returnOrderID){
+    async getReturnOrder(returnOrderID){
         //TODO: add getReturnOrder
-        return this.returnOrderList.filter(rto => rto.getReturnOrderID() === returnOrderID)[0];
+        return await this.DAO.getReturnOrder(returnOrderID);
     }
 
-    addReturnOrder(r, SKUItems, state){
-        //TODO: edit ReturnOrder class constructor
-        const tmp = new this.ReturnOrder(id, r, SKUItems, state);
-        this.returnOrderList.push(tmp);
-        //TODO: use DAO to insert it into db
+    async addReturnOrder(r, SKUItems, state){
+        return await this.DAO.addReturnOrder(r, SKUItems, state);
     }
 
     //TODO: rename parameter
-    deleteReturnOrder(returnOrderID){
-        this.returnOrderList = this.returnOrderList.filter(rto => rto.getReturnOrderID() !== returnOrderID);
-        //TODO: use DAO to delete it from db
+    async deleteReturnOrder(returnOrderID){
+        await this.DAO.deleteReturnOrder(returnOrderID);
     }
 
     //TODO: add parameters
@@ -331,6 +327,14 @@ class Warehouse{
 
     async getTestResultByRFIDAndID(RFID, ID) {
         return await this.DAO.getTestResultByRFIDAndID(RFID, ID);
+    }
+
+    async addTestResult(rfid, idTestDescriptor, Date, Result) {
+        await this.DAO.addTestResult(rfid, idTestDescriptor, Date, Result);
+    }
+
+    async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
+        await this.DAO.editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult);
     }
 }
 

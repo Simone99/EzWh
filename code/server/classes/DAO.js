@@ -12,6 +12,7 @@ const TestDescriptorDAO = require('./DAOs/TestDescriptorDAO');
 const TestResultDAO = require('./DAOs/TestResultDAO');
 const Position = require('./Position');
 const SKUItem = require('./SKUItem');
+const InternalOrderItem = require('./InternalOrderItem');
 class DAO{
 
     sqlite = require('sqlite3');
@@ -226,6 +227,100 @@ class DAO{
     async getTestResultByRFIDAndID(RFID, ID) {
         return await this.TestResultDAO.getTestResultByRFIDAndID(RFID, ID);
     }
+
+    async getReturnOrderList(){
+        const roList = await this.ReturnOrderDAO.getReturnOrderList();
+        if(roList !== undefined && roList.length !== 0){
+            for(let ro of roList){
+                const skuItemList = await this.SKUItemDAO.getSKUItemByReturnOrder(ro.getID());
+                ro.addSKUItem(skuItemList);
+            }
+        }
+        return roList;
+    }
+
+    async getReturnOrder(returnOrderID){
+        const returnOrder = await this.ReturnOrderDAO.getReturnOrder(returnOrderID);
+        if(returnOrder !== undefined){
+            const skuItemList = await this.SKUItemDAO.getSKUItemByReturnOrder(returnOrder.getID());
+            returnOrder.addSKUItem(skuItemList)
+        }
+        return returnOrder;
+    }
+
+    async addReturnOrder(r, SKUItems, state){
+        const idReturned = await this.ReturnOrderDAO.addReturnOrder(r, state);
+        if(idReturned === undefined){
+            return 0;
+        }
+        const result = await this.ReturnOrderDAO.addSKUItemsList(idReturned, SKUItems);
+        if(result !== 0){
+            SKUItems.forEach(skuItem => this.SKUItemDAO.editSKUItem(skuItem.getSKU_RFID(), false, skuItem.getDateOfStock(), skuItem.getSKU_RFID()));
+        }
+        return result;
+    }
+
+    async deleteReturnOrder(returnOrderID){
+        await this.ReturnOrderDAO.deleteReturnOrder(returnOrderID);
+    }
+
+    async addTestResult(rfid, idTestDescriptor, Date, Result) {
+        const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
+        if(storedSKUitem === 404) {
+            return 404;
+        }
+        const TestDescriptorxRFID = await this.TestDescriptorDAO.checkSKUID(idTestDescriptor, storedSKUitem.getSKUId());
+        if(TestDescriptorxRFID === 404) {
+            return 404;
+        }
+        await this.TestResultDAO.addTestResult(rfid, idTestDescriptor, Date, Result);
+        await this.TestResultDAO.addTestResultxSKUitem(rfid, idTestDescriptor);
+    }
+    
+    async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
+        const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
+        if(storedSKUitem === 404) {
+            return 404;
+        }
+        const TestDescriptorxRFID = await this.TestDescriptorDAO.checkSKUID(newIdTestDescriptor, storedSKUitem.getSKUId());
+        if(TestDescriptorxRFID === 404) {
+            return 404;
+        }
+        const storedTestResult = await this.TestResultDAO.getTestResultByRFIDAndID(rfid, id);
+        if(storedTestResult === 404) {
+            return 404;
+        }
+        await this.TestResultDAO.editTestResult(id, newIdTestDescriptor, newDate, newResult);
+        console.log('1');
+
+    }
+
+    async getAllItems() {
+        return await this.ItemDAO.getAllItems();
+    }
+
+    async getItemById(id) {
+        return await this.ItemDAO.getItemById(id);
+    }
+
+    async addItem(item) {
+        //TODO
+        //const storedItem = await this.ItemDAO.getItemById(item.getId());
+        //if((storedItem.getSKUId() === item.getSKUId() || storedItem.getId() === item.getId()) && storedItem.getSupplierId() === item.getSupplierId()){
+        //    return 422;
+        //}
+        const addedItem = await this.ItemDAO.addItem(item);
+    }
+
+    async editItem(id, newDescription, newPrice) {
+        const storedItem = await this.ItemDAO.getItemById(id);
+        if(storedItem === undefined) {          
+            return 404;
+        }
+        return await this.ItemDAO.editItem(id, newDescription, newPrice);
+    }
+
+    
 
 }
 

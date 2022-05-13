@@ -35,9 +35,7 @@ class SKUItemDAO{
                     resolve(404);
                     return;
                 }
-                const skuitemsAvailable = rows.map(row => {
-                    return new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID);
-                });
+                const skuitemsAvailable = rows.map(row => new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID));
                 resolve(skuitemsAvailable);
             });
         });
@@ -104,6 +102,22 @@ class SKUItemDAO{
                     return;
                 }
                 resolve('OK');
+            });
+        });
+    }
+
+    getSKUItemByReturnOrder(returnOrderID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT SIT.RFID, SIT.AVAILABLE, SIT.SKUID, SIT.DATEOFSTOCK " +
+                        "FROM SKUITEMSRETURNORDER_LIST AS SIROL, SKUITEM_TABLE AS SIT " +
+                        "WHERE SIROL.ID_SKUITEM = SIT.RFID AND SIROL.ID_RETURNORDER = ?";
+            this.db.all(sql, [returnOrderID], (err, rows) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                const skuItemList = rows.map(row => new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID));
+                resolve(skuItemList);
             });
         });
     }
