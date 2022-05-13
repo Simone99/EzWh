@@ -122,11 +122,11 @@ class DAO{
     }
 
     async getAllRestockOrders(){
-        return await RestockOrderDAO.getAllRestockOrders();
+        return await this.RestockOrderDAO.getAllRestockOrders();
     }
 
     async getAllRestockOrdersIssued(){
-        return await RestockOrderDAO.getAllRestockOrdersIssued();
+        return await this.RestockOrderDAO.getAllRestockOrdersIssued();
     }
 
     async getRestockOrderByID(ID){
@@ -137,22 +137,22 @@ class DAO{
         if(ID < 0){
             return 422;
         }
-        return await RestockOrderDAO.getAllRestockOrdersIssued(ID);
+        return await this.RestockOrderDAO.getRestockOrderByID(ID);
     }
 
     async getSKUItemsWithNegTest(ResOrderID){
-        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ID);
+        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
         if(RestockOrder == undefined){
             return 404;
         }
-        if(ID < 0 || RestockOrder.getState() != "COMPLETEDRETURN"){
+        if(ResOrderID < 0 || RestockOrder.getState() != "COMPLETEDRETURN"){
             return 422;
         }
-        return await RestockOrderDAO.getSKUItemsWithNegTest(ResOrderID);
+        return await this.RestockOrderDAO.getSKUItemsWithNegTest(ResOrderID);
     }
 
-    async addIssuedRestockOrder(restockOrder){
-        return await RestockOrderDAO.addIssuedRestockOrder(restockOrder);
+    async addRestockOrder(restockOrder){
+        return await this.RestockOrderDAO.addRestockOrder(restockOrder);
     }
     
     async editState(ResOrderID, newState){
@@ -160,7 +160,7 @@ class DAO{
         if(RestockOrder == undefined){
             return 404;
         }
-        return await RestockOrderDAO.editState(ResOrderID, newState);
+        return await this.RestockOrderDAO.editState(ResOrderID, newState);
     }
     
     async addSKUItemsList(ResOrderID, SKUItemsList){
@@ -168,7 +168,7 @@ class DAO{
         if(RestockOrder == undefined){
             return 404;
         }
-        return await RestockOrderDAO.addSKUItemsList(ResOrderID, SKUItemsList);
+        return await this.RestockOrderDAO.addSKUItemsList(ResOrderID, SKUItemsList);
     }
 
     async setTransportNote(ResOrderID, TN){
@@ -180,14 +180,14 @@ class DAO{
             || RestockOrder.getDeliveryDate().isBefore(RestockOrder.getIssueDate())){
                 return 422;
         }
-        return await RestockOrderDAO.setTransportNote(ResOrderID, TN);
+        return await this.RestockOrderDAO.setTransportNote(ResOrderID, TN);
     }
 
     async deleteRestockOrder(ResOrderID){
         if(ResOrderID < 0){
             return 422;
         }
-        return await RestockOrderDAO.deleteRestockOrder(ResOrderID);
+        return await this.RestockOrderDAO.deleteRestockOrder(ResOrderID);
     }
     async getAllUsers() {
         return await this.UserDAO.getAllUsers();

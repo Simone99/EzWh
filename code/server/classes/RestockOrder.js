@@ -1,17 +1,20 @@
 const dayjs = require("dayjs");
+var localizedFormat = require('dayjs/plugin/localizedFormat')
+dayjs.extend(localizedFormat);
 const RestockOrderItem = require("./RestockOrderItem");
 const TransportNote = require("./TransportNote");
 const Item = require('./Item');
 const SKUItem = require('./SKUItem');
 class restockOrder {
-	constructor(supplierID, state = null) {
-		this.id; // to be added from db
-		this.issueDate = dayjs();
-		this.deliveryDate = dayjs();
+	constructor(id, issueDate, state, userId, transportNote) {
+		this.id = id; // to be added from db
+		this.issueDate = issueDate;
+		this.deliveryDate = deliveryDate;
 		this.state = state;
+		this.userId = userId;
 		this.restockOrderItemsList = [];
-		this.supplierID = supplierID;
-		this.transportNote = null;
+		this.supplierID = 0;
+		this.transportNote = transportNote;
 		this.SKUItemsList = [];
 		this.returnOrder = null; //new attribute needed for the getSKUitemsToBeReturned();
 	}

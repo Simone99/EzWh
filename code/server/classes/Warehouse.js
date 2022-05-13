@@ -1,3 +1,6 @@
+const { use } = require('../routes/api/restockOrder');
+const restockOrder = require('./RestockOrder');
+
 class Warehouse{
     
     Inventory = require('./Inventory');
@@ -168,36 +171,30 @@ class Warehouse{
     }
 
     //TODO: add parameters inside class diagram
-    addRestockOrder(supplierID, issueDate, products){
-        //TODO: add parameters inside the constructor
-        const ro = new this.RestockOrder(supplierID, issueDate, products);
-        this.restockOrderList.push(ro);
-        //TODO: use DAO to insert it into db
+    async addRestockOrder(restockOrder){
+        return this.DAO.addRestockOrder(restockOrder);
     }
 
-    getRestockOrder(restockOrderID){
+    async getRestockOrderByID(restockOrderID){
         //TODO: Add getRestockOrderID inside RestockOrder class
-        return this.restockOrderList.filter(ro => ro.getRestockOrderID() === restockOrderID)[0];
+        return this.DAO.getRestockOrderByID(restockOrderID);
     }
 
-    getRestockOrderList(){
-        return this.restockOrderList;
+    async getRestockOrderList(){
+        return this.DAO.getAllRestockOrders();
+    }
+
+    async getAllRestockOrdersIssued(){
+        return this.DAO.getAllRestockOrdersIssued();
     }
 
     //TODO: add parameter inside class diagram
-    editRestockOrder(restockOrderID, newState){
-        this.restockOrderList.map(ro => {
-            if(ro.getRestockOrderID() === restockOrderID){
-                ro.changeState(newState);
-                //TODO: update DB using DAO
-            }
-            return ro;
-        })
+    async editRestockOrderState(restockOrderID, newState){
+        return this.DAO.editState(restockOrderID,newState);
     }
 
-    deleteRestockOrder(restockOrderID){
-        this.restockOrderList = this.restockOrderList.filter(ro => ro.getRestockOrderID() !== restockOrderID);
-        //TODO: use DAO to delete it
+    async deleteRestockOrder(restockOrderID){
+        return this.DAO.deleteRestockOrder(restockOrderID);
     }
 
     //TODO: update parameter name inside class diagram
