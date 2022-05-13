@@ -185,28 +185,28 @@ class Warehouse{
 
     //TODO: rename parameter
     async deleteReturnOrder(returnOrderID){
-        await this.DAO.deleteReturnOrder(returnOrderID);
+        await await this.DAO.deleteReturnOrder(returnOrderID);
     }
 
     async addInternalOrder(newInternlOrder){
-        await this.DAO.addInternalOrder(newInternlOrder);
+        await await this.DAO.addInternalOrder(newInternlOrder);
     }
 
     async getInternalOrdersList(){
-        return this.DAO.getInternalOrdersList();
+        return await this.DAO.getInternalOrdersList();
     }
 
     async getInternalOrdersIssuedList(){
-        return this.DAO.getInternalOrdersIssuedList();
+        return await this.DAO.getInternalOrdersIssuedList();
     }
 
     async getInternalOrdersAcceptedList() {
-        return this.DAO.getInternalOrdersAcceptedList();
+        return await this.DAO.getInternalOrdersAcceptedList();
     }
 
 
     async getInternalOrder(internalOrderID){
-        return this.DAO.getInternalOrder(internalOrderID);
+        return await this.DAO.getInternalOrder(internalOrderID);
     }
 
     async deleteInternalOrder(internalOrderID){

@@ -31,19 +31,16 @@ router.get('/internalOrdersAccepted', async (req, res) => {
     }
 })
 
-/*to check!!!*/
 router.get('/internalOrders/:id', async (req, res) => {
+    if (isNaN(parseInt(req.params.id))) {
+        return res.status(422).end();
+    }
     try {
-        if (isNaN(parseInt(req.params.id))) {
-            return res.status(422).end();
-        }
-
         const io = await new Warehouse().getInternalOrder(req.params.id);
         if (io === undefined) {
             return res.status(404).end();
         }
-
-        return req.status(200).json(io);
+        return res.status(200).json(io);
     } catch (err) {
         return res.status(500).end();
     }

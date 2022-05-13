@@ -328,31 +328,31 @@ class DAO {
     }
 
     async getInternalOrdersList() {
-        return this.InternalOrderDAO.getInternalOrdersList();
+        return await this.InternalOrderDAO.getInternalOrdersList();
     }
 
     async getInternalOrdersIssuedList() {
-        return this.InternalOrderDAO.getInternalOrdersIssuedList();
+        return await this.InternalOrderDAO.getInternalOrdersIssuedList();
     }
 
     async getInternalOrdersAcceptedList() {
-        return this.InternalOrderDAO.getInternalOrdersAcceptedList();
+        return await this.InternalOrderDAO.getInternalOrdersAcceptedList();
     }
 
     async getInternalOrder(internalOrderID) {
-        return this.InternalOrderDAO.getInternalOrder(internalOrderID);
+        return await this.InternalOrderDAO.getInternalOrder(internalOrderID);
     }
 
     async addInternalOrder(newInternlOrder) {
-        this.InternalOrderDAO.addInternalOrder(newInternlOrder);
+        await this.InternalOrderDAO.addInternalOrder(newInternlOrder);
     }
 
     async editInternalOrder(internalOrderID, newState, products) {
-        this.InternalOrderDAO.editInternalOrder(internalOrderID, newState, products);
+        await this.InternalOrderDAO.editInternalOrder(internalOrderID, newState, products);
     }
 
     async deleteInternalOrder(internalOrderID) {
-        this.InternalOrderDAO.deleteInternalOrder(internalOrderID);
+        await this.InternalOrderDAO.deleteInternalOrder(internalOrderID);
     }
 
     async addPosition(positionID, aisle, row, col, weight, volume){
