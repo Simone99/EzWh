@@ -45,7 +45,7 @@ class TestResultDAO{
                     resolve(404);
                     return;
                 }
-                const testResult = new TestResult(row.ID, row.DATE_, row.RESULT, row.DESCRPITION);
+                const testResult = new TestResult(row.DATE_, row.RESULT, row.DESCRPITION, row.ID);
                 resolve(testResult);
             });
         });
@@ -100,6 +100,32 @@ class TestResultDAO{
             this.db.run(sql, [newIdTestDescriptor, newDate, newResult, id], err => {
                 if(err){
                     
+                    reject(err);
+                }else{
+                    resolve('OK');
+                }
+            });
+        });
+    }
+
+    deleteTestResult(id){
+        return new Promise((resolve, reject) => {
+            const sql = "DELETE FROM TESTRESULT_TABLE WHERE ID = ?";
+            this.db.run(sql, [id], err => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve('OK');
+                }
+            });
+        });
+    }
+
+    deleteTestResultxSKUitem(SKUId, id) {
+        return new Promise((resolve, reject) => {
+            const sql = "DELETE FROM TESTRESULTSKUITEM_LIST WHERE ID_TESTRESULT = ? AND ID_SKUITEM = ?";
+            this.db.run(sql, [id, SKUId], err => {
+                if(err){
                     reject(err);
                 }else{
                     resolve('OK');

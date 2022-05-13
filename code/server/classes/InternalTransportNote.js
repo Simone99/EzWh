@@ -1,12 +1,7 @@
 class InternalTransportNote{
-    constructor(){
-        this.shipmentDate = dayjs();
+    constructor(date){
+        this.shipmentDate = date;
     }
-
-    setDate(shipmentDate) {
-		this.shipmentDate = dayjs(shipmentDate, "YYYY/MM/DD");
-		return;
-	}
 
 }
 

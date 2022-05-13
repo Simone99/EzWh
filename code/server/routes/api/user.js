@@ -23,8 +23,8 @@ router.post('/newUser', async (req, res) => {
      !req.body.hasOwnProperty('username') ||
      !req.body.hasOwnProperty('password') ||
       req.body.password.length < 8 ||
-      req.body.type == 'Manager' ||
-      req.body.type == 'Administrator'){
+      req.body.type == 'manager' ||
+      req.body.type == 'administrator'){
     return res.status(422).end();
   }
   try{

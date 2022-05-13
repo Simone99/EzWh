@@ -30,16 +30,6 @@ class Item {
     getSKUId() {
         return this.SKUId;
     }
-
-    setDescription(description) {
-        this.description = description;
-        return;
-    }
-
-    setPrice(price) {
-        this.price = price;
-    }
-
 }
 
 module.exports = Item;

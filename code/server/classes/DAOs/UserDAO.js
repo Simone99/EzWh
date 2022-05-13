@@ -11,7 +11,7 @@ class UserDAO{
     getAllUsers(){
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM USER_TABLE WHERE TYPE <> ?";
-            this.db.all(sql, ['Manager'], (err, rows) => {
+            this.db.all(sql, ['manager'], (err, rows) => {
                 if(err){
                     reject(500);
                     return;
@@ -35,7 +35,7 @@ class UserDAO{
                 if(row === undefined){
                     resolve(undefined);
                 }else{
-                    resolve(new User(row.ID, row.NAME, row.SURNAME, row.TYPE, row.USERNAME, row.PASSWORD));
+                    resolve(new User(row.NAME, row.SURNAME, row.TYPE, row.USERNAME, row.PASSWORD, row.ID));
                 }
             });
         });

@@ -278,6 +278,10 @@ class DAO{
     }
     
     async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
+        const storedTestResult = await this.TestResultDAO.getTestResultByRFIDAndID(rfid, id);
+        if(storedTestResult === 404) {
+            return 404;
+        }
         const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
         if(storedSKUitem === 404) {
             return 404;
@@ -286,13 +290,20 @@ class DAO{
         if(TestDescriptorxRFID === 404) {
             return 404;
         }
+        await this.TestResultDAO.editTestResult(id, newIdTestDescriptor, newDate, newResult);
+    }
+
+    async deleteTestResult(rfid, id) {  
         const storedTestResult = await this.TestResultDAO.getTestResultByRFIDAndID(rfid, id);
         if(storedTestResult === 404) {
             return 404;
         }
-        await this.TestResultDAO.editTestResult(id, newIdTestDescriptor, newDate, newResult);
-        console.log('1');
-
+        const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
+        if(storedSKUitem === 404) {
+            return 404;
+        }
+        await this.TestResultDAO.deleteTestResult(id);
+        await this.TestResultDAO.deleteTestResultxSKUitem(storedSKUitem.getSKUId(), id);
     }
 
     async getAllItems() {
@@ -304,11 +315,10 @@ class DAO{
     }
 
     async addItem(item) {
-        //TODO
-        //const storedItem = await this.ItemDAO.getItemById(item.getId());
-        //if((storedItem.getSKUId() === item.getSKUId() || storedItem.getId() === item.getId()) && storedItem.getSupplierId() === item.getSupplierId()){
-        //    return 422;
-        //}
+        const storedItem = await this.ItemDAO.getItemBySupplierIdAndSKUId(item.getSupplierId(), item.getSKUId());
+        if (storedItem !== undefined) {
+            return 422;
+        }
         const addedItem = await this.ItemDAO.addItem(item);
     }
 
@@ -318,6 +328,10 @@ class DAO{
             return 404;
         }
         return await this.ItemDAO.editItem(id, newDescription, newPrice);
+    }
+
+    async deleteItem(id) {
+        await this.ItemDAO.deleteItem(id);
     }
 
     

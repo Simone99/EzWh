@@ -5,16 +5,6 @@ class InternalOrderItem{
         this.quantity = quantity;
     }
 
-    setSKU(SKU) {
-        this.SKUObj = SKU;
-        return;
-    }
-
-    setQuantity(quantity) {
-        this.quantity = quantity;
-        return;
-    }
-
     getSKU() {
 		return this.SKUObj;
 	}

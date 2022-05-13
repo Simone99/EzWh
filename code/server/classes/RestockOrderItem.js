@@ -7,20 +7,6 @@ class RestockOrderItem {
         this.quantity = quantity;
     }
 
-    setItemObj(itemObj) {
-        this.itemObj = itemObj;
-        return;
-    }
-
-    setQuantity(quantity) {
-        this.quantity = quantity;
-        return;
-    }
-
-    getItemObj() {
-        return this.itemObj;
-    }
-
 }
 
 module.exports = RestockOrderItem;

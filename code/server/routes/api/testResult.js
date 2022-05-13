@@ -72,4 +72,19 @@ router.put('/skuitems/:rfid/testResult/:id', async (req, res) => {
       return res.status(500).end();
     }
 });
+
+router.delete('/skuitems/:rfid/testResult/:id', async (req, res) => {
+  if(isNaN(parseInt(req.params.rfid)) ||
+     isNaN(parseInt(req.params.id))) {
+      return res.status(422).end();
+  }
+  try{
+      await new Warehouse().deleteTestResult(req.params.rfid, req.params.id);
+      return res.status(204).end();
+    }catch(err){
+      return res.status(503).end();
+    }
+});
+
+
 module.exports = router;

@@ -8,31 +8,6 @@ class User{
         this.password = password;
     }
 
-    setName(name) {
-        this.name = name;
-        return;
-    }
-
-    setSurname(surname) {
-        this.surname = surname;
-        return;
-    }
-
-    setUsername(username) {
-        this.username = username;
-        return;
-    }
-
-    setPassword(password) {
-        this.password = password;
-        return;
-    }
-
-    setType(type) {
-        this.type = type;
-        return;
-    }
-
     getId() {
         return this.id;
     }

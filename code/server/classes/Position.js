@@ -10,14 +10,6 @@ class Position {
 		this.occupiedVolume = occupiedVolume;
 	}
 
-	setMaxWeight(maxWeight) {
-		this.maxWeight = maxWeight;
-	}
-
-	setMaxVolume(maxVolume) {
-		this.maxVolume = maxVolume;
-	}
-
 	setAisle(aisle) {
 		//TODO check if the format is correct
 		this.aisle = aisle;
@@ -46,22 +38,6 @@ class Position {
 		this.row = parseInt(positionID.substring(4, 7));
 		this.col = parseInt(positionID.substring(8, 11));
 		//check duplicates
-	}
-
-	increaseOccupiedWeight(weight) {
-		if (this.occupiedWeight + weight < this.maxWeight && this.occupiedWeight + weight > 0) {
-			this.occupiedWeight = this.occupiedWeight + weight;
-			return true;
-		}
-		return false;
-	}
-
-	increaseOccupiedVolume(volume) {
-		if (this.occupiedVolume + volume < this.maxVolume && this.occupiedVolume + volume > 0) {
-			this.occupiedVolume = this.occupiedVolume + volume;
-			return true;
-		}
-		return false;
 	}
 
 	getMaxWeight(){

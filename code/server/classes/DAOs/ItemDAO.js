@@ -37,6 +37,23 @@ class ItemDAO{
         });
     }
 
+    getItemBySupplierIdAndSKUId(supplierId, SKUId) {
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT * FROM ITEM_TABLE WHERE USERID = ? AND SKUID = ?";
+            this.db.get(sql, [supplierId, SKUId], (err, row) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                if(row === undefined){
+                    resolve(undefined);
+                }else{
+                    resolve(new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID));
+                }
+            });
+        });
+    }
+
     getAllItems(){
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM ITEM_TABLE";
@@ -57,6 +74,19 @@ class ItemDAO{
         return new Promise((resolve, reject) => {
             const sql = "UPDATE ITEM_TABLE SET DESCRIPTION = ?, PRICE = ? WHERE ID = ?";
             this.db.run(sql, [newDescription, newPrice, id], err => {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve('ok');
+                }
+            });
+        });
+    }
+
+    deleteItem(id){
+        return new Promise((resolve, reject) => {
+            const sql = "DELETE FROM ITEM_TABLE WHERE ID = ?";
+            this.db.run(sql, [id], err => {
                 if(err){
                     reject(err);
                 }else{
