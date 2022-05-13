@@ -3,15 +3,12 @@ class ReturnOrder{
     dayjs = require('dayjs');
     SKUItem = require('./SKUItem');
 
-    constructor(id, r, SKUItems, state){
-        SKUItems.forEach(skuItem => {
-            skuItem.setAvailable(false);
-        });
+    constructor(id, r, SKUItems, state, returnDate = null){
         this.id = id;
         this.restockOrder = r;
-        this.SKUItemList = SKUItems;
+        this.SKUItemList = [];
         this.state = state;
-        this.returnDate = dayjs();
+        this.returnDate = returnDate;
     }
 
     //Maybe this function is not needed
@@ -29,6 +26,10 @@ class ReturnOrder{
             skuItem.setAvailable(false);
         });
         this.SKUItemList.push(s);
+    }
+
+    getID(){
+        return this.id;
     }
 
 }

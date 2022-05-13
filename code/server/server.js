@@ -58,9 +58,13 @@ app.use(function (err, req, res, next) {
 	res.render('error');
 });
 
-const allFileContents = fs.readFileSync('./code/server/classes/DBCreationQuery.sql', 'utf-8');
-const db = new sqlite.Database('./code/server/EZWarehouseDB.db', err =>{
-  if(err) throw err;
+const allFileContents = fs.readFileSync(
+	path.resolve(__dirname, './classes/DBCreationQuery.sql'),
+	'utf-8'
+);
+
+const db = new sqlite.Database('./EZWarehouseDB.db', (err) => {
+	if (err) throw err;
 });
 
 allFileContents.split(';').forEach((query) =>
