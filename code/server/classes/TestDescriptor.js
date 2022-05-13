@@ -1,5 +1,6 @@
 class testDescriptor{
-    constructor(name, description, SKUID){
+    constructor(id, name, description, SKUID){
+        this.id = id;
         this.name = name;
         this.description = description;
         this.SKUID = SKUID;

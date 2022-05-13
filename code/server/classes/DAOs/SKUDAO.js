@@ -15,9 +15,7 @@ class SKUDAO{
                     reject(500);
                     return;
                 }
-                const skus = rows.map(row => {
-                    return new SKU(row.DESCRIPTION, row.WEIGHT, row.VOLUME, row.PRICE, row.NOTES, row.POSITION, row.ID, row.AVAILABLEQUANTITY);
-                });
+                const skus = rows.map(row => new SKU(row.DESCRIPTION, row.WEIGHT, row.VOLUME, row.PRICE, row.NOTES, row.POSITION, row.ID, row.AVAILABLEQUANTITY));
                 resolve(skus);
             });
         });

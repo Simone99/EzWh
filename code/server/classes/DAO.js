@@ -74,7 +74,6 @@ class DAO{
         }
         const pos = await this.PositionDAO.getPosition(newPositionID);
         if(pos !== undefined){
-            console.log(pos);
             const tmp_weight = sku.getWeight() * sku.getAvailableQuantity();
             const tmp_volume = sku.getVolume() * sku.getAvailableQuantity();
             if(pos.getMaxWeight() >= tmp_weight && pos.getMaxVolume() >= tmp_volume){
@@ -123,11 +122,11 @@ class DAO{
     }
 
     async getAllRestockOrders(){
-        return await this.RestockOrderDAO.getAllRestockOrders();
+        return await RestockOrderDAO.getAllRestockOrders();
     }
 
     async getAllRestockOrdersIssued(){
-        return await this.RestockOrderDAO.getAllRestockOrdersIssued();
+        return await RestockOrderDAO.getAllRestockOrdersIssued();
     }
 
     async getRestockOrderByID(ID){
@@ -138,22 +137,22 @@ class DAO{
         if(ID < 0){
             return 422;
         }
-        return await this.RestockOrderDAO.getRestockOrderByID(ID);
+        return await RestockOrderDAO.getAllRestockOrdersIssued(ID);
     }
 
     async getSKUItemsWithNegTest(ResOrderID){
-        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
+        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ID);
         if(RestockOrder == undefined){
             return 404;
         }
-        if(ResOrderID < 0 || RestockOrder.getState() != "COMPLETEDRETURN"){
+        if(ID < 0 || RestockOrder.getState() != "COMPLETEDRETURN"){
             return 422;
         }
-        return await this.RestockOrderDAO.getSKUItemsWithNegTest(ResOrderID);
+        return await RestockOrderDAO.getSKUItemsWithNegTest(ResOrderID);
     }
 
-    async addRestockOrder(restockOrder){
-        return await this.RestockOrderDAO.addRestockOrder(restockOrder);
+    async addIssuedRestockOrder(restockOrder){
+        return await RestockOrderDAO.addIssuedRestockOrder(restockOrder);
     }
     
     async editState(ResOrderID, newState){
@@ -161,7 +160,7 @@ class DAO{
         if(RestockOrder == undefined){
             return 404;
         }
-        return await this.RestockOrderDAO.editState(ResOrderID, newState);
+        return await RestockOrderDAO.editState(ResOrderID, newState);
     }
     
     async addSKUItemsList(ResOrderID, SKUItemsList){
@@ -169,7 +168,7 @@ class DAO{
         if(RestockOrder == undefined){
             return 404;
         }
-        return await this.RestockOrderDAO.addSKUItemsList(ResOrderID, SKUItemsList);
+        return await RestockOrderDAO.addSKUItemsList(ResOrderID, SKUItemsList);
     }
 
     async setTransportNote(ResOrderID, TN){
@@ -181,17 +180,21 @@ class DAO{
             || RestockOrder.getDeliveryDate().isBefore(RestockOrder.getIssueDate())){
                 return 422;
         }
-        return await this.RestockOrderDAO.setTransportNote(ResOrderID, TN);
+        return await RestockOrderDAO.setTransportNote(ResOrderID, TN);
     }
 
     async deleteRestockOrder(ResOrderID){
         if(ResOrderID < 0){
             return 422;
         }
-        return await this.RestockOrderDAO.deleteRestockOrder(ResOrderID);
+        return await RestockOrderDAO.deleteRestockOrder(ResOrderID);
     }
     async getAllUsers() {
         return await this.UserDAO.getAllUsers();
+    }
+
+    async getUser(username, type){
+        return await this.UserDAO.getUserByTypeAndUsername(type, username);
     }
 
     async addUser(user){
@@ -266,33 +269,12 @@ class DAO{
 
     async addTestResult(rfid, idTestDescriptor, Date, Result) {
         const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
-        if(storedSKUitem === 404) {
-            return 404;
-        }
         const TestDescriptorxRFID = await this.TestDescriptorDAO.checkSKUID(idTestDescriptor, storedSKUitem.getSKUId());
         if(TestDescriptorxRFID === 404) {
             return 404;
         }
         await this.TestResultDAO.addTestResult(rfid, idTestDescriptor, Date, Result);
         await this.TestResultDAO.addTestResultxSKUitem(rfid, idTestDescriptor);
-    }
-    
-    async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
-        const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
-        if(storedSKUitem === 404) {
-            return 404;
-        }
-        const TestDescriptorxRFID = await this.TestDescriptorDAO.checkSKUID(newIdTestDescriptor, storedSKUitem.getSKUId());
-        if(TestDescriptorxRFID === 404) {
-            return 404;
-        }
-        const storedTestResult = await this.TestResultDAO.getTestResultByRFIDAndID(rfid, id);
-        if(storedTestResult === 404) {
-            return 404;
-        }
-        await this.TestResultDAO.editTestResult(id, newIdTestDescriptor, newDate, newResult);
-        console.log('1');
-
     }
 
     async getAllItems() {
@@ -320,8 +302,50 @@ class DAO{
         return await this.ItemDAO.editItem(id, newDescription, newPrice);
     }
 
-    
+    async addPosition(positionID, aisle, row, col, weight, volume){
+        await this.PositionDAO.addPosition(positionID, aisle, row, col, weight, volume);
+    }
 
+    async editPositionID(oldPositionID, position){
+        return await this.PositionDAO.editPositionID(oldPositionID, position);
+    }
+
+    async editPositionIDOnly(oldPositionID, newPositionID){
+        const positionToEdit = await this.PositionDAO.getPosition(oldPositionID);
+        if(positionToEdit === undefined){
+            return undefined;
+        }
+        positionToEdit.setPositionID(newPositionID);
+        return await this.PositionDAO.editPositionID(oldPositionID, positionToEdit);
+    }
+
+    async deletePosition(positionID){
+        await this.PositionDAO.deletePosition(positionID);
+    }
+
+    async getAllTestDescriptors(){
+        return await this.TestDescriptorDAO.getAllTestDescriptors();
+    }
+
+    async getTestDescriporByID(testDescriptorID){
+        return await this.TestDescriptorDAO.getTestDescriporByID(testDescriptorID);
+    }
+
+    async addTestDescriptor(name, description, SKUID){
+        const sku = await this.SKUDAO.getSKUByID(SKUID);
+        if(sku === undefined) return undefined;
+        return await this.TestDescriptorDAO.addTestDescriptor(name, description, SKUID);
+    }
+
+    async editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId){
+        const sku = await this.SKUDAO.getSKUByID(newSKUId);
+        if(sku === undefined) return 0;
+        return await this.TestDescriptorDAO.editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId);
+    }
+
+    async deleteTestDescriptor(testDescriptorID){
+        await this.TestDescriptorDAO.deleteTestDescriptor(testDescriptorID);
+    }
 }
 
 module.exports = DAO;

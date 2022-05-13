@@ -1,9 +1,8 @@
-//import sjcl from 'sjcl'
-
 var express = require('express');
 var router = express.Router();
 const Warehouse = require('../../classes/Warehouse');
 const User = require('../../classes/User');
+const { body, validationResult, check } = require('express-validator');
 
 hashCode = function(s) {
   var h = 0, l = s.length, i = 0;
@@ -67,8 +66,8 @@ router.put('/users/:username', async (req, res) => {
 router.delete('/users/:username/:type', async (req, res) => {
   if(!req.params.hasOwnProperty('type') ||
     !req.params.hasOwnProperty('username') ||
-    req.body.type == 'Manager' ||
-    req.body.type == 'Administrator') {
+    req.body.type == 'manager' ||
+    req.body.type == 'administrator') {
     return res.status(422).end();
   }
   try{
@@ -76,6 +75,134 @@ router.delete('/users/:username/:type', async (req, res) => {
     return res.status(204).end();
   }catch(err){
     return res.status(503).end();
+  }
+});
+
+router.post('/managerSessions', [check('username').isEmail(), check('password').isLength({min:8})], async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).end();
+  }
+  try{
+    const user = await new Warehouse().getUser(req.body.username, 'manager');
+    if(user === undefined){
+      return res.status(404).end();
+    }
+    return res.status(200).json({
+      id : user.getId(),
+      username : user.getUsername(),
+      password : user.getPassword()
+    });
+  }catch(err){
+    return res.status(500).end();
+  }
+});
+
+router.post('/customerSessions', [check('username').isEmail(), check('password').isLength({min:8})], async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).end();
+  }
+  try{
+    const user = await new Warehouse().getUser(req.body.username, 'customer');
+    if(user === undefined){
+      return res.status(404).end();
+    }
+    return res.status(200).json({
+      id : user.getId(),
+      username : user.getUsername(),
+      password : user.getPassword()
+    });
+  }catch(err){
+    return res.status(500).end();
+  }
+});
+
+router.post('/supplierSessions', [check('username').isEmail(), check('password').isLength({min:8})], async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).end();
+  }
+  try{
+    const user = await new Warehouse().getUser(req.body.username, 'supplier');
+    if(user === undefined){
+      return res.status(404).end();
+    }
+    return res.status(200).json({
+      id : user.getId(),
+      username : user.getUsername(),
+      password : user.getPassword()
+    });
+  }catch(err){
+    return res.status(500).end();
+  }
+});
+
+router.post('/clerkSessions', [check('username').isEmail(), check('password').isLength({min:8})], async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).end();
+  }
+  try{
+    const user = await new Warehouse().getUser(req.body.username, 'clerk');
+    if(user === undefined){
+      return res.status(404).end();
+    }
+    return res.status(200).json({
+      id : user.getId(),
+      username : user.getUsername(),
+      password : user.getPassword()
+    });
+  }catch(err){
+    return res.status(500).end();
+  }
+});
+
+router.post('/qualityEmployeeSessions', [check('username').isEmail(), check('password').isLength({min:8})], async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).end();
+  }
+  try{
+    const user = await new Warehouse().getUser(req.body.username, 'qualityEmployee');
+    if(user === undefined){
+      return res.status(404).end();
+    }
+    return res.status(200).json({
+      id : user.getId(),
+      username : user.getUsername(),
+      password : user.getPassword()
+    });
+  }catch(err){
+    return res.status(500).end();
+  }
+});
+
+router.post('/deliveryEmployeeSessions', [check('username').isEmail(), check('password').isLength({min:8})], async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(422).end();
+  }
+  try{
+    const user = await new Warehouse().getUser(req.body.username, 'deliveryEmployee');
+    if(user === undefined){
+      return res.status(404).end();
+    }
+    return res.status(200).json({
+      id : user.getId(),
+      username : user.getUsername(),
+      password : user.getPassword()
+    });
+  }catch(err){
+    return res.status(500).end();
+  }
+});
+
+router.post('/logout', async (req, res) => {
+  try{
+    return res.status(200).end();
+  }catch(err){
+    return res.status(500).end();
   }
 });
 

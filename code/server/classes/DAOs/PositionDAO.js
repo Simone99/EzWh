@@ -52,6 +52,48 @@ class PositionDAO{
             });
         });
     }
+
+    addPosition(positionID, aisle, row, col, weight, volume){
+        return new Promise((resolve, reject) => {
+            const sql = "INSERT INTO POSITION_TABLE(ID, AISLE, ROW, COL, MAX_WEIGHT, MAX_VOLUME, OCCUPIED_WEIGHT, OCCUPIED_VOLUME) " +
+                        "VALUES(?,?,?,?,?,?,?,?)";
+            this.db.run(sql, [positionID, aisle, row, col, weight, volume, 0, 0], function(err){
+                if(err){
+                    reject(err);
+                }else{
+                    resolve(this.changes);
+                }
+            });
+        });
+    }
+
+    editPositionID(oldPositionID, position){
+        return new Promise((resolve, reject) => {
+            const sql = "UPDATE POSITION_TABLE SET ID = ?, AISLE = ?, ROW = ?, COL = ?, MAX_WEIGHT = ?, MAX_VOLUME = ?, OCCUPIED_WEIGHT = ?, OCCUPIED_VOLUME = ? " +
+                        "WHERE ID = ?";
+            const params = [position.getPositionID(), position.getAisle(), position.getRow(), position.getCol(), position.getMaxWeight(), position.getMaxVolume(), position.getOccupiedWeight(), position.getOccupiedVolume(), oldPositionID];
+            this.db.run(sql, params, function(err){
+                if(err){
+                    reject(err);
+                    return;
+                }
+                resolve(this.changes);
+            });
+        });
+    }
+
+    deletePosition(positionID){
+        return new Promise((resolve, reject) => {
+            const sql = "DELETE FROM POSITION_TABLE WHERE ID = ?";
+            this.db.run(sql, [positionID], function(err){
+                if(err){
+                    reject(err);
+                }else{
+                    resolve(this.changes);
+                }
+            });
+        });
+    }
 }
 
 module.exports = PositionDAO;
