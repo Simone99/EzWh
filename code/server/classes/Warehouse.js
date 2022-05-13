@@ -339,6 +339,10 @@ class Warehouse{
     async addTestResult(rfid, idTestDescriptor, Date, Result) {
         await this.DAO.addTestResult(rfid, idTestDescriptor, Date, Result);
     }
+
+    async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
+        await this.DAO.editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult);
+    }
 }
 
 module.exports = Warehouse;

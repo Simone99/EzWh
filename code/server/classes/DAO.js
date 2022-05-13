@@ -230,12 +230,33 @@ class DAO{
 
     async addTestResult(rfid, idTestDescriptor, Date, Result) {
         const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
+        if(storedSKUitem === 404) {
+            return 404;
+        }
         const TestDescriptorxRFID = await this.TestDescriptorDAO.checkSKUID(idTestDescriptor, storedSKUitem.getSKUId());
         if(TestDescriptorxRFID === 404) {
             return 404;
         }
         await this.TestResultDAO.addTestResult(rfid, idTestDescriptor, Date, Result);
         await this.TestResultDAO.addTestResultxSKUitem(rfid, idTestDescriptor);
+    }
+    
+    async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
+        const storedSKUitem = await this.SKUItemDAO.getSKUItemByRFID(rfid);
+        if(storedSKUitem === 404) {
+            return 404;
+        }
+        const TestDescriptorxRFID = await this.TestDescriptorDAO.checkSKUID(newIdTestDescriptor, storedSKUitem.getSKUId());
+        if(TestDescriptorxRFID === 404) {
+            return 404;
+        }
+        const storedTestResult = await this.TestResultDAO.getTestResultByRFIDAndID(rfid, id);
+        if(storedTestResult === 404) {
+            return 404;
+        }
+        await this.TestResultDAO.editTestResult(id, newIdTestDescriptor, newDate, newResult);
+        console.log('1');
+
     }
 
     async getAllItems() {
@@ -262,6 +283,8 @@ class DAO{
         }
         return await this.ItemDAO.editItem(id, newDescription, newPrice);
     }
+
+    
 
 }
 

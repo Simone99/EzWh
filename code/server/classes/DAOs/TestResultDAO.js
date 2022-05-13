@@ -9,7 +9,11 @@ class TestResultDAO{
 
     getTestResultsByRFID(RFID) {
         return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM TESTRESULTSKUITEM_LIST JOIN TESTRESULT_TABLE ON (TESTRESULTSKUITEM_LIST.ID_TESTRESULT = TESTRESULT_TABLE.ID) WHERE TESTRESULTSKUITEM_LIST.ID_SKUITEM = ?";
+            const sql = "SELECT * FROM TESTRESULTSKUITEM_LIST JOIN TESTRESULT_TABLE"
+                        +
+                        " ON (TESTRESULTSKUITEM_LIST.ID_TESTRESULT = TESTRESULT_TABLE.ID)"
+                        +
+                        " WHERE TESTRESULTSKUITEM_LIST.ID_SKUITEM = ?";
             this.db.get(sql, [RFID], (err, row) => {
                 if(err){
                     reject(err);
@@ -19,7 +23,7 @@ class TestResultDAO{
                     resolve(404);
                     return;
                 }
-                const testResult = new TestResult(row.ID, row.DATE_, row.RESULT, row.DESCRPITION);
+                const testResult = new TestResult(row.DESCRPITION, row.RESULT, row.DATE_, row.ID);
                 resolve(testResult);
             });
         });
@@ -27,7 +31,11 @@ class TestResultDAO{
 
     getTestResultByRFIDAndID(RFID, ID) {
         return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM TESTRESULTSKUITEM_LIST JOIN TESTRESULT_TABLE ON (TESTRESULTSKUITEM_LIST.ID_TESTRESULT = TESTRESULT_TABLE.ID) WHERE TESTRESULTSKUITEM_LIST.ID_SKUITEM = ? AND TESTRESULTSKUITEM_LIST.ID_TESTRESULT = ?";
+            const sql = "SELECT * FROM TESTRESULTSKUITEM_LIST JOIN TESTRESULT_TABLE"
+                        +
+                        " ON (TESTRESULTSKUITEM_LIST.ID_TESTRESULT = TESTRESULT_TABLE.ID)"
+                        +
+                        " WHERE TESTRESULTSKUITEM_LIST.ID_SKUITEM = ? AND TESTRESULTSKUITEM_LIST.ID_TESTRESULT = ?";
             this.db.get(sql, [RFID, ID], (err, row) => {
                 if(err){
                     reject(err);
@@ -70,6 +78,28 @@ class TestResultDAO{
             const sql = "INSERT INTO TESTRESULTSKUITEM_LIST(ID_TESTRESULT, ID_SKUITEM) VALUES(?,?) ";
             this.db.run(sql, [idTestResult, rfid], err => {
                 if(err){
+                    reject(err);
+                }else{
+                    resolve('OK');
+                }
+            });
+        });
+    }
+
+    editTestResult(id, newIdTestDescriptor, newDate, newResult) {
+        return new Promise((resolve, reject) => {
+            const sql = "UPDATE TESTRESULT_TABLE SET "
+                        +
+                        "DESCRIPTION = ?, "
+                        +
+                        "DATE_ = ?, "
+                        +
+                        "RESULT = ? "
+                        +
+                        "WHERE ID = ?";
+            this.db.run(sql, [newIdTestDescriptor, newDate, newResult, id], err => {
+                if(err){
+                    
                     reject(err);
                 }else{
                     resolve('OK');

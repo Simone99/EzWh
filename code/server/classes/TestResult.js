@@ -1,8 +1,8 @@
 const dayjs = require("dayjs");
 class testResult {
-	constructor(description, result) {
-		this.id; // to be initialized from db index value
-		this.date = dayjs();
+	constructor(description, result, date, id=null) {
+		this.id = id;
+		this.date = date;
 		this.description = description;
 		this.result = result;
 	}
