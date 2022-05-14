@@ -83,7 +83,6 @@ router.post('/restockOrder', async (req, res) => {
     }
 })
 
-/*review*/
 router.put('/restockOrder/:id', async (req, res) => {
     try {
         const tmp = await new Warehouse().editRestockOrderState(req.params.id, req.body.newState);
@@ -95,6 +94,7 @@ router.put('/restockOrder/:id', async (req, res) => {
 
         return res.status(200).end();
     } catch (err) {
+        console.log(err);
         return res.status(503).end();
     }
 })
@@ -103,9 +103,13 @@ router.put('/restockOrder/:id/skuItems', async (req, res) => {
     /*Completare*/
 })
 
+/*Infinite request inside setTransportNote in RestockOrderDao */
 router.put('/restockOrder/:id/transportNote', async (req, res) => {
+    if(isNaN(parseInt(req.params.id))){
+        return res.status(422).end();
+    }
     try {
-        const tmp = await new Warehouse().getRestockOrderByID(req.params.id).setTransportNote(req.body.transportNote);
+        const tmp = await new Warehouse().setTransportNote(req.params.id, req.body.transportNote);
         if (tmp === 422) {
             return res.status(422).end();
         } else if (tmp === 404) {

@@ -214,6 +214,10 @@ class Warehouse {
         return await this.DAO.getSKUItemsWithNegTest(ResOrderID);
     }
 
+    async setTransportNote(ResOrderID, tNote) {
+        return await this.DAO.setTransportNote(ResOrderID,tNote);
+    }
+
 }
 
 module.exports = Warehouse;

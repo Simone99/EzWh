@@ -145,9 +145,7 @@ class DAO {
         if (RestockOrder == undefined) {
             return 404;
         }
-        if (ResOrderID < 0 || RestockOrder.getState() != "COMPLETEDRETURN") {
-            return 422;
-        }
+
         return await this.RestockOrderDAO.getSKUItemsWithNegTest(ResOrderID);
     }
 
@@ -160,7 +158,7 @@ class DAO {
     }
 
     async editState(ResOrderID, newState) {
-        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ID);
+        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
         if (RestockOrder == undefined) {
             return 404;
         }
@@ -172,19 +170,18 @@ class DAO {
         if (RestockOrder == undefined) {
             return 404;
         }
-        return await RestockOrderDAO.addSKUItemsList(ResOrderID, SKUItemsList);
+        return await this.RestockOrderDAO.addSKUItemsList(ResOrderID, SKUItemsList);
     }
 
-    async setTransportNote(ResOrderID, TN) {
+    async setTransportNote(ResOrderID, tNote) {
         const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
         if (RestockOrder == undefined) {
             return 404;
         }
-        if (ResOrderID < 0 || RestockOrder.getState() != "DELIVERY"
-            || RestockOrder.getDeliveryDate().isBefore(RestockOrder.getIssueDate())) {
+        if (RestockOrder.getState() != "DELIVERY") {
             return 422;
         }
-        return await RestockOrderDAO.setTransportNote(ResOrderID, TN);
+        return await this.RestockOrderDAO.setTransportNote(ResOrderID, tNote);
     }
 
     async deleteRestockOrder(ResOrderID) {
