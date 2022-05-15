@@ -26,6 +26,7 @@ router.post('/position', async (req, res) => {
         await new Warehouse().addPosition(req.body.positionID, req.body.aisleID, req.body.row, req.body.col, req.body.maxWeight, req.body.maxVolume);
         return res.status(201).end();
     }catch(err){
+        console.log(err);
         return res.status(503).end();
     }
 });
