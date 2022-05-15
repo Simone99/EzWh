@@ -57,7 +57,7 @@ class UserDAO{
     getAllSuppliers(){
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM USER_TABLE WHERE TYPE = ?";
-            this.db.all(sql, ['Supplier'], (err, rows) => {
+            this.db.all(sql, ['supplier'], (err, rows) => {
                 if(err){
                     reject(500);
                     return;

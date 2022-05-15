@@ -13,8 +13,12 @@ hashCode = function(s) {
 };
 
 router.get('/users', async (req, res) => {
+  try{
   const users = await new Warehouse().getUserList();
   return res.status(200).json(users);
+}catch(err){
+  return res.status(500).end();
+}
 });
 
 router.post('/newUser', async (req, res) => {
@@ -24,12 +28,12 @@ router.post('/newUser', async (req, res) => {
      !req.body.hasOwnProperty('username') ||
      !req.body.hasOwnProperty('password') ||
       req.body.password.length < 8 ||
-      req.body.type == 'manager' ||
+     
       req.body.type == 'administrator'){
     return res.status(422).end();
   }
   try{
-    const tmp = await new Warehouse().addUser(new User(req.body.name, req.body.surname, req.body.type, req.body.username, hashCode(req.body.password), null));
+    const tmp = await new Warehouse().addUser(new User(req.body.name, req.body.surname, req.body.type, req.body.username, hashCode(req.body.password)));
     if (tmp === 409) {
       return res.status(409).end();
     }
@@ -40,8 +44,12 @@ router.post('/newUser', async (req, res) => {
 });
 
 router.get('/suppliers', async (req, res) => {
+  try{
   const suppliers = await new Warehouse().getSupplierList();
   return res.status(200).json(suppliers);
+}catch(err){
+  return res.status(500).end();
+}
 });
 
 router.put('/users/:username', async (req, res) => {
