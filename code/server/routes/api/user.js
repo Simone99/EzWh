@@ -28,7 +28,7 @@ router.post('/newUser', async (req, res) => {
      !req.body.hasOwnProperty('username') ||
      !req.body.hasOwnProperty('password') ||
       req.body.password.length < 8 ||
-     
+      req.body.type == 'manager' ||
       req.body.type == 'administrator'){
     return res.status(422).end();
   }
@@ -56,8 +56,8 @@ router.put('/users/:username', async (req, res) => {
   if(!req.body.hasOwnProperty('oldType') ||
     !req.body.hasOwnProperty('newType') ||
     !req.params.hasOwnProperty('username') ||
-    req.body.oldType == 'manager' ||
-    req.body.oldType == 'administrator') {
+    req.body.newType == 'manager' ||
+    req.body.newType == 'administrator') {
     return res.status(422).end();
   }
   try{
@@ -74,8 +74,8 @@ router.put('/users/:username', async (req, res) => {
 router.delete('/users/:username/:type', async (req, res) => {
   if(!req.params.hasOwnProperty('type') ||
     !req.params.hasOwnProperty('username') ||
-    req.body.type == 'manager' ||
-    req.body.type == 'administrator') {
+    req.params.type == 'manager' ||
+    req.params.type == 'administrator') {
     return res.status(422).end();
   }
   try{
@@ -98,6 +98,8 @@ router.post('/managerSessions', [check('username').isEmail(), check('password').
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -118,6 +120,8 @@ router.post('/customerSessions', [check('username').isEmail(), check('password')
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -138,6 +142,8 @@ router.post('/supplierSessions', [check('username').isEmail(), check('password')
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -158,6 +164,8 @@ router.post('/clerkSessions', [check('username').isEmail(), check('password').is
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -178,6 +186,8 @@ router.post('/qualityEmployeeSessions', [check('username').isEmail(), check('pas
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -198,6 +208,8 @@ router.post('/deliveryEmployeeSessions', [check('username').isEmail(), check('pa
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });

@@ -71,8 +71,8 @@ router.get('/restockOrders/:id/returnItems', async (req, res) => {
 
 /*review the restock order class, supplierID*/
 router.post('/restockOrder', async (req, res) => {
-    if (!req.body.hasOwnProperty('id') ||
-        !req.body.hasOwnProperty('userID')) {
+    if (!req.body.hasOwnProperty('issueDate') ||
+        !req.body.hasOwnProperty('supplierId')) {
         return res.status(422).end();
     }
     try {

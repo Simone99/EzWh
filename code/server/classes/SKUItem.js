@@ -8,6 +8,9 @@ class SKUItem {
 		this.dateOfStock = dateOfStock;
 	}
 
+	isAvailable() {
+		return this.available;
+	}
 
 	getSKUId() {
 		return this.SKUid;
