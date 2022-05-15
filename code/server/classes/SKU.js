@@ -43,6 +43,10 @@ class SKU {
 	getPrice(){
 		return this.price;
 	}
+
+	getAvailableQuantity(){
+		return this.availableQuantity;
+	}
 }
 
 module.exports = SKU;

@@ -1,9 +1,8 @@
 const dayjs = require("dayjs");
 class TransportNote{
-    constructor(){
-        this.shipmentDate = dayjs();
+    constructor(TransportNote){
+        this.shipmentDate = TransportNote;
     }
-
 }
 
 module.exports = TransportNote;

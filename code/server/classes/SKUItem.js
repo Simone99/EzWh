@@ -16,6 +16,10 @@ class SKUItem {
 	getSKU_RFID() {
 		return this.rfid;
 	}
+	
+	getDateOfStock(){
+		return this.dateOfStock;
+	}
 
 }
 

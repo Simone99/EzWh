@@ -1,5 +1,5 @@
-class Warehouse{
-    
+class Warehouse {
+
     Inventory = require('./Inventory');
     DAO = require('./DAO');
     Position = require('./Position');
@@ -12,90 +12,89 @@ class Warehouse{
     Item = require('./Item');
     SKU = require('./SKU');
     DAO = require('./DAO');
-    
-    constructor(){
+
+    constructor() {
         this.inventory = new this.Inventory('./EZWarehouseDB.db');
         this.DAO = new this.DAO('./EZWarehouseDB.db');
     }
 
-    getInventory(){
+    getInventory() {
         return this.inventory;
     }
 
-    async addPosition(positionID, aisle, row, col, weight, volume){
+    async addPosition(positionID, aisle, row, col, weight, volume) {
         await this.DAO.addPosition(positionID, aisle, row, col, weight, volume);
     }
 
-    async deletePosition(positionID){
+    async deletePosition(positionID) {
         await this.DAO.deletePosition(positionID);
     }
 
     //TODO: modify parameters in the design document
-    async editPositionID(oldPositionID, position){
+    async editPositionID(oldPositionID, position) {
         return await this.DAO.editPositionID(oldPositionID, position);
     }
 
-    async editPositionIDOnly(oldPositionID, newPositionID){
+    async editPositionIDOnly(oldPositionID, newPositionID) {
         return await this.DAO.editPositionIDOnly(oldPositionID, newPositionID);
     }
 
 
     //TODO: check for filters, they are not needed concerning the APIs
-    async printPositionList(){
+    async printPositionList() {
         return await this.DAO.getAllPositions();
     }
 
 
-    async addTestDescriptor(name, description, SKUID){
+    async addTestDescriptor(name, description, SKUID) {
         return await this.DAO.addTestDescriptor(name, description, SKUID);
     }
 
     //TODO: insert alla the parameters inside the class diagram
-    async editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId){
+    async editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId) {
         return await this.DAO.editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId);
     }
 
-    async deleteTestDescriptor(testDescriptorID){
+    async deleteTestDescriptor(testDescriptorID) {
         await this.DAO.deleteTestDescriptor(testDescriptorID);
     }
 
-    async searchTestDescriptor(testDescriptorID){
+    async searchTestDescriptor(testDescriptorID) {
         return await this.DAO.getTestDescriporByID(testDescriptorID);
     }
 
-    async printTestDescriptorList(){
+    async printTestDescriptorList() {
         return this.DAO.getAllTestDescriptors();
     }
 
-   
-    async getReturnOrderList(){
+
+    async getReturnOrderList() {
         return this.DAO.getReturnOrderList();
     }
 
     //TODO: rename parameter
-    async getReturnOrder(returnOrderID){
+    async getReturnOrder(returnOrderID) {
         //TODO: add getReturnOrder
         return await this.DAO.getReturnOrder(returnOrderID);
     }
 
-    async addReturnOrder(r, SKUItems, state){
+    async addReturnOrder(r, SKUItems, state) {
         return await this.DAO.addReturnOrder(r, SKUItems, state);
     }
 
-    //TODO: rename parameter
-    async deleteReturnOrder(returnOrderID){
+    async deleteReturnOrder(returnOrderID) {
         await await this.DAO.deleteReturnOrder(returnOrderID);
     }
 
-    async addInternalOrder(newInternlOrder){
+    async addInternalOrder(newInternlOrder) {
         await await this.DAO.addInternalOrder(newInternlOrder);
     }
 
-    async getInternalOrdersList(){
+    async getInternalOrdersList() {
         return await this.DAO.getInternalOrdersList();
     }
 
-    async getInternalOrdersIssuedList(){
+    async getInternalOrdersIssuedList() {
         return await this.DAO.getInternalOrdersIssuedList();
     }
 
@@ -104,41 +103,37 @@ class Warehouse{
     }
 
 
-    async getInternalOrder(internalOrderID){
+    async getInternalOrder(internalOrderID) {
         return await this.DAO.getInternalOrder(internalOrderID);
     }
 
-    async deleteInternalOrder(internalOrderID){
-        this.internalOrderList = this.internalOrderList.filter(io => io.getInternalOrderID !== internalOrderID);
-        
+    async deleteInternalOrder(internalOrderID) {
         await this.DAO.deleteInternalOrder(internalOrderID);
     }
 
-    async editInternalOrder(internalOrderID, newState, products){
+    async editInternalOrder(internalOrderID, newState, products) {
         this.internalOrderList = this.internalOrderList.map(io => {
-            if(io.getInternalOrderID() === internalOrderID){
+            if (io.getInternalOrderID() === internalOrderID) {
                 io.changeState(newState);
-                if(products !== undefined)
+                if (products !== undefined)
                     io.addSKUItem(products);
             }
         });
         await this.DAO.editInternalOrder(internalOrderID, newState, products);
     }
 
- 
-
     async getUserList() {
         return await this.DAO.getAllUsers();
     }
 
-    async getUser(username, type){
+    async getUser(username, type) {
         return await this.DAO.getUser(username, type);
     }
 
     async getSupplierList() {
         return await this.DAO.getAllSuppliers();
     }
-    
+
     async addUser(user) {
         return await this.DAO.addUser(user);
     }
@@ -190,6 +185,39 @@ class Warehouse{
     async deleteItem(id) {
         await this.DAO.deleteItem(id);
     }
+
+    async addRestockOrder(restockOrder) {
+        return await this.DAO.addRestockOrder(restockOrder);
+    }
+
+    async getRestockOrderByID(restockOrderID) {
+        return await this.DAO.getRestockOrderByID(restockOrderID);
+    }
+
+    async getRestockOrderList() {
+        return await this.DAO.getAllRestockOrders();
+    }
+
+    async getAllRestockOrdersIssued() {
+        return await this.DAO.getAllRestockOrdersIssued();
+    }
+
+    async editRestockOrderState(restockOrderID, newState) {
+        return await this.DAO.editState(restockOrderID, newState);
+    }
+
+    async deleteRestockOrder(restockOrderID) {
+        return await this.DAO.deleteRestockOrder(restockOrderID);
+    }
+
+    async getSKUItemsWithNegTest(ResOrderID) {
+        return await this.DAO.getSKUItemsWithNegTest(ResOrderID);
+    }
+
+    async setTransportNote(ResOrderID, tNote) {
+        return await this.DAO.setTransportNote(ResOrderID,tNote);
+    }
+
 }
 
 module.exports = Warehouse;
