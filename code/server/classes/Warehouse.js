@@ -202,6 +202,10 @@ class Warehouse {
         return await this.DAO.getAllRestockOrdersIssued();
     }
 
+    async addSKUItemsToRestockOrder(ResOrderID, SKUitems) {
+        return await this.DAO.addSKUItemsToRestockOrder(ResOrderID, SKUitems);
+    }
+
     async editRestockOrderState(restockOrderID, newState) {
         return await this.DAO.editState(restockOrderID, newState);
     }

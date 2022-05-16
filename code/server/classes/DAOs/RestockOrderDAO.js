@@ -48,7 +48,14 @@ class RestockOrderDAO {
                     reject(err);
                     return;
                 }
-                if (row == undefined) {
+                if (row.STATE !== "DELIVERED") {
+                    console.log(row.STATE);
+                    resolve(422);
+                    return;
+                }
+                console.log('!');
+
+                if (row === undefined) {
                     resolve(undefined);
                 } else {
                     resolve(new restockOrder(row.ID, row.STATE, row.USERID, row.TRANSPORTNOTE));
@@ -91,6 +98,23 @@ class RestockOrderDAO {
         });
     }
 
+    addSKUItemsToRestockOrder(ResOrderID, SKUItems) {
+        return new Promise((resolve, reject) => {
+            const sql = "INSERT INTO SKUITEMSRESTOCKORDER_LIST(ID_SKUITEM, ID_RESTOCKORDER) VALUES (?,?)";
+            SKUItems.forEach(skuItem => {
+                this.db.run(sql, [skuItem.getSKU_RFID(), ResOrderID], err => {
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                        return;
+                    }
+                    resolve(this.changes);
+                })
+
+            })
+        })
+    }
+
     editState(ResOrderID, newState) {
         return new Promise((resolve, reject) => {
             const sql = "UPDATE RESTOCKORDER_TABLE SET STATE = ? WHERE ID = ?";
@@ -120,7 +144,6 @@ class RestockOrderDAO {
     }
 
     setTransportNote(ResOrderID, tNote) {
-        console.log('!!!!');
         return new Promise((resolve, reject) => {
             const sql = "UPDATE RESTOCKORDER_TABLE SET TRANSPORTNOTE = ? WHERE ID = ?";
             this.db.run(sql, [tNote, ResOrderID], err => {

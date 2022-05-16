@@ -1,5 +1,6 @@
 var express = require('express');
 const restockOrder = require('../../classes/RestockOrder');
+const SKUItem = require('../../classes/SKUItem');
 var router = express.Router();
 const Warehouse = require('../../classes/Warehouse');
 
@@ -100,7 +101,30 @@ router.put('/restockOrder/:id', async (req, res) => {
 })
 
 router.put('/restockOrder/:id/skuItems', async (req, res) => {
-    /*Completare*/
+    if(isNaN(parseInt(req.params.id))||
+        !req.body.hasOwnProperty('skuItems')){
+        return res.status(422);
+    }
+    try {
+        const restockOrderDB = await new Warehouse().getRestockOrderByID(req.params.id);
+
+        if (restockOrderDB === undefined) {
+            return res.status(404).end();
+        }
+        if (restockOrderDB === 422) {
+            return res.status(422).end();
+        }
+
+        const SKUItemsList = [];
+        req.body.skuItems.forEach(skuItem => SKUItemsList.push(new SKUItem(skuItem.SKUId, false, null, skuItem.rfid)));
+        await new Warehouse().addSKUItemsToRestockOrder(req.params.id,SKUItemsList);
+
+        return res.status(200).end();
+
+    } catch (err) {
+        console.log(err);
+        return res.status(503).end();
+    }
 })
 
 /*Infinite request inside setTransportNote in RestockOrderDao */
@@ -116,7 +140,7 @@ router.put('/restockOrder/:id/transportNote', async (req, res) => {
             return res.status(404).end();
         }
 
-        return res.status(200).end;
+        return res.status(200).end();
     } catch (err) {
         return res.status(503).end();
     }

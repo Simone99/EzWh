@@ -13,6 +13,11 @@ class restockOrder {
 		this.state = state;
 		this.userID = userID;
 		this.transportNote = transportNote;
+		this.SKUItemsList = [];
+	}
+
+	getID() {
+		return this.id;
 	}
 
 	addRestockOrderItem(item, quantity) {
@@ -69,14 +74,14 @@ class restockOrder {
 		return;
 	}
 
-	getSKUItemsToBeReturned() {
+	getSKUItems() {
 		//need to know the return order associated with this restock order if there is any
 		//so added a property to include the return order
 		// In the return order class need to a method returnOrder.getSKUitemsList()
 		return this.returnOrder.getSKUItemsList();
 	}
 
-	addSKUItems(SKUitem) {
+	addSKUItem(SKUitem) {
 		this.SKUItemsList.push(SKUitem);
 		return;
 	}
@@ -85,7 +90,7 @@ class restockOrder {
 		return this.SKUItemsList;
 	}
 
-	getState(){
+	getState() {
 		return this.state;
 	}
 

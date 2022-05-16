@@ -129,12 +129,12 @@ class DAO {
         return await this.RestockOrderDAO.getAllRestockOrdersIssued();
     }
 
-    async getRestockOrderByID(ID) {
-        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ID);
-        if (RestockOrder == undefined) {
+    async getRestockOrderByID(ID) {        
+        const RestockOrderDB = await this.RestockOrderDAO.getRestockOrderByID(ID);
+        if (RestockOrderDB === undefined) {
             return 404;
         }
-        if (ID < 0) {
+        if (ID < 0 || RestockOrderDB === 422) {
             return 422;
         }
         return await this.RestockOrderDAO.getAllRestockOrdersIssued(ID);
@@ -153,6 +153,10 @@ class DAO {
 
     async addRestockOrder(restockOrder) {
         return await this.RestockOrderDAO.addRestockOrder(restockOrder);
+    }
+
+    async addSKUItemsToRestockOrder(ResOrderID, SKUItems) {
+        return await this.RestockOrderDAO.addSKUItemsToRestockOrder(ResOrderID, SKUItems);
     }
     
     async addIssuedRestockOrder(restockOrder){
