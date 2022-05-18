@@ -7,7 +7,7 @@ class ItemDAO{
         this.db = db;
     }
 
-    async addItem(item) {
+    addItem(item) {
         return new Promise((resolve, reject) => {
             const sql = "INSERT INTO ITEM_TABLE(DESCRIPTION, PRICE, USERID, SKUID) VALUES(?,?,?,?)";
             this.db.run(sql, [item.getDescription(), item.getPrice(), item.getSupplierId(), item.getSKUId()], err => {
@@ -50,6 +50,24 @@ class ItemDAO{
                 }else{
                     resolve(new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID));
                 }
+            });
+        });
+    }
+
+    getItemIDByProperties(description, price, userID, SKUID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT ID FROM ITEM_TABLE " +
+                        "WHERE DESCRIPTION = ? AND PRICE = ? AND USERID = ? AND SKUID = ?";
+            this.db.get(sql, [description, price, userID, SKUID], (err, row) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                if(row === undefined){
+                    resolve(undefined);
+                    return;
+                }
+                resolve(row.ID);
             });
         });
     }

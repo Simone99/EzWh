@@ -30,7 +30,6 @@ class Warehouse {
         await this.DAO.deletePosition(positionID);
     }
 
-    //TODO: modify parameters in the design document
     async editPositionID(oldPositionID, position) {
         return await this.DAO.editPositionID(oldPositionID, position);
     }
@@ -40,7 +39,6 @@ class Warehouse {
     }
 
 
-    //TODO: check for filters, they are not needed concerning the APIs
     async printPositionList() {
         return await this.DAO.getAllPositions();
     }
@@ -50,7 +48,6 @@ class Warehouse {
         return await this.DAO.addTestDescriptor(name, description, SKUID);
     }
 
-    //TODO: insert alla the parameters inside the class diagram
     async editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId) {
         return await this.DAO.editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId);
     }
@@ -69,12 +66,10 @@ class Warehouse {
 
 
     async getReturnOrderList() {
-        return this.DAO.getReturnOrderList();
+        return await this.DAO.getReturnOrderList();
     }
 
-    //TODO: rename parameter
     async getReturnOrder(returnOrderID) {
-        //TODO: add getReturnOrder
         return await this.DAO.getReturnOrder(returnOrderID);
     }
 
@@ -155,7 +150,7 @@ class Warehouse {
     }
 
     async addTestResult(rfid, idTestDescriptor, Date, Result) {
-        await this.DAO.addTestResult(rfid, idTestDescriptor, Date, Result);
+        return await this.DAO.addTestResult(rfid, idTestDescriptor, Date, Result);
     }
 
     async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
@@ -186,8 +181,8 @@ class Warehouse {
         await this.DAO.deleteItem(id);
     }
 
-    async addRestockOrder(restockOrder) {
-        return await this.DAO.addRestockOrder(restockOrder);
+    async addRestockOrder(issueDate, products, supplierId) {
+        return await this.DAO.addRestockOrder(issueDate, products, supplierId);
     }
 
     async getRestockOrderByID(restockOrderID) {
@@ -203,7 +198,7 @@ class Warehouse {
     }
 
     async editRestockOrderState(restockOrderID, newState) {
-        return await this.DAO.editState(restockOrderID, newState);
+        return await this.DAO.editRestockOrderState(restockOrderID, newState);
     }
 
     async deleteRestockOrder(restockOrderID) {
@@ -214,10 +209,13 @@ class Warehouse {
         return await this.DAO.getSKUItemsWithNegTest(ResOrderID);
     }
 
-    async setTransportNote(ResOrderID, tNote) {
-        return await this.DAO.setTransportNote(ResOrderID,tNote);
+    async editRestockOrderTransportNote(ResOrderID, tNote) {
+        return await this.DAO.editRestockOrderTransportNote(ResOrderID,tNote);
     }
 
+    async editRestockOrderSkuItems(restockOrderID, skuItems){
+        return await this.DAO.editRestockOrderSkuItems(restockOrderID, skuItems);
+    }
 }
 
 module.exports = Warehouse;

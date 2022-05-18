@@ -14,16 +14,17 @@ class TestResultDAO{
                         " ON (TESTRESULTSKUITEM_LIST.ID_TESTRESULT = TESTRESULT_TABLE.ID)"
                         +
                         " WHERE TESTRESULTSKUITEM_LIST.ID_SKUITEM = ?";
-            this.db.get(sql, [RFID], (err, row) => {
+
+            this.db.all(sql, [RFID], (err, rows) => {
                 if(err){
                     reject(err);
                     return;
                 }
-                if(row === undefined){
-                    resolve(404);
+                if(rows === undefined){
+                    resolve(undefined);
                     return;
                 }
-                const testResult = new TestResult(row.DESCRPITION, row.RESULT, row.DATE_, row.ID);
+                const testResult = rows.map(row => new TestResult(row.DESCRPITION, row.RESULT, row.DATE_, row.ID));
                 resolve(testResult);
             });
         });
@@ -45,7 +46,7 @@ class TestResultDAO{
                     resolve(404);
                     return;
                 }
-                const testResult = new TestResult(row.DATE_, row.RESULT, row.DESCRPITION, row.ID);
+                const testResult = new TestResult(row.DESCRPITION, row.RESULT, row.DATE_, row.ID);
                 resolve(testResult);
             });
         });
@@ -54,20 +55,11 @@ class TestResultDAO{
     addTestResult(rfid, idTestDescriptor, Date, Result) {
         return new Promise((resolve, reject) => {
             const sql = "INSERT INTO TESTRESULT_TABLE(DATE_, RESULT, DESCRIPTION) VALUES(?,?,?) ";
-            this.db.run(sql, [Date, Result, idTestDescriptor], err => {
+            this.db.run(sql, [Date, Result, idTestDescriptor], function(err) {
                 if(err){
                     reject(err);
                 }else{
-                    const sql = "SELECT last_insert_rowid()";
-                    this.db.get(sql, [], (err, row) => {
-                        if(err){
-                            reject(err);
-                            return;
-                        }
-                        console.log(row);
-                        const testResult = new TestResult(row.ID, Date, Result, idTestDescriptor);
-                        resolve(testResult);
-                    });
+                    resolve(this.lastID);
                 }
             });
         });

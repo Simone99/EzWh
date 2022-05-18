@@ -1,7 +1,6 @@
-const dayjs = require("dayjs");
 class TransportNote{
-    constructor(TransportNote){
-        this.shipmentDate = TransportNote;
+    constructor(deliveryDate){
+        this.deliveryDate = deliveryDate;
     }
 }
 

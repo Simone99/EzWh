@@ -50,6 +50,7 @@ router.post('/skuitems/testResult', async (req, res) => {
       }
       return res.status(201).end();
     }catch(err){
+      console.log(err);
       return res.status(500).end();
     }
 });

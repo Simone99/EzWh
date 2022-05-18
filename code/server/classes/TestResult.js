@@ -7,6 +7,9 @@ class testResult {
 		this.result = result;
 	}
 
+	getResult(){
+		return this.result;
+	}
 }
 
 module.exports = testResult;

@@ -122,66 +122,127 @@ class DAO {
     }
 
     async getAllRestockOrders() {
-        return await this.RestockOrderDAO.getAllRestockOrders();
+        const restockOrderList = await this.RestockOrderDAO.getAllRestockOrders();
+        if(restockOrderList.length > 0){
+            for(let ro of restockOrderList){
+                const currentState = ro.getState();
+                if(currentState !== "ISSUED"){
+                    const deliveryDate = await this.RestockOrderDAO.getTransportNoteByID(ro.getTransportNote());
+                    ro.setTransportNote({"deliveryDate":deliveryDate});
+                }
+                if(currentState !== "DELIVERY" && currentState !== "ISSUED"){
+                    const skuItems = await this.SKUItemDAO.getSKUItemByRestockOrder(ro.getID());
+                    ro.addSKUItems(skuItems);
+                }
+                const products = await this.RestockOrderDAO.getRestockOrderProducts(ro.getID());
+                ro.addProducts(products);
+            }
+        }
+        return restockOrderList;
     }
 
     async getAllRestockOrdersIssued() {
-        return await this.RestockOrderDAO.getAllRestockOrdersIssued();
+        const restockOrderList = await this.RestockOrderDAO.getAllRestockOrdersIssued();
+        if(restockOrderList.length > 0){
+            for(let ro of restockOrderList){
+                const products = await this.RestockOrderDAO.getRestockOrderProducts(ro.getID());
+                ro.addProducts(products);
+            }
+        }
+        return restockOrderList;
     }
 
     async getRestockOrderByID(ID) {
-        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ID);
-        if (RestockOrder == undefined) {
+        const ro = await this.RestockOrderDAO.getRestockOrderByID(ID);
+        if (ro == undefined) {
             return 404;
         }
-        if (ID < 0) {
-            return 422;
+        const currentState = ro.getState();
+        if(currentState !== "ISSUED"){
+            const deliveryDate = await this.RestockOrderDAO.getTransportNoteByID(ro.getTransportNote());
+            ro.setTransportNote({"deliveryDate":deliveryDate});
         }
-        return await RestockOrder;
+        if(currentState !== "DELIVERY" && currentState !== "ISSUED"){
+            const skuItems = await this.SKUItemDAO.getSKUItemByRestockOrder(ro.getID());
+            ro.addSKUItems(skuItems);
+        }
+        const products = await this.RestockOrderDAO.getRestockOrderProducts(ro.getID());
+        ro.addProducts(products);
+
+        return ro;
     }
 
     async getSKUItemsWithNegTest(ResOrderID) {
-        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
-        if (RestockOrder == undefined) {
+        const restockOrder = await this.getRestockOrderByID(ResOrderID);
+        if (restockOrder == undefined) {
             return 404;
         }
-
-        return await this.RestockOrderDAO.getSKUItemsWithNegTest(ResOrderID);
+        if(restockOrder.getState() !== "COMPLETEDRETURN"){
+            return 422;
+        }
+        const skuItemList = restockOrder.getAllSKUItems();
+        const returnValue =  [];
+        if(skuItemList.length > 0){
+            for(let skuItem of skuItemList){
+                console.log(skuItem);
+                const testResults = await this.TestResultDAO.getTestResultsByRFID(skuItem.rfid);
+                if(testResults.every(tr => tr.getResult() == false)){
+                    returnValue.push(skuItem);
+                }
+            }
+        }
+        return returnValue;
     }
 
-    async addRestockOrder(restockOrder) {
-        return await this.RestockOrderDAO.addRestockOrder(restockOrder);
+    async addRestockOrder(issueDate, products, supplierId) {
+        const ID = await this.RestockOrderDAO.addRestockOrder(issueDate, "ISSUED", supplierId);
+        console.log(ID);
+        if(products.length > 0){
+            console.log(products);
+            for(let prod of products){
+                const itemID = await this.ItemDAO.getItemIDByProperties(prod.description, prod.price, supplierId, prod.SKUId);
+                console.log(itemID);
+                if(itemID !== undefined){
+                    const restockOrderItemID = await this.RestockOrderDAO.addRestockOrderItem(itemID, prod.qty);
+                    if(restockOrderItemID !== undefined){
+                        await this.RestockOrderDAO.addRestockOrderItemToList(ID, restockOrderItemID);
+                    }
+                }
+            }
+        }
     }
     
     async addIssuedRestockOrder(restockOrder){
         return await this.RestockOrderDAO.addIssuedRestockOrder(restockOrder);
     }
 
-    async editState(ResOrderID, newState) {
-        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
-        if (RestockOrder == undefined) {
-            return 404;
-        }
-        return await this.RestockOrderDAO.editState(ResOrderID, newState);
+    async editRestockOrderState(ResOrderID, newState) {
+        return await this.RestockOrderDAO.editRestockOrderState(ResOrderID, newState);
     }
 
-    async addSKUItemsList(ResOrderID, SKUItemsList) {
-        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
-        if (RestockOrder == undefined) {
+    async editRestockOrderSkuItems(restockOrderID, SKUItemsList) {
+        const restockOrder = await this.RestockOrderDAO.getRestockOrderByID(restockOrderID);
+        if (restockOrder === undefined) {
             return 404;
         }
-        return await this.RestockOrderDAO.addSKUItemsList(ResOrderID, SKUItemsList);
-    }
-
-    async setTransportNote(ResOrderID, tNote) {
-        const RestockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
-        if (RestockOrder == undefined) {
-            return 404;
-        }
-        if (RestockOrder.getState() != "DELIVERY") {
+        if(restockOrder.getState() !== "DELIVERED"){
             return 422;
         }
-        return await this.RestockOrderDAO.setTransportNote(ResOrderID, tNote);
+        for(let skuItem of SKUItemsList){
+            await this.RestockOrderDAO.editRestockOrderSkuItems(restockOrderID, skuItem.rfid);
+        }
+    }
+
+    async editRestockOrderTransportNote(ResOrderID, tNote) {
+        const restockOrder = await this.RestockOrderDAO.getRestockOrderByID(ResOrderID);
+        if (restockOrder === undefined) {
+            return 404;
+        }
+        if (restockOrder.getState() !== "DELIVERY" || restockOrder.getIssueDate() && dayjs(tNote.deliveryDate).isBefore(dayjs(restockOrder.getIssueDate()))) {
+            return 422;
+        }
+        const transportNoteID = await this.RestockOrderDAO.addTransportNote(tNote.deliveryDate);
+        return await this.RestockOrderDAO.editRestockOrderTransportNote(ResOrderID, transportNoteID);
     }
 
     async deleteRestockOrder(ResOrderID) {
@@ -225,6 +286,10 @@ class DAO {
     }
 
     async getTestResultsByRFID(RFID) {
+        const skuItem = await this.SKUItemDAO.getSKUItemByRFID(RFID);
+        if(skuItem === 404){
+            return 404;
+        }
         return await this.TestResultDAO.getTestResultsByRFID(RFID);
     }
 
@@ -277,8 +342,8 @@ class DAO {
         if (TestDescriptorxRFID === 404) {
             return 404;
         }
-        await this.TestResultDAO.addTestResult(rfid, idTestDescriptor, Date, Result);
-        await this.TestResultDAO.addTestResultxSKUitem(rfid, idTestDescriptor);
+        const testResultID = await this.TestResultDAO.addTestResult(rfid, idTestDescriptor, Date, Result);
+        await this.TestResultDAO.addTestResultxSKUitem(rfid, testResultID);
     }
 
     async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
