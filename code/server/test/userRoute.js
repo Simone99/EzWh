@@ -11,16 +11,19 @@ describe('Test User APIs', () => {
     before(async() => {
         await resetDB('./EZWarehouseDB.db');
     });
-    testGetSuppliers(200);
     testNewUser(422, "s295316@studenti.polito.it", "Simone", "Zanella", "DioMattone", "manager");
     testNewUser(201, "s295316@studenti.polito.it", "Simone", "Zanella", "DioMattone", "supplier");
+    testGetSuppliers(200, [{id:1, name : "Simone", surname : "Zanella", email:"s295316@studenti.polito.it"}]);
     testNewUser(409, "s295316@studenti.polito.it", "Simone", "Zanella", "DioMattone", "supplier");
 });
 
-function testGetSuppliers(expectedHTTPStatus){
+function testGetSuppliers(expectedHTTPStatus, expected){
     it('Getting suppliers', done => {
         agent.get('/api/suppliers').then(res => {
             res.should.have.status(expectedHTTPStatus);
+            /*console.log(res.body);
+            console.log(expected);*/
+            res.body.should.equal(expected);
             done();
         });
     });
