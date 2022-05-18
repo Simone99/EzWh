@@ -45,7 +45,14 @@ class RestockOrderDAO {
                     reject(err);
                     return;
                 }
-                if (row == undefined) {
+                if (row.STATE !== "DELIVERED") {
+                    console.log(row.STATE);
+                    resolve(422);
+                    return;
+                }
+                console.log('!');
+
+                if (row === undefined) {
                     resolve(undefined);
                 } else {
                     resolve(new RestockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE));

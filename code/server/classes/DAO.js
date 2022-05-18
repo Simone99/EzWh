@@ -211,6 +211,10 @@ class DAO {
             }
         }
     }
+
+    async addSKUItemsToRestockOrder(ResOrderID, SKUItems) {
+        return await this.RestockOrderDAO.addSKUItemsToRestockOrder(ResOrderID, SKUItems);
+    }
     
     async addIssuedRestockOrder(restockOrder){
         return await this.RestockOrderDAO.addIssuedRestockOrder(restockOrder);

@@ -13,8 +13,12 @@ hashCode = function(s) {
 };
 
 router.get('/users', async (req, res) => {
+  try{
   const users = await new Warehouse().getUserList();
   return res.status(200).json(users);
+}catch(err){
+  return res.status(500).end();
+}
 });
 
 router.post('/newUser', async (req, res) => {
@@ -29,7 +33,7 @@ router.post('/newUser', async (req, res) => {
     return res.status(422).end();
   }
   try{
-    const tmp = await new Warehouse().addUser(new User(req.body.name, req.body.surname, req.body.type, req.body.username, hashCode(req.body.password), null));
+    const tmp = await new Warehouse().addUser(new User(req.body.name, req.body.surname, req.body.type, req.body.username, hashCode(req.body.password)));
     if (tmp === 409) {
       return res.status(409).end();
     }
@@ -40,16 +44,20 @@ router.post('/newUser', async (req, res) => {
 });
 
 router.get('/suppliers', async (req, res) => {
+  try{
   const suppliers = await new Warehouse().getSupplierList();
   return res.status(200).json(suppliers);
+}catch(err){
+  return res.status(500).end();
+}
 });
 
 router.put('/users/:username', async (req, res) => {
   if(!req.body.hasOwnProperty('oldType') ||
     !req.body.hasOwnProperty('newType') ||
     !req.params.hasOwnProperty('username') ||
-    req.body.oldType == 'manager' ||
-    req.body.oldType == 'administrator') {
+    req.body.newType == 'manager' ||
+    req.body.newType == 'administrator') {
     return res.status(422).end();
   }
   try{
@@ -66,8 +74,8 @@ router.put('/users/:username', async (req, res) => {
 router.delete('/users/:username/:type', async (req, res) => {
   if(!req.params.hasOwnProperty('type') ||
     !req.params.hasOwnProperty('username') ||
-    req.body.type == 'manager' ||
-    req.body.type == 'administrator') {
+    req.params.type == 'manager' ||
+    req.params.type == 'administrator') {
     return res.status(422).end();
   }
   try{
@@ -90,6 +98,8 @@ router.post('/managerSessions', [check('username').isEmail(), check('password').
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -110,6 +120,8 @@ router.post('/customerSessions', [check('username').isEmail(), check('password')
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -130,6 +142,8 @@ router.post('/supplierSessions', [check('username').isEmail(), check('password')
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -150,6 +164,8 @@ router.post('/clerkSessions', [check('username').isEmail(), check('password').is
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -170,6 +186,8 @@ router.post('/qualityEmployeeSessions', [check('username').isEmail(), check('pas
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });
@@ -190,6 +208,8 @@ router.post('/deliveryEmployeeSessions', [check('username').isEmail(), check('pa
     }
     return res.status(200).json({
       id : user.getId(),
+      name : user.getName(),
+      surname : user.getSurname(),
       username : user.getUsername(),
       password : user.getPassword()
     });

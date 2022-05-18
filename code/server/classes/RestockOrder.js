@@ -78,7 +78,7 @@ class restockOrder {
 		return this.SKUItems;
 	}
 
-	getState(){
+	getState() {
 		return this.state;
 	}
 

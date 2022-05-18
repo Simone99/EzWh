@@ -1,5 +1,6 @@
 var express = require('express');
 const restockOrder = require('../../classes/RestockOrder');
+const SKUItem = require('../../classes/SKUItem');
 var router = express.Router();
 const Warehouse = require('../../classes/Warehouse');
 
