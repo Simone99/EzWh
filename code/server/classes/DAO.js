@@ -10,9 +10,6 @@ const SKUDAO = require('./DAOs/SKUDAO');
 const SKUItemDAO = require('./DAOs/SKUItemDAO');
 const TestDescriptorDAO = require('./DAOs/TestDescriptorDAO');
 const TestResultDAO = require('./DAOs/TestResultDAO');
-const Position = require('./Position');
-const SKUItem = require('./SKUItem');
-const InternalOrderItem = require('./InternalOrderItem');
 class DAO {
 
     sqlite = require('sqlite3');
@@ -214,10 +211,6 @@ class DAO {
 
     async addSKUItemsToRestockOrder(ResOrderID, SKUItems) {
         return await this.RestockOrderDAO.addSKUItemsToRestockOrder(ResOrderID, SKUItems);
-    }
-    
-    async addIssuedRestockOrder(restockOrder){
-        return await this.RestockOrderDAO.addIssuedRestockOrder(restockOrder);
     }
 
     async editRestockOrderState(ResOrderID, newState) {
