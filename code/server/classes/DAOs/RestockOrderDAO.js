@@ -45,13 +45,6 @@ class RestockOrderDAO {
                     reject(err);
                     return;
                 }
-                if (row.STATE !== "DELIVERED") {
-                    console.log(row.STATE);
-                    resolve(422);
-                    return;
-                }
-                console.log('!');
-
                 if (row === undefined) {
                     resolve(undefined);
                 } else {
@@ -180,7 +173,7 @@ class RestockOrderDAO {
                     return;
                 }
                 const productsList = rows.map(row => {
-                    return{SKUId : row.SKUID, description : row.DESCRIPTION, price : row.PRICE, qty : row.QUANTITY};
+                    return { SKUId : row.SKUID, description : row.DESCRIPTION, price : row.PRICE, qty : row.QUANTITY };
                 });
                 resolve(productsList);
             });

@@ -14,7 +14,7 @@ class restockOrder {
 		this.supplierId = supplierId;
 		this.transportNote = transportNote;
 		this.products = [];
-		this.SKUItems = [];
+		this.skuItems = [];
 	}
 
 	addRestockOrderItem(item, quantity) {
@@ -71,11 +71,11 @@ class restockOrder {
 	}
 
 	addSKUItems(SKUitem) {
-		SKUitem.forEach(skuItem => this.SKUItems.push(skuItem));
+		SKUitem.forEach(skuItem => this.skuItems.push(skuItem));
 	}
 
 	getAllSKUItems() {
-		return this.SKUItems;
+		return this.skuItems;
 	}
 
 	getState() {
@@ -90,8 +90,8 @@ class restockOrder {
 		return this.id;
 	}
 
-	addProducts(products){
-		products.forEach(product => this.products.push(product));
+	addProducts(prods){
+		prods.forEach(product => this.products.push(product));
 	}
 }
 

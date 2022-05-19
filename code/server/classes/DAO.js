@@ -125,7 +125,9 @@ class DAO {
                 const currentState = ro.getState();
                 if(currentState !== "ISSUED"){
                     const deliveryDate = await this.RestockOrderDAO.getTransportNoteByID(ro.getTransportNote());
-                    ro.setTransportNote({"deliveryDate":deliveryDate});
+                    ro.setTransportNote(deliveryDate);
+                }else{
+                    delete ro.transportNote;
                 }
                 if(currentState !== "DELIVERY" && currentState !== "ISSUED"){
                     const skuItems = await this.SKUItemDAO.getSKUItemByRestockOrder(ro.getID());
@@ -144,6 +146,7 @@ class DAO {
             for(let ro of restockOrderList){
                 const products = await this.RestockOrderDAO.getRestockOrderProducts(ro.getID());
                 ro.addProducts(products);
+                delete ro.transportNote;
             }
         }
         return restockOrderList;
@@ -157,7 +160,9 @@ class DAO {
         const currentState = ro.getState();
         if(currentState !== "ISSUED"){
             const deliveryDate = await this.RestockOrderDAO.getTransportNoteByID(ro.getTransportNote());
-            ro.setTransportNote({"deliveryDate":deliveryDate});
+            ro.setTransportNote(deliveryDate);
+        }else{
+            delete ro.transportNote;
         }
         if(currentState !== "DELIVERY" && currentState !== "ISSUED"){
             const skuItems = await this.SKUItemDAO.getSKUItemByRestockOrder(ro.getID());
@@ -181,7 +186,6 @@ class DAO {
         const returnValue =  [];
         if(skuItemList.length > 0){
             for(let skuItem of skuItemList){
-                console.log(skuItem);
                 const testResults = await this.TestResultDAO.getTestResultsByRFID(skuItem.rfid);
                 if(testResults.every(tr => tr.getResult() == false)){
                     returnValue.push(skuItem);
@@ -193,12 +197,9 @@ class DAO {
 
     async addRestockOrder(issueDate, products, supplierId) {
         const ID = await this.RestockOrderDAO.addRestockOrder(issueDate, "ISSUED", supplierId);
-        console.log(ID);
         if(products.length > 0){
-            console.log(products);
             for(let prod of products){
                 const itemID = await this.ItemDAO.getItemIDByProperties(prod.description, prod.price, supplierId, prod.SKUId);
-                console.log(itemID);
                 if(itemID !== undefined){
                     const restockOrderItemID = await this.RestockOrderDAO.addRestockOrderItem(itemID, prod.qty);
                     if(restockOrderItemID !== undefined){
@@ -207,10 +208,6 @@ class DAO {
                 }
             }
         }
-    }
-
-    async addSKUItemsToRestockOrder(ResOrderID, SKUItems) {
-        return await this.RestockOrderDAO.addSKUItemsToRestockOrder(ResOrderID, SKUItems);
     }
 
     async editRestockOrderState(ResOrderID, newState) {

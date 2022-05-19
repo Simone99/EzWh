@@ -21,9 +21,7 @@ function testGetSuppliers(expectedHTTPStatus, expected){
     it('Getting suppliers', done => {
         agent.get('/api/suppliers').then(res => {
             res.should.have.status(expectedHTTPStatus);
-            /*console.log(res.body);
-            console.log(expected);*/
-            res.body.should.equal(expected);
+            expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });
     });
