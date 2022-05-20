@@ -106,6 +106,7 @@ router.put('/restockOrder/:id/skuItems', async (req, res) => {
         }
         return res.status(200).end();
     }catch(err){
+        console.log(err);
         return res.status(503).end();
     }
 })

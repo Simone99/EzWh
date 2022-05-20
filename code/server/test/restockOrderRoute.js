@@ -18,7 +18,6 @@ describe('Test RestockOrder APIs', () => {
     before(async() => {
         const localDAO = await resetDB('./EZWarehouseDB.db');
         await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
-        await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789015'));
         await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
         await localDAO.addItem(new Item("a new item", 10.99, 1, 1, 12));
         await localDAO.addTestDescriptor("test descriptor 3", "This test is described by...", 1);
@@ -61,6 +60,50 @@ describe('Test RestockOrder APIs', () => {
     testEditRestockOrderState(200, 1, "COMPLETEDRETURN");
     testReturnItems(200, 1, [{"SKUId":1,"rfid":"12345678901234567890123456789015"}]);
     testDeleteRestockOrder(204, 1);
+});
+
+describe('Testing UC5.1', () => {
+    before(async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+        await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
+        await localDAO.addItem(new Item("a new item", 10.99, 1, 1, 12));
+        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
+        await localDAO.editRestockOrderState(1, "DELIVERY");
+    });
+    testEditRestockOrderState(200, 1, "DELIVERED");
+    testEditRestockOrderSkuItems(200, 1, [{rfid : '12345678901234567890123456789015', SKUId : 1}]);
+
+});
+
+describe('Testing UC5.2', () => {
+    before(async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+        await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
+        await localDAO.addItem(new Item("a new item", 10.99, 1, 1, 12));
+        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
+        await localDAO.editRestockOrderState(1, "DELIVERED");
+        await localDAO.editRestockOrderSkuItems(1, [{rfid : '12345678901234567890123456789015', SKUId : 1}]);
+        await localDAO.addTestDescriptor("test descriptor 3", "This test is described by...", 1);
+    });
+    testAddTestResult(201, '12345678901234567890123456789015', 1, "2021/11/28", false);
+    testEditRestockOrderState(200, 1, "TESTED");
+});
+
+describe('Testing UC5.3', () => {
+    before(async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+        await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
+        await localDAO.addItem(new Item("a new item", 10.99, 1, 1, 12));
+        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
+        await localDAO.editRestockOrderState(1, "DELIVERED");
+        await localDAO.editRestockOrderSkuItems(1, [{rfid : '12345678901234567890123456789015', SKUId : 1}]);
+        await localDAO.addTestDescriptor("test descriptor 3", "This test is described by...", 1);
+        await localDAO.addPosition(800234543412, 8002, 3454, 3412, 1000, 1000);
+    });
+    //TODO
 });
 
 function testNewRestockOrder(expectedHTTPStatus, issueDate, products, supplierId){
@@ -163,4 +206,13 @@ function testDeleteRestockOrder(expectedHTTPStatus, ID){
             })
         });
     });
+}
+
+function testAddTestResult(expectedHTTPStatus, rfid, idTestDescriptor, Date, Result){
+    it('Adding a test result to an SKU', done => {
+        agent.post('/api/skuitems/testResult').send({rfid:rfid, idTestDescriptor:idTestDescriptor, Date:Date, Result:Result}).then(res => {
+            res.should.have.status(expectedHTTPStatus);
+            done();
+        });
+    })
 }

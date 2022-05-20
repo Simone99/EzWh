@@ -1,8 +1,9 @@
 const SKU = require("./SKU");
 class InternalOrderItem{
-    constructor(SKU, qty){
+    constructor(SKU, qty, description){
         this.SKUObj = SKU;
         this.qty = qty;
+        this.description = description;
     }
 
     getSKU() {
@@ -11,6 +12,10 @@ class InternalOrderItem{
 
     getQuantity() {
         return this.qty;
+    }
+
+    getDescription(){
+        return this.description;
     }
 }
 

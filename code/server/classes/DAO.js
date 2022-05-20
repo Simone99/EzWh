@@ -10,6 +10,7 @@ const SKUDAO = require('./DAOs/SKUDAO');
 const SKUItemDAO = require('./DAOs/SKUItemDAO');
 const TestDescriptorDAO = require('./DAOs/TestDescriptorDAO');
 const TestResultDAO = require('./DAOs/TestResultDAO');
+const SKUItem = require('./SKUItem');
 class DAO {
 
     sqlite = require('sqlite3');
@@ -223,6 +224,7 @@ class DAO {
             return 422;
         }
         for(let skuItem of SKUItemsList){
+            await this.SKUItemDAO.addSKUItem(new SKUItem(skuItem.SKUId, 1, dayjs().format(), skuItem.rfid));
             await this.RestockOrderDAO.editRestockOrderSkuItems(restockOrderID, skuItem.rfid);
         }
     }
@@ -413,10 +415,15 @@ class DAO {
             return undefined;
         }
         for(let order of orders) {
-        const items = await this.InternalOrderDAO.getInternalOrderItems(order.getID());
-        order.setProductsList(items);
+            let items;
+            if(order.getState() === 'COMPLETED'){
+                items = await this.InternalOrderDAO.getCompletedProducts(order.getID());
+            }else{
+                items = await this.InternalOrderDAO.getInternalOrderItems(order.getID());
+            }
+            order.setProductsList(items);
         }
-        return (orders);
+        return orders;
     }
 
     async getInternalOrdersIssuedList() {
@@ -425,8 +432,8 @@ class DAO {
             return undefined;
         }
         for(let order of orders) {
-        const items = await this.InternalOrderDAO.getInternalOrderItems(order.getID());
-        order.setProductsList(items);
+            const items = await this.InternalOrderDAO.getInternalOrderItems(order.getID());
+            order.setProductsList(items);
         }
         return (orders);
     }
@@ -437,8 +444,8 @@ class DAO {
             return undefined;
         }
         for(let order of orders) {
-        const items = await this.InternalOrderDAO.getInternalOrderItems(order.getID());
-        order.setProductsList(items);
+            const items = await this.InternalOrderDAO.getInternalOrderItems(order.getID());
+            order.setProductsList(items);
         }
         return (orders);
     }
@@ -448,7 +455,12 @@ class DAO {
         if (order === undefined) {
             return undefined;
         }
-        const items = await this.InternalOrderDAO.getInternalOrderItems(internalOrderID);
+        let items;
+        if(order.getState() === 'COMPLETED'){
+            items = await this.InternalOrderDAO.getCompletedProducts(internalOrderID);
+        }else{
+            items = await this.InternalOrderDAO.getInternalOrderItems(internalOrderID);
+        }
         order.setProductsList(items);
         return (order);
     }
@@ -459,11 +471,11 @@ class DAO {
             return 404;
         }
         for(let item of internalOrderItemList){
-            const SKU = await this.SKUDAO.getSKUByID(item.SKUObj.id);
-            if (item.qty < SKU.getAvailableQuantity()) {
+            const SKUObj = await this.SKUDAO.getSKUByID(item.SKUId);
+            if (item.qty < SKUObj.getAvailableQuantity()) {
                 const itemInserted = await this.InternalOrderDAO.addInternalOrderItem(item);
-                await this.updateSKU(SKU.getId(), SKU.getDescription(), SKU.getWeight(), SKU.getVolume(), SKU.getNotes(), SKU.getPrice(), SKU.getAvailableQuantity()-item.qty);
-                const itemxorderInserted = await this.InternalOrderDAO.addInternalOrderItemxInternalOrder(itemInserted, idReturned);
+                await this.updateSKU(SKUObj.getId(), SKUObj.getDescription(), SKUObj.getWeight(), SKUObj.getVolume(), SKUObj.getNotes(), SKUObj.getPrice(), SKUObj.getAvailableQuantity()-item.qty);
+                await this.InternalOrderDAO.addInternalOrderItemxInternalOrder(itemInserted, idReturned);
             } else {
                 return 422;
             }
@@ -471,24 +483,17 @@ class DAO {
     }
 
     async editInternalOrder(internalOrderID, newState, products) {
-        const idReturned = await this.InternalOrderDAO.editInternalOrder(internalOrderID, newState);
-        if (idReturned === undefined) {
-            console.log('suca');
-
+        const changes = await this.InternalOrderDAO.editInternalOrder(internalOrderID, newState);
+        if (changes === 0) {
             return 422;
         }
-        console.log('ciao');
         if (newState === 'COMPLETED') {
             for(let product of products) {
-                console.log('ciao');
-
-                console.log(product);
-                //const items = await this.InternalOrderDAO.addRFIDToInternalOrderItems(order.getID());
+                await this.InternalOrderDAO.addRFIDToInternalOrderItems(internalOrderID, product.SkuID, product.RFID);
+                const skuItem = await this.SKUItemDAO.getSKUItemByRFID(product.RFID);
+                await this.SKUItemDAO.editSKUItem(product.RFID, 0, skuItem.getDateOfStock(), product.RFID);
             }
         }
-        console.log('ciao');
-
-        return 0;
     }
 
     async deleteInternalOrder(internalOrderID) {

@@ -4,7 +4,7 @@ class InternalOrder {
         this.id = id;
         this.issueDate = issueDate;
         this.state = state;
-        this.customerID = customerID;
+        this.customerId = customerID;
         this.products = [];
     }
 
@@ -13,7 +13,7 @@ class InternalOrder {
     }
 
     getCustomerID() {
-        return this.customerID;
+        return this.customerId;
     }
 
     getIssueDate() {

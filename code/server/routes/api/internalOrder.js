@@ -45,7 +45,6 @@ router.get('/internalOrders/:id', async (req, res) => {
         }
         return res.status(200).json(result);
     } catch (err) {
-        console.log(err);
         return res.status(500).end();
     }
 })
@@ -58,9 +57,7 @@ router.post('/internalOrders', async (req, res) => {
     return res.status(422).end();
     }
     try{
-        const internalOrderItemList = [];
-        req.body.products.forEach(internalOrderItem => internalOrderItemList.push(new InternalOrderItem(new SKU(internalOrderItem.description, 0, 0, internalOrderItem.price, null, null, internalOrderItem.SKUId, 0), internalOrderItem.qty)));
-        const result = await new Warehouse().addInternalOrder(req.body.issueDate, internalOrderItemList, req.body.customerId);
+        const result = await new Warehouse().addInternalOrder(req.body.issueDate, req.body.products, req.body.customerId);
         if(result === 422){
             return res.status(404).end();
         }

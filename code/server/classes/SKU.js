@@ -20,7 +20,7 @@ class SKU {
 		this.availableQuantity = availableQuantity;
 	}
 
-	getId () {
+	getId() {
 		return this.id;
 	}
 	

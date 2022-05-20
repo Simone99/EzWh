@@ -13,7 +13,6 @@ class Inventory{
     }
 
     async addSKU(item){
-        console.log(item);
         await this.DAO.insertSKU(item);
     }
 

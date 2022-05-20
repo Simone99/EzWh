@@ -78,7 +78,7 @@ class InternalOrderDAO {
 
     getInternalOrderItems(internalOrderID){
         return new Promise((resolve, reject) => {
-            const sql = "SELECT SKU_TABLE.ID, SKU_TABLE.DESCRIPTION, SKU_TABLE.PRICE, INTERNALORDERITEM_TABLE.QUANTITY "
+            const sql = "SELECT SKU_TABLE.ID, INTERNALORDERITEM_TABLE.DESCRIPTION, SKU_TABLE.PRICE, INTERNALORDERITEM_TABLE.QUANTITY "
                         +
                         "FROM INTERNALORDERITEMS_LIST, INTERNALORDERITEM_TABLE, SKU_TABLE "
                         +
@@ -89,11 +89,11 @@ class InternalOrderDAO {
                         "AND INTERNALORDERITEMS_LIST.ID_INTERNALORDER = ?";
             this.db.all(sql, [internalOrderID], (err, rows) => {
                 if(err){
-                    reject(500);
+                    reject(err);
                     return;
                 }
                 const items = rows.map(row => {
-                    return row;
+                    return {SKUId : row.ID, description : row.DESCRIPTION, price : row.PRICE, qty : row.QUANTITY};
                 });
                 resolve(items);
             });
@@ -115,8 +115,8 @@ class InternalOrderDAO {
 
     addInternalOrderItem(internalOrderItem) {
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO INTERNALORDERITEM_TABLE(SKUID, QUANTITY) VALUES (?,?)";
-            this.db.run(sql, [internalOrderItem.SKUObj.id, internalOrderItem.qty], function(err) {
+            const sql = "INSERT INTO INTERNALORDERITEM_TABLE(SKUID, QUANTITY, DESCRIPTION) VALUES (?,?,?)";
+            this.db.run(sql, [internalOrderItem.SKUId, internalOrderItem.qty, internalOrderItem.description], function(err) {
                 if(err){
                     reject(err);
                 }
@@ -144,22 +144,42 @@ class InternalOrderDAO {
                 if(err){
                     reject(err);
                 }else{
-                    console.log(this.changes);
-
                     resolve(this.changes);
                 }
             });
         });
     }
 
-    addRFIDToInternalOrderItems(products) {
+    addRFIDToInternalOrderItems(internalOrderID, SKUID, RFID) {
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO RFIDINTERNALORDERITEMS_LIST(SKUID, RFID) VALUES (?, ?)";
-            this.db.run(sql, [newState, internalOrderID], err => {
+            const sql = "INSERT INTO COMPLETEDINTERNALORDERITEMS_LIST(ID_INTERNALORDER, SKUID, RFID) VALUES (?,?,?)";
+            this.db.run(sql, [internalOrderID, SKUID, RFID], err => {
                 if(err){
                     reject(err);
                 }else{
                     resolve(this.lastID);
+                }
+            });
+        });
+    }
+
+    getCompletedProducts(internalOrderID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT SKUID, RFID FROM COMPLETEDINTERNALORDERITEMS_LIST WHERE ID_INTERNALORDER = ?";
+            this.db.all(sql, [internalOrderID], (err, rows) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                if(rows === undefined){
+                    resolve(undefined);
+                }else{
+                    const products = rows.map(row => {
+                        row['SkuID'] = row['SKUID'];
+                        delete row['SKUID'];
+                        return row;
+                    });
+                    resolve(products);
                 }
             });
         });
