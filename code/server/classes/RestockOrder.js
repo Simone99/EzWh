@@ -5,14 +5,16 @@ const RestockOrderItem = require("./RestockOrderItem");
 const TransportNote = require("./TransportNote");
 const Item = require('./Item');
 const SKUItem = require('./SKUItem');
+
 class restockOrder {
-	constructor(id, state, userID, transportNote) {
+	constructor(id, issueDate, state, supplierId, transportNote) {
 		this.id = id;
-		this.issueDate = dayjs();
-		this.deliveryDate = null;
+		this.issueDate = issueDate;
 		this.state = state;
-		this.userID = userID;
+		this.supplierId = supplierId;
 		this.transportNote = transportNote;
+		this.products = [];
+		this.skuItems = [];
 	}
 
 	addRestockOrderItem(item, quantity) {
@@ -58,8 +60,7 @@ class restockOrder {
 	}
 
 	setTransportNote(tNote) {
-		//in the TransportNote class need methods to add shipmentDate and editNote
-		this.transportNote = new TransportNote(tNote);
+		this.transportNote = tNote;
 		return;
 	}
 
@@ -69,23 +70,15 @@ class restockOrder {
 		return;
 	}
 
-	getSKUItemsToBeReturned() {
-		//need to know the return order associated with this restock order if there is any
-		//so added a property to include the return order
-		// In the return order class need to a method returnOrder.getSKUitemsList()
-		return this.returnOrder.getSKUItemsList();
-	}
-
 	addSKUItems(SKUitem) {
-		this.SKUItemsList.push(SKUitem);
-		return;
+		SKUitem.forEach(skuItem => this.skuItems.push(skuItem));
 	}
 
 	getAllSKUItems() {
-		return this.SKUItemsList;
+		return this.skuItems;
 	}
 
-	getState(){
+	getState() {
 		return this.state;
 	}
 
@@ -93,10 +86,13 @@ class restockOrder {
 		return this.issueDate;
 	}
 
-	getDeliveryDate(){
-		return this.deliveryDate;
+	getID(){
+		return this.id;
 	}
 
+	addProducts(prods){
+		prods.forEach(product => this.products.push(product));
+	}
 }
 
 module.exports = restockOrder;

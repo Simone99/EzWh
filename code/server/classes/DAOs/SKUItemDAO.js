@@ -61,8 +61,8 @@ class SKUItemDAO{
 
     addSKUItem(skuItem){
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO SKUITEM_TABLE(RFID, SKUID, DATEOFSTOCK) VALUES(?,?,?)";
-            this.db.run(sql, [skuItem.getSKU_RFID(), skuItem.getSKUId(), skuItem.getDateOfStock()], err => {
+            const sql = "INSERT INTO SKUITEM_TABLE(RFID, AVAILABLE, SKUID, DATEOFSTOCK) VALUES(?,?,?,?)";
+            this.db.run(sql, [skuItem.getSKU_RFID(), 0, skuItem.getSKUId(), skuItem.getDateOfStock()], err => {
                 if(err){
                     reject(err);
                     return;
@@ -117,6 +117,22 @@ class SKUItemDAO{
                     return;
                 }
                 const skuItemList = rows.map(row => new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID));
+                resolve(skuItemList);
+            });
+        });
+    }
+
+    getSKUItemByRestockOrder(restockOrderID){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT SIT.RFID, SIT.SKUID " +
+                        "FROM SKUITEMSRESTOCKORDER_LIST AS SIROL, SKUITEM_TABLE AS SIT " +
+                        "WHERE SIROL.ID_SKUITEM = SIT.RFID AND SIROL.ID_RESTOCKORDER = ?";
+            this.db.all(sql, [restockOrderID], (err, rows) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                const skuItemList = rows.map(row => {return {SKUId : row.SKUID, rfid : row.RFID}});
                 resolve(skuItemList);
             });
         });

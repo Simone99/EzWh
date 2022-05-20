@@ -1,15 +1,12 @@
 var express = require('express');
 const restockOrder = require('../../classes/RestockOrder');
+const SKUItem = require('../../classes/SKUItem');
 var router = express.Router();
 const Warehouse = require('../../classes/Warehouse');
 
 router.get('/restockOrders', async (req, res) => {
     try {
         const restockorderslist = await new Warehouse().getRestockOrderList();
-
-        if (restockorderslist === 401) {
-            return res.status(401).end();
-        }
         return res.status(200).json(restockorderslist);
     } catch (err) {
         return res.status(500).end();
@@ -19,10 +16,6 @@ router.get('/restockOrders', async (req, res) => {
 router.get('/restockOrdersIssued', async (req, res) => {
     try {
         const restockordersissued = await new Warehouse().getAllRestockOrdersIssued();
-
-        if (restockordersissued === 401) {
-            return res.status(401).end();
-        }
         return res.status(200).json(restockordersissued);
     } catch (err) {
         return res.status(500).end();
@@ -49,14 +42,13 @@ router.get('/restockOrders/:id', async (req, res) => {
 })
 
 router.get('/restockOrders/:id/returnItems', async (req, res) => {
-    const restockorderSKUItemsList = await new Warehouse().getSKUItemsWithNegTest(req.params.id);
-
     if (isNaN(parseInt(req.params.id))) {
         return res.status(422).end();
     }
     try {
-        if (restockorderSKUItemsList === 401) {
-            return res.status(401).end();
+        const restockorderSKUItemsList = await new Warehouse().getSKUItemsWithNegTest(req.params.id);
+        if (restockorderSKUItemsList === 422) {
+            return res.status(422).end();
         }
         if (restockorderSKUItemsList === 404) {
             return res.status(404).end();
@@ -75,25 +67,24 @@ router.post('/restockOrder', async (req, res) => {
         return res.status(422).end();
     }
     try {
-        const result = await new Warehouse().addRestockOrder(new restockOrder(req.body.id, req.body.userID));
-        if (result === 422) {
-            return res.status(422).end();
-        }
+        await new Warehouse().addRestockOrder(req.body.issueDate, req.body.products, req.body.supplierId);
         return res.status(201).end();
     } catch (err) {
+        console.log(err);
         return res.status(503).end();
     }
 })
 
 router.put('/restockOrder/:id', async (req, res) => {
+    if(isNaN(parseInt(req.params.id) ||
+       !req.body.hasOwnProperty("newState"))){
+        return res.status(422).end();
+       }
     try {
         const tmp = await new Warehouse().editRestockOrderState(req.params.id, req.body.newState);
-        if (tmp === 422) {
-            return res.status(422).end();
-        } else if (tmp === 404) {
+        if (tmp === 0) {
             return res.status(404).end();
         }
-
         return res.status(200).end();
     } catch (err) {
         console.log(err);
@@ -102,23 +93,37 @@ router.put('/restockOrder/:id', async (req, res) => {
 })
 
 router.put('/restockOrder/:id/skuItems', async (req, res) => {
-    /*Completare*/
+    if(isNaN(parseInt(req.params.id)) ||
+       !req.body.hasOwnProperty("skuItems")){
+        return res.status(422).end();
+    }
+    try{
+        const result = await new Warehouse().editRestockOrderSkuItems(req.params.id, req.body.skuItems);
+        if(result === 404){
+            return res.status(404).end();
+        }else if(result === 422){
+            return res.status(422).end();
+        }
+        return res.status(200).end();
+    }catch(err){
+        return res.status(503).end();
+    }
 })
 
-/*Infinite request inside setTransportNote in RestockOrderDao */
 router.put('/restockOrder/:id/transportNote', async (req, res) => {
-    if(isNaN(parseInt(req.params.id))){
+    if(isNaN(parseInt(req.params.id)) ||
+       !req.body.hasOwnProperty("transportNote")){
         return res.status(422).end();
     }
     try {
-        const tmp = await new Warehouse().setTransportNote(req.params.id, req.body.transportNote);
+        const tmp = await new Warehouse().editRestockOrderTransportNote(req.params.id, req.body.transportNote);
         if (tmp === 422) {
             return res.status(422).end();
         } else if (tmp === 404) {
             return res.status(404).end();
         }
 
-        return res.status(200).end;
+        return res.status(200).end();
     } catch (err) {
         return res.status(503).end();
     }
