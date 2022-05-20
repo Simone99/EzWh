@@ -35,7 +35,7 @@ router.post('/testDescriptor', async (req, res) => {
     try{
         const result = await new Warehouse().addTestDescriptor(req.body.name, req.body.procedureDescription, req.body.idSKU);
         if(result === undefined){
-            res.status(404).end();
+            return res.status(404).end();
         }
         return res.status(201).end();
     }catch(err){
