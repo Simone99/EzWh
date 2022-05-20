@@ -48,7 +48,6 @@ router.get('/restockOrders/:id', async (req, res) => {
     }
 })
 
-/*has a problem*/
 router.get('/restockOrders/:id/returnItems', async (req, res) => {
     const restockorderSKUItemsList = await new Warehouse().getSKUItemsWithNegTest(req.params.id);
 
@@ -69,14 +68,17 @@ router.get('/restockOrders/:id/returnItems', async (req, res) => {
 
 })
 
-/*review the restock order class, supplierID*/
 router.post('/restockOrder', async (req, res) => {
     if (!req.body.hasOwnProperty('issueDate') ||
+        !req.body.hasOwnProperty('products') ||
         !req.body.hasOwnProperty('supplierId')) {
         return res.status(422).end();
     }
     try {
-        await new Warehouse().addRestockOrder(new restockOrder(req.body.id, req.body.userID));
+        const result = await new Warehouse().addRestockOrder(new restockOrder(req.body.id, req.body.userID));
+        if (result === 422) {
+            return res.status(422).end();
+        }
         return res.status(201).end();
     } catch (err) {
         return res.status(503).end();

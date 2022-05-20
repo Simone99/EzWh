@@ -41,6 +41,7 @@ router.post('/sku', async (req, res) => {
     await new Warehouse().getInventory().addSKU(new SKU(req.body.description, req.body.weight, req.body.volume, req.body.price, req.body.notes, null, null, req.body.availableQuantity));
     return res.status(201).end();
   }catch(err){
+    console.log(err);
     return res.status(503).end();
   }
 });

@@ -20,6 +20,10 @@ class SKU {
 		this.availableQuantity = availableQuantity;
 	}
 
+	getId () {
+		return this.id;
+	}
+	
 	getPosition() {
 		return this.pos;
 	}

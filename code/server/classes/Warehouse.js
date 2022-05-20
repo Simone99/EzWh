@@ -83,11 +83,11 @@ class Warehouse {
     }
 
     async deleteReturnOrder(returnOrderID) {
-        await await this.DAO.deleteReturnOrder(returnOrderID);
+        return await this.DAO.deleteReturnOrder(returnOrderID);
     }
 
-    async addInternalOrder(newInternlOrder) {
-        await await this.DAO.addInternalOrder(newInternlOrder);
+    async addInternalOrder(issueDate, internalOrderItemList, customerId) {
+        return await this.DAO.addInternalOrder(issueDate, internalOrderItemList, customerId);
     }
 
     async getInternalOrdersList() {
@@ -112,13 +112,6 @@ class Warehouse {
     }
 
     async editInternalOrder(internalOrderID, newState, products) {
-        this.internalOrderList = this.internalOrderList.map(io => {
-            if (io.getInternalOrderID() === internalOrderID) {
-                io.changeState(newState);
-                if (products !== undefined)
-                    io.addSKUItem(products);
-            }
-        });
         await this.DAO.editInternalOrder(internalOrderID, newState, products);
     }
 
