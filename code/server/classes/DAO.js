@@ -35,6 +35,10 @@ class DAO {
         return await this.PositionDAO.getAllPositions();
     }
 
+    async getPosition(positionID) {
+        return await this.PositionDAO.getPosition(positionID);
+    }
+
     async getAllSKUs() {
         return await this.SKUDAO.getAllSKUs();
     }
@@ -500,8 +504,8 @@ class DAO {
         await this.InternalOrderDAO.deleteInternalOrder(internalOrderID);
     }
 
-    async addPosition(positionID, aisle, row, col, weight, volume){
-        await this.PositionDAO.addPosition(positionID, aisle, row, col, weight, volume);
+    async addPosition(positionID, aisleID, row, col, weight, volume){
+        await this.PositionDAO.addPosition(positionID, aisleID, row, col, weight, volume);
     }
 
     async editPositionID(oldPositionID, position){
