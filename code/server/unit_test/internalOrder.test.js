@@ -5,8 +5,8 @@ const User = require('../classes/User');
 let DAO_test;
 
 describe('get internal orders', () => {
-    beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test.db');
+    beforeAll(async() => {
+        DAO_test = await resetDB('./EZWarehouseDB_test4.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789015'));
         await DAO_test.addUser(new User('Simone', 'Zanella', 'customer', 's295316@studenti.polito.it', 'testPassword'));

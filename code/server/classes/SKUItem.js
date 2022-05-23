@@ -2,26 +2,26 @@ const dayjs = require("dayjs");
 const TestResult = require("./TestResult");
 class SKUItem {
 	constructor(SKUid, available = false, dateOfStock = null, RFID = undefined) {
-		this.rfid = RFID;
-		this.available = available;
-		this.SKUid = SKUid;
-		this.dateOfStock = dateOfStock;
+		this.RFID = RFID;
+		this.Available = available;
+		this.SKUId = SKUid;
+		this.DateOfStock = dateOfStock;
 	}
 
 	isAvailable() {
-		return this.available;
+		return this.Available;
 	}
 
 	getSKUId() {
-		return this.SKUid;
+		return this.SKUId;
 	}
 
 	getSKU_RFID() {
-		return this.rfid;
+		return this.RFID;
 	}
 	
 	getDateOfStock(){
-		return this.dateOfStock;
+		return this.DateOfStock;
 	}
 
 }

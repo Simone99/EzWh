@@ -4,7 +4,7 @@ let DAO_test;
 
 describe("get user", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test1.db');
         await DAO_test.addUser(new User('Simone', 'Zanella', 'manager', 's295316@studenti.polito.it', 'DioMattone'));
         await DAO_test.addUser(new User('Alfredo', 'Paolino', 'manager', 'sXXXXXX@studenti.polito.it', 'DioCancro'));
     });
@@ -27,7 +27,7 @@ describe("get user", () => {
 
 describe("get users not managers", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test2.db');
         await DAO_test.addUser(new User('Simone', 'Zanella', 'manager', 's295316@studenti.polito.it', 'DioMattone'));
         await DAO_test.addUser(new User('Alfredo', 'Paolino', 'supplier', 'sXXXXXX@studenti.polito.it', 'DioCancro'));
     });
@@ -50,7 +50,7 @@ describe("get users not managers", () => {
 
 describe("get suppliers", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test3.db');
         await DAO_test.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'DioMattone'));
         await DAO_test.addUser(new User('Alfredo', 'Paolino', 'supplier', 'sXXXXXX@studenti.polito.it', 'DioCancro'));
     });

@@ -1,22 +1,19 @@
 class ReturnOrder{
 
-    dayjs = require('dayjs');
-    SKUItem = require('./SKUItem');
-
     constructor(id, r, state, returnDate = null){
         this.id = id;
-        this.restockOrder = r;
+        this.restockOrderId = r;
         this.state = state;
         this.returnDate = returnDate;
-        this.SKUItemList = [];
+        this.products = [];
     }
 
     getID(){
         return this.id;
     }
 
-    addSKUItem(s){
-        this.SKUItemList.push(s);
+    addSKUItem(products) {
+        products.forEach(product => this.products.push(product));
     }
 }
 

@@ -15,8 +15,32 @@ class ReturnOrderDAO{
                     reject(err);
                     return;
                 }
-                const roList = rows.map(row => new ReturnOrder(row.ID, row.RESTOCKORDER, null, row.STATE, row.RETURNDATE));
+                const roList = rows.map(row => new ReturnOrder(row.ID, row.RESTOCKORDER, null, row.RETURNDATE));
                 resolve(roList);
+            });
+        });
+    }
+    
+    getReturnOrderProducts(id){
+        return new Promise((resolve, reject) => {
+            const sql = "SELECT SKU_TABLE.ID, SKU_TABLE.DESCRIPTION, SKU_TABLE.PRICE, SKUITEM_TABLE.RFID "
+                        +
+                        "FROM SKU_TABLE, SKUITEMSRETURNORDER_LIST, RETURNORDER_TABLE, SKUITEM_TABLE "
+                        +
+                        "WHERE RETURNORDER_TABLE.ID = SKUITEMSRETURNORDER_LIST.ID_RETURNORDER "
+                        +
+                        "AND SKUITEM_TABLE.SKUID = SKU_TABLE.ID "
+                        +
+                        "AND RETURNORDER_TABLE.ID = ?";
+            this.db.all(sql, [id], (err, rows) => {
+                if(err){
+                    reject(err);
+                    return;
+                }
+                const items = rows.map(row => {
+                    return {SKUId : row.ID, description : row.DESCRIPTION, price : row.PRICE, RFID : row.RFID};
+                });
+                resolve(items);
             });
         });
     }
@@ -33,35 +57,33 @@ class ReturnOrderDAO{
                     resolve(row);
                     return;
                 }
-                resolve(new ReturnOrder(row.ID, row.RESTOCKORDER, null, row.STATE, row.RETURNDATE));
+                resolve(new ReturnOrder(row.ID, row.RESTOCKORDER, null, row.RETURNDATE));
             });
         });
     }
 
-    addSKUItemsList(insertedID, SKUItems) {
+    addProductxReturnOrder(insertedID, RFID) {
         return new Promise((resolve, reject) => {
             const sql = "INSERT INTO SKUITEMSRETURNORDER_LIST(ID_RETURNORDER, ID_SKUITEM) VALUES (?,?)";
-            SKUItems.forEach(skuItem =>  {
-                this.db.run(sql, [insertedID, skuItem.getSKU_RFID()], function(err) {
-                    if(err){
-                        reject(err);
-                    }else{
-                        resolve(this.changes);
-                    }
-                });
-            });    
+            this.db.run(sql, [insertedID, RFID], function(err) {
+                if(err){
+                    reject(err);
+                }else{
+                    resolve(this.changes);
+                }
+            });   
         });
     }
 
-    addReturnOrder(r, state){
+    addReturnOrder(r, date){
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO RETURNORDER_TABLE(RESTOCKORDER, STATE) VALUES(?,?)";
-            this.db.run(sql, [r, state], function(err) {
+            const sql = "INSERT INTO RETURNORDER_TABLE(RESTOCKORDER, RETURNDATE) VALUES(?,?)";
+            this.db.run(sql, [r, date], function(err) {
                 if(err){
                     reject(err);
                     return;
                 }
-                resolve(this.lastId);
+                resolve(this.lastID);
             });
         });
     }

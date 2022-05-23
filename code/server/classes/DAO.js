@@ -40,7 +40,9 @@ class DAO {
     }
 
     async getSKUByID(ID) {
-        return await this.SKUDAO.getSKUByID(ID);
+        const sku = await this.SKUDAO.getSKUByID(ID);
+        delete sku.id;
+        return sku;        
     }
 
     async insertSKU(sku) {
@@ -76,11 +78,13 @@ class DAO {
             const tmp_volume = sku.getVolume() * sku.getAvailableQuantity();
             if (pos.getMaxWeight() >= tmp_weight && pos.getMaxVolume() >= tmp_volume) {
                 await this.PositionDAO.updatePosition(newPositionID, tmp_volume, tmp_weight);
+                await this.SKUDAO.updateSKUPosition(SKUID, newPositionID);
             } else {
                 return 422;
             }
+        }else {
+            return 404;
         }
-        await this.SKUDAO.updateSKUPosition(SKUID, newPositionID);
     }
 
     async deleteSKU(SKUID) {
@@ -109,7 +113,7 @@ class DAO {
 
     async editSKUItem(newRFID, newAvailable, newDateOfStock, oldRFID) {
         const skuItem = await this.SKUItemDAO.getSKUItemByRFID(oldRFID);
-        if (skuItem === 404) {
+        if (skuItem === undefined) {
             return 404;
         }
         await this.SKUItemDAO.editSKUItem(newRFID, newAvailable, newDateOfStock, oldRFID);
@@ -295,34 +299,40 @@ class DAO {
 
     async getReturnOrderList() {
         const roList = await this.ReturnOrderDAO.getReturnOrderList();
-        if (roList !== undefined && roList.length !== 0) {
-            for (let ro of roList) {
-                const skuItemList = await this.SKUItemDAO.getSKUItemByReturnOrder(ro.getID());
-                ro.addSKUItem(skuItemList);
-            }
+        if (roList === undefined) {
+            return undefined;
         }
-        return roList;
-    }
+        for (let ro of roList) {
+            let items;
+            items = await this.ReturnOrderDAO.getReturnOrderProducts(ro.getID());
+            ro.addSKUItem(items);
+        }
+        let roListi = roList.map(({id, products, restockOrderId, returnDate, state}) => ({products, restockOrderId, returnDate}))
+
+        return roListi;
+   }
+
 
     async getReturnOrder(returnOrderID) {
         const returnOrder = await this.ReturnOrderDAO.getReturnOrder(returnOrderID);
         if (returnOrder !== undefined) {
-            const skuItemList = await this.SKUItemDAO.getSKUItemByReturnOrder(returnOrder.getID());
-            returnOrder.addSKUItem(skuItemList)
+            let items;
+            items = await this.ReturnOrderDAO.getReturnOrderProducts(returnOrder.getID());
+            returnOrder.addSKUItem(items);
         }
+        delete returnOrder.id;
+        delete returnOrder.state;
         return returnOrder;
     }
 
-    async addReturnOrder(r, SKUItems, state) {
-        const idReturned = await this.ReturnOrderDAO.addReturnOrder(r, state);
+    async addReturnOrder(restockOrderId, products, date) {
+        const idReturned = await this.ReturnOrderDAO.addReturnOrder(restockOrderId, date);
         if (idReturned === undefined) {
             return 0;
         }
-        const result = await this.ReturnOrderDAO.addSKUItemsList(idReturned, SKUItems);
-        if (result !== 0) {
-            SKUItems.forEach(skuItem => this.SKUItemDAO.editSKUItem(skuItem.getSKU_RFID(), false, skuItem.getDateOfStock(), skuItem.getSKU_RFID()));
+        for(let product of products) {
+            await this.ReturnOrderDAO.addProductxReturnOrder(idReturned, product.RFID);
         }
-        return result;
     }
 
     async deleteReturnOrder(returnOrderID) {

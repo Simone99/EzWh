@@ -50,7 +50,7 @@ class SKUItemDAO{
                     return;
                 }
                 if(row === undefined){
-                    resolve(404);
+                    resolve(undefined);
                     return;
                 }
                 const skuItem = new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID);

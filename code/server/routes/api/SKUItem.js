@@ -33,7 +33,7 @@ router.get('/skuitems/:rfid', async (req, res) => {
     }
     try{
         const skuItem = await new Warehouse().getInventory().searchSKUItem(req.params.rfid);
-        if(skuItem === 404){
+        if(skuItem === undefined){
             return res.status(404).end();
         }
         return res.status(200).json(skuItem);
