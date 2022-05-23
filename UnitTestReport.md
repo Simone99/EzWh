@@ -22,55 +22,37 @@ Version:
     class and method name that contains the test case>
     <Jest tests  must be in code/server/unit_test  >
 
- ### **Class *class_name* - method *name***
+ ### **Class *DAO* - method *addRestockOrder***
 
+**Criteria for method *addRestockOrder*:**
 
+ - Parameters type
 
-**Criteria for method *name*:**
-	
+**Predicates for method *addRestockOrder*:**
 
- - 
- - 
-
-
-
-
-
-**Predicates for method *name*:**
-
-| Criteria | Predicate |
-| -------- | --------- |
-|          |           |
-|          |           |
-|          |           |
-|          |           |
-
-
-
-
+| Criteria        | Predicate                     |
+|-----------------|-------------------------------|
+| Parameters type | Some parameters are undefined |
+|                 | All parameters are specified  |
 
 **Boundaries**:
 
-| Criteria | Boundary values |
-| -------- | --------------- |
-|          |                 |
-|          |                 |
-
+| Criteria        | Boundary values          |
+|-----------------|--------------------------|
+| Parameters type | issueDate === undefined  |
+|                 | products === undefined   |
+|                 | supplierId === undefined |
 
 
 **Combination of predicates**:
 
 
-| Criteria 1 | Criteria 2 | ... | Valid / Invalid | Description of the test case | Jest test case |
-|-------|-------|-------|-------|-------|-------|
-|||||||
-|||||||
-|||||||
-|||||||
-|||||||
-
-
-
+| Parameters type              | Valid / Invalid | Description of the test case                       | Jest test case    |
+|------------------------------|-----------------|----------------------------------------------------|-------------------|
+| issueDate === undefined      | I               | Create a restock order with no issue date          |                   |
+| products === undefined       | I               | Create a restock order with no products            | add restock order |
+| supplierId === undefined     | I               | Create a restock order with no supplier id         |                   |
+| All parameters are specified | V               | Create a restock order with all correct parameters | get restock order |
 
 # White Box Unit Tests
 

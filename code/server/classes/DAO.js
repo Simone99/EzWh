@@ -259,6 +259,9 @@ class DAO {
 	}
 
 	async addRestockOrder(issueDate, products, supplierId) {
+		if(issueDate === undefined || products === undefined || supplierId === undefined){
+			return;
+		}
 		const ID = await this.RestockOrderDAO.addRestockOrder(
 			issueDate,
 			'ISSUED',

@@ -16,24 +16,18 @@ const runQuery = (query, db) => {
 }
 
 exports.resetDB = async(dbPath) => {
-    try{
-        fs.unlinkSync(dbPath);
-    }catch(err){
+    let allFileContents = fs.readFileSync(
+        path.resolve(__dirname, '../classes/DBDropQueries.sql'),
+        'utf-8'
+    );
+    
+    const db = new sqlite.Database(dbPath, (err) => {
+        if (err) throw err;
+    });
 
-    }finally{
-        const allFileContents = fs.readFileSync(
-            path.resolve(__dirname, '../classes/DBCreationQuery.sql'),
-            'utf-8'
-        );
-        
-        const db = new sqlite.Database(dbPath, (err) => {
-            if (err) throw err;
-        });
-
-        for(let query of allFileContents.split(';')){
-            await runQuery(query, db);
-        }
-        
-        return new DAO(dbPath);
+    for(let query of allFileContents.split(';')){
+        await runQuery(query, db);
     }
+    
+    return new DAO(dbPath);
 }
