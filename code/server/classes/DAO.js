@@ -39,12 +39,27 @@ class DAO {
 	}
 
 	async getAllSKUs() {
-		return await this.SKUDAO.getAllSKUs();
+		const skus = await this.SKUDAO.getAllSKUs();
+		if(skus.length > 0){
+			for(let sku of skus){
+				const tdList = await this.TestDescriptorDAO.getTestDescriptorBySKUID(sku.getId());
+				if(tdList !== undefined){
+					sku.setTestDescriptors(tdList);
+				}
+			}
+		}
+		return skus;
 	}
 
     async getSKUByID(ID) {
         const sku = await this.SKUDAO.getSKUByID(ID);
-        delete sku.id;
+		if(sku !== undefined){
+			const tdList = await this.TestDescriptorDAO.getTestDescriptorBySKUID(ID);
+			if(tdList !== undefined){
+				sku.setTestDescriptors(tdList);
+			}
+			delete sku.id;
+		}
         return sku;        
     }
 

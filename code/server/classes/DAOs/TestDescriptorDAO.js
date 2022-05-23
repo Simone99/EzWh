@@ -70,6 +70,19 @@ class TestDescriptorDAO {
 		});
 	}
 
+	getTestDescriptorBySKUID(SKUID){
+		return new Promise((resolve, reject) => {
+			const sql = "SELECT ID FROM TESTDESCRIPTOR_TABLE WHERE SKUID = ?";
+			this.db.all(sql, [SKUID], (err, rows) => {
+				if(err){
+					reject(err);
+					return;
+				}
+				resolve(rows);
+			});
+		});
+	}
+
 	addTestDescriptor(name, description, SKUID) {
 		{
 			return new Promise((resolve, reject) => {
