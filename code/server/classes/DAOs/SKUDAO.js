@@ -102,7 +102,7 @@ class SKUDAO{
                 if(err){
                     reject(err);
                 }else{
-                    resolve('OK');
+                    resolve(204);
                 }
             });
         });

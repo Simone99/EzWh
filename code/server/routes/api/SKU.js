@@ -62,6 +62,7 @@ router.put('/sku/:id', async (req, res) => {
     }else if(tmp === 404){
       return res.status(404).end();
     }
+    return res.status(200).end();
   }catch(err){
     return res.status(503).end();
   }

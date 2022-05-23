@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "node_modules/.bin/jest",
-    "apiTest": "node_modules/.bin/mocha"
+    "originaltest": "node_modules/.bin/jest",
+    "test": "jest",
+    "originalapiTest": "node_modules/.bin/mocha",
+    "apiTest": "mocha"
   },
   "dependencies": {
     "arkit": "^1.6.4",

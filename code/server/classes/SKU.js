@@ -16,7 +16,7 @@ class SKU {
 		this.volume = volume;
 		this.price = price;
 		this.notes = notes;
-		this.pos = position;
+		this.position = position;
 		this.availableQuantity = availableQuantity;
 	}
 
@@ -25,7 +25,7 @@ class SKU {
 	}
 	
 	getPosition() {
-		return this.pos;
+		return this.position;
 	}
 
 	getDescription(){

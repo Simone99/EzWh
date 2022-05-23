@@ -33,7 +33,7 @@ exports.resetDB = async(dbPath) => {
         for(let query of allFileContents.split(';')){
             await runQuery(query, db);
         }
-
+        
         return new DAO(dbPath);
     }
 }

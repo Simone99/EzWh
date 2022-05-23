@@ -6,8 +6,8 @@ const Item = require('../classes/Item');
 let DAO_test;
 
 describe("get restock orders", () => {
-    beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test.db');
+    beforeAll(async() => {
+        DAO_test = await resetDB('./EZWarehouseDB_test5.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
         await DAO_test.addItem(new Item("a new item", 10.99, 1, 1, 12));

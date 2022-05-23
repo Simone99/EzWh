@@ -37,14 +37,13 @@ router.post('/returnOrder', async (req, res) => {
     return res.status(422).end();
     }
     try{
-        const skuItemList = [];
-        req.body.products.forEach(skuItem => skuItemList.push(new SKUItem(skuItem.SKUId, false, null, skuItem.RFID)));
-        const result = await new Warehouse().addReturnOrder(req.body.restockOrderId, skuItemList, null);
+        const result = await new Warehouse().addReturnOrder(req.body.restockOrderId, req.body.products, req.body.returnDate);
         if(result === 0){
             return res.status(404).end();
         }
         return res.status(201).end();
     }catch(err){
+        console.log(err);
         return res.status(503).end();
     }
 });

@@ -47,10 +47,36 @@ describe('Test TestDescriptor APIs', () => {
     testPutTestDescriptor(422, 1, /*"test descriptor 1",*/ "This test is described by...", 1);
     testPutTestDescriptor(404, 1, "test descriptor 1", "This test is described by...", 999); //idSKU doesn't exist
     testPutTestDescriptor(404, 999, "test descriptor 1", "This test is described by...", 1); //idTestDescriptor doesn't exist
-    testPutTestDescriptor(200, 1, "test descriptor 1", "This test is described by...", 1); //idTestDescriptor doesn't exist
+    testPutTestDescriptor(200, 1, "test descriptor 1", "This test is described by...", 1); 
 
     testDeleteTestDescriptor(204, 1);
 
+})
+
+describe('Testing UC 12.1', () => {
+    before( async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+    });
+    testPostTestDescriptor(201, "test descriptor 2", "This test is described by...", 1);
+})
+
+describe('Testing UC 12.2', () => {
+    before( async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+    });
+    testPostTestDescriptor(201, "test descriptor 2", "This test is described by...", 1);
+    testPutTestDescriptor(200, 1, "test descriptor 345", "This test is described by...", 1);
+})
+
+describe('Testing UC 12.3', () => {
+    before( async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+    });
+    testPostTestDescriptor(201, "test descriptor 2", "This test is described by...", 1);
+    testDeleteTestDescriptor(204, 1);
 })
 
 function testPostTestDescriptor(expectedHTTPStatus, name, procedureDescription, idSKU) {

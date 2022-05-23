@@ -73,8 +73,8 @@ class Warehouse {
         return await this.DAO.getReturnOrder(returnOrderID);
     }
 
-    async addReturnOrder(r, SKUItems, state) {
-        return await this.DAO.addReturnOrder(r, SKUItems, state);
+    async addReturnOrder(returnOrderID, products, date) {
+        return await this.DAO.addReturnOrder(returnOrderID, products, date);
     }
 
     async deleteReturnOrder(returnOrderID) {

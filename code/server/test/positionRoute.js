@@ -44,6 +44,31 @@ describe('Test Position APIs', () => {
     
 });
 
+describe('Testing UC 2.2', () => {
+    before( async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.addPosition("800234543412", "8002", "3454", "3412", 1000, 1000);
+    })
+    testPutPositionID(200, 800234543412, "855534543412");
+})
+
+describe('Testing UC 2.3 and 2.4', () => {
+    before( async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.addPosition("800234543412", "8002", "3454", "3412", 1000, 1000);
+    })
+    testPutPosition(200, 800234543412, "8002", "3454", "3412", 1200, 600, 200, 100);
+})
+
+describe('Testing UC 2.5', () => {
+    before( async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.addPosition("800234543412", "8002", "3454", "3412", 1000, 1000);
+    })
+    testDeletePosition(204, 800234543412,);
+})
+
+
 function testPostPosition(expectedHTTPStatus, positionID, aisleID, row, col, maxWeight, maxVolume) {
     it('Adding a new position', done => {
         const position = {
