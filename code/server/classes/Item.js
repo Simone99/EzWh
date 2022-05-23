@@ -1,35 +1,31 @@
 class Item {
+	constructor(description, price, supplierID, SKUId, id = null) {
+		this.id = id;
+		this.description = description;
+		this.price = price;
+		this.supplierID = supplierID;
+		this.SKUId = SKUId;
+	}
 
-    SKU = require('./SKU');
-    Supplier = require('./Supplier');
+	getId() {
+		return this.id;
+	}
 
-    constructor(description, price, supplierID, SKUId, id=null) {
-        this.id = id;
-        this.description = description;
-        this.price  = price;
-        this.supplierID = supplierID;
-        this.SKUId = SKUId;
-    }
+	getDescription() {
+		return this.description;
+	}
 
-    getId() {
-        return this.id;
-    }
+	getPrice() {
+		return this.price;
+	}
 
-    getDescription() {
-        return this.description;
-    }
+	getSupplierId() {
+		return this.supplierID;
+	}
 
-    getPrice() {
-        return this.price;
-    }
-
-    getSupplierId() {
-        return this.supplierID;
-    }
-
-    getSKUId() {
-        return this.SKUId;
-    }
+	getSKUId() {
+		return this.SKUId;
+	}
 }
 
 module.exports = Item;

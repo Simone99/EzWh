@@ -1,9 +1,9 @@
 class testDescriptor{
-    constructor(id, name, description, SKUID){
+    constructor(id, name, procedureDescription, idSKU){
         this.id = id;
         this.name = name;
-        this.description = description;
-        this.SKUID = SKUID;
+        this.procedureDescription = procedureDescription;
+        this.idSKU = idSKU;
     }
 
 }

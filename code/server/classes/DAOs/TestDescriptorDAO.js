@@ -1,102 +1,124 @@
 const sqlite = require('sqlite3');
 const TestDescriptor = require('../TestDescriptor');
 
-class TestDescriptorDAO{
+class TestDescriptorDAO {
+	constructor(db) {
+		this.db = db;
+	}
 
-    constructor(db){
-        this.db = db;
-    }
+	checkSKUID(idTestDescriptor, SKUID) {
+		new Promise((resolve, reject) => {
+			const sql =
+				'SELECT * FROM TESTDESCRIPTOR_TABLE WHERE ID = ? AND SKUID = ?';
+			this.db.get(sql, [idTestDescriptor, SKUID], (err, row) => {
+				if (err) {
+					reject(err);
+					return;
+				}
+				if (row === undefined) {
+					resolve(404);
+					return;
+				}
+				resolve('ok');
+			});
+		});
+	}
 
-    checkSKUID(idTestDescriptor, SKUID) {
-        new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM TESTDESCRIPTOR_TABLE WHERE ID = ? AND SKUID = ?";
-            this.db.get(sql, [idTestDescriptor, SKUID], (err, row) => {
-                if(err){
-                    reject(err);
-                    return;
-                }
-                if(row === undefined){
-                    resolve(404);
-                    return;
-                }
-                resolve('ok');
-            });
-        });
-    }
+	getAllTestDescriptors() {
+		return new Promise((resolve, reject) => {
+			const sql = 'SELECT * FROM TESTDESCRIPTOR_TABLE';
+			this.db.all(sql, [], (err, rows) => {
+				if (err) {
+					reject(err);
+					return;
+				}
+				const testDescriptorList = rows.map(
+					(row) =>
+						new TestDescriptor(
+							row.ID,
+							row.NAME,
+							row.PROCEDURE_DESCRIPTION,
+							row.SKUID
+						)
+				);
+				resolve(testDescriptorList);
+			});
+		});
+	}
 
-    getAllTestDescriptors(){
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM TESTDESCRIPTOR_TABLE";
-            this.db.all(sql, [], (err, rows) => {
-                if(err){
-                    reject(err);
-                    return;
-                }
-                const testDescriptorList = rows.map(row => new TestDescriptor(row.ID, row.NAME, row.PROCEDURE_DESCRIPTION, row.SKUID));
-                resolve(testDescriptorList);
-            });
-        });
-    }
+	getTestDescriporByID(testDescriptorID) {
+		return new Promise((resolve, reject) => {
+			const sql = 'SELECT * FROM TESTDESCRIPTOR_TABLE WHERE ID = ?';
+			this.db.get(sql, [testDescriptorID], (err, row) => {
+				if (err) {
+					reject(err);
+					return;
+				}
+				if (row === undefined) {
+					resolve(undefined);
+					return;
+				}
+				resolve(
+					new TestDescriptor(
+						row.ID,
+						row.NAME,
+						row.PROCEDURE_DESCRIPTION,
+						row.SKUID
+					)
+				);
+			});
+		});
+	}
 
-    getTestDescriporByID(testDescriptorID){
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT * FROM TESTDESCRIPTOR_TABLE WHERE ID = ?";
-            this.db.get(sql, [testDescriptorID], (err, row) => {
-                if(err){
-                    reject(err);
-                    return;
-                }
-                if(row === undefined){
-                    resolve(undefined);
-                    return;
-                }
-                resolve(new TestDescriptor(row.ID, row.NAME, row.PROCEDURE_DESCRIPTION, row.SKUID));
-            });
-        });
-    }
+	addTestDescriptor(name, description, SKUID) {
+		{
+			return new Promise((resolve, reject) => {
+				const sql =
+					'INSERT INTO TESTDESCRIPTOR_TABLE(NAME, PROCEDURE_DESCRIPTION, SKUID) ' +
+					'VALUES(?,?,?)';
+				this.db.run(sql, [name, description, SKUID], function (err) {
+					if (err) {
+						reject(err);
+						return;
+					}
+					resolve(this.lastID);
+				});
+			});
+		}
+	}
 
-    addTestDescriptor(name, description, SKUID){{
-        return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO TESTDESCRIPTOR_TABLE(NAME, PROCEDURE_DESCRIPTION, SKUID) " +
-                        "VALUES(?,?,?)";
-            this.db.run(sql, [name, description, SKUID], function(err){
-                if(err){
-                    reject(err);
-                    return;
-                }
-                resolve(this.changes);
-            });
-        });
-    }}
+	editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId) {
+		return new Promise((resolve, reject) => {
+			const sql =
+				'UPDATE TESTDESCRIPTOR_TABLE SET ' +
+				'NAME = ?, PROCEDURE_DESCRIPTION = ?, SKUID = ? ' +
+				'WHERE ID = ?';
+			this.db.run(
+				sql,
+				[newName, newDescription, newSKUId, testDescriptorID],
+				function (err) {
+					if (err) {
+						reject(err);
+						return;
+					}
+					resolve(this.changes);
+				}
+			);
+		});
+	}
 
-    editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId){
-        return new Promise((resolve, reject) => {
-            const sql = "UPDATE TESTDESCRIPTOR_TABLE SET " +
-                        "NAME = ?, PROCEDURE_DESCRIPTION = ?, SKUID = ? " +
-                        "WHERE ID = ?";
-            this.db.run(sql, [newName, newDescription, newSKUId, testDescriptorID], function(err){
-                if(err){
-                    reject(err);
-                    return;
-                }
-                resolve(this.changes);
-            });
-        });
-    }
-
-    deleteTestDescriptor(testDescriptorID){
-        return new Promise((resolve, reject) => {
-            const sql = "DELETE FROM TESTDESCRIPTOR_TABLE WHERE ID = ?";
-            this.db.run(sql, [testDescriptorID], function(err){
-                if(err){
-                    reject(err);
-                    return;
-                }
-                resolve(this.changes);
-            });
-        });
-    }
-    
+	deleteTestDescriptor(testDescriptorID) {
+		return new Promise((resolve, reject) => {
+			const sql = 'DELETE FROM TESTDESCRIPTOR_TABLE WHERE ID = ?';
+			this.db.run(sql, [testDescriptorID], function (err) {
+				if (err) {
+					reject(err);
+					return;
+				}
+				resolve(this.changes);
+			});
+		});
+	}
 }
 
 module.exports = TestDescriptorDAO;

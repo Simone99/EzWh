@@ -1,13 +1,13 @@
-const dayjs = require("dayjs");
+const dayjs = require('dayjs');
 class testResult {
-	constructor(description, result, date, id=null) {
+	constructor(idTestDescriptor, result, date, id) {
 		this.id = id;
 		this.date = date;
-		this.description = description;
+		this.idTestDescriptor = idTestDescriptor;
 		this.result = result;
 	}
 
-	getResult(){
+	getResult() {
 		return this.result;
 	}
 }
