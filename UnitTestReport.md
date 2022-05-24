@@ -54,6 +54,63 @@ Version:
 | supplierId === undefined     | I               | Create a restock order with no supplier id         |                   |
 | All parameters are specified | V               | Create a restock order with all correct parameters | get restock order |
 
+### **Class *DAO* - method *addTestDescriptor***
+
+**Criteria for method *addTestDescriptor*:**
+
+ - Parameters type
+
+**Predicates for method *addTestDescriptor*:**
+
+| Criteria        | Predicate                     |
+|-----------------|-------------------------------|
+| Parameters type | Some parameters are undefined |
+|                 | All parameters are specified  |
+
+**Boundaries**:
+
+| Criteria        | Boundary values          |
+|-----------------|--------------------------|
+| Parameters type | SKUID === undefined |
+
+
+**Combination of predicates**:
+
+
+| Parameters type              | Valid / Invalid | Description of the test case                       | Jest test case    |
+|------------------------------|-----------------|----------------------------------------------------|-------------------|
+| SKUID === undefined     | I               | Create a test descriptor with no SKUID         |                   |
+| All parameters are specified | V               | Create a test descriptor with all correct parameters | get test descriptor |
+
+### **Class *DAO* - method *editPositionIDOnly***
+
+**Criteria for method *editPositionIDOnly*:**
+
+ - Parameters type
+
+**Predicates for method *editPositionIDOnly*:**
+
+| Criteria        | Predicate                     |
+|-----------------|-------------------------------|
+| Parameters type | Some parameters are undefined |
+|                 | All parameters are specified  |
+
+**Boundaries**:
+
+| Criteria        | Boundary values          |
+|-----------------|--------------------------|
+| Parameters type | oldPositionID === undefined |
+
+
+**Combination of predicates**:
+
+
+| Parameters type              | Valid / Invalid | Description of the test case                       | Jest test case    |
+|------------------------------|-----------------|----------------------------------------------------|-------------------|
+| oldPositionID === undefined     | I               |          |                   |
+| All parameters are specified | V               | Updates the position ID specified with the new one | get position |
+
+
 # White Box Unit Tests
 
 ### Test cases definition
