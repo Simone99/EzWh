@@ -429,7 +429,7 @@ class DAO {
             items = await this.ReturnOrderDAO.getReturnOrderProducts(ro.getID());
             ro.addSKUItem(items);
         }
-        let roListi = roList.map(({id, products, restockOrderId, returnDate, state}) => ({products, restockOrderId, returnDate}))
+        let roListi = roList.map(({id, products, restockOrderId, returnDate, state}) => ({id, products, restockOrderId, returnDate}))
         return roListi;
    }
 
@@ -636,6 +636,9 @@ class DAO {
 	}
 
 	async addInternalOrder(issueDate, internalOrderItemList, customerId) {
+		if(issueDate === undefined || internalOrderItemList === undefined || customerId === undefined){
+			return 404;
+		}
 		const idReturned = await this.InternalOrderDAO.addInternalOrder(
 			issueDate,
 			customerId

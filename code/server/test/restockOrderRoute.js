@@ -91,21 +91,6 @@ describe('Testing UC5.2', () => {
     testEditRestockOrderState(200, 1, "TESTED");
 });
 
-describe('Testing UC5.3', () => {
-    before(async() => {
-        const localDAO = await resetDB('./EZWarehouseDB.db');
-        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
-        await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
-        await localDAO.addItem(new Item("a new item", 10.99, 1, 1, 12));
-        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
-        await localDAO.editRestockOrderState(1, "DELIVERED");
-        await localDAO.editRestockOrderSkuItems(1, [{rfid : '12345678901234567890123456789015', SKUId : 1}]);
-        await localDAO.addTestDescriptor("test descriptor 3", "This test is described by...", 1);
-        await localDAO.addPosition(800234543412, 8002, 3454, 3412, 1000, 1000);
-    });
-    //TODO
-});
-
 function testNewRestockOrder(expectedHTTPStatus, issueDate, products, supplierId){
     it('Adding a new restock order', done => {
         const reqBody = {

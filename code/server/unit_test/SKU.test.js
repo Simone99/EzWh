@@ -18,8 +18,7 @@ describe("get sku", () => {
             position : null,
             availableQuantity : 50,
             price : 10.99,
-            testDescriptors : null
-
+            testDescriptors : []
         });
     });
     test('get sku null', async () => {
@@ -32,10 +31,10 @@ describe("get skus", () => {
     beforeEach(async() => {
         DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
-        await DAO_test.addPosition(800234543412, 8002, 3454, 3412, 1000, 1000);
+        await DAO_test.addPosition(800234543412, 8002, 3454, 3412, 20000, 20000);
         await DAO_test.updateSKUPosition(1, 800234543412);
         await DAO_test.insertSKU(new SKU("another sku", 100, 50, 10.99, "first SKU", null, null, 50));
-        await DAO_test.addPosition(800234543413, 8002, 3454, 3413, 1000, 1000);
+        await DAO_test.addPosition(800234543413, 8002, 3454, 3413, 20000, 20000);
         await DAO_test.updateSKUPosition(2, 800234543413);
 
 
@@ -50,10 +49,10 @@ describe("get skus", () => {
                     weight : 100,
                     volume : 50,
                     notes : "first SKU",
-                    position : "800234543412",
+                    position : 800234543412,
                     availableQuantity : 50,
                     price : 10.99,
-                    testDescriptors : [1,3,4]
+                    testDescriptors : []
                 },
                 {
                     id : 2,
@@ -61,10 +60,10 @@ describe("get skus", () => {
                     weight : 100,
                     volume : 50,
                     notes : "first SKU",
-                    position : "800234543413",
+                    position : 800234543413,
                     availableQuantity : 50,
                     price : 10.99,
-                    testDescriptors : [2,5,7]
+                    testDescriptors : []
                 }
             
             ]
@@ -76,9 +75,9 @@ describe("modify sku", () => {
     beforeEach(async() => {
         DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
-        await DAO_test.addPosition(800234543414, 8002, 3454, 3414, 1000, 1000);
+        await DAO_test.addPosition(800234543414, 8002, 3454, 3414, 20000, 20000);
         await DAO_test.updateSKUPosition(1, 800234543414);
-        await DAO_test.updateSKU(1, "super new sku", 99, 49, "up sku", 12.99, 2)
+        await DAO_test.updateSKU(1, "super new sku", 99, 49, "up sku", 12.99, 20)
     });
 
     test('modify sku', async () => {
@@ -88,10 +87,10 @@ describe("modify sku", () => {
             weight : 99,
             volume : 49,
             notes : "up sku",
-            position : "800234543412",
+            position : 800234543414,
             availableQuantity : 20,
             price : 12.99,
-            testDescriptors : null
+            testDescriptors : []
 
         });
     });

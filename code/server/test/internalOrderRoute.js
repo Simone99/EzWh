@@ -156,7 +156,7 @@ function testSKUItemNotAvailable(expectedHTTPStatus, rfid, expectedAvailable){
     it('Getting sku availability', done => {
         agent.get(`/api/skuitems/${rfid}`).then(res => {
             res.should.have.status(expectedHTTPStatus);
-            res.body.available.should.equal(expectedAvailable);
+            res.body.Available.should.equal(expectedAvailable);
             done();
         });
     });

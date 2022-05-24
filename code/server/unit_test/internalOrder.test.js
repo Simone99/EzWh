@@ -41,7 +41,7 @@ describe('get internal orders', () => {
         );
     });
 
-    test('get insternal orders accepted', async() => {
+    test('get internal orders accepted', async() => {
         const res = await DAO_test.getInternalOrdersAcceptedList();
         expect(res).toEqual([]);
     });
@@ -57,5 +57,9 @@ describe('get internal orders', () => {
                 "customerId" : 1
             }
         );
+    });
+    test('add internal order', async() => {
+        const res = await DAO_test.addInternalOrder("2021/11/29 09:33", undefined, 1);
+        expect(res).toEqual(404);
     });
 });

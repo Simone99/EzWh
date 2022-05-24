@@ -43,28 +43,26 @@ Version:
       Jest test cases should be here code/server/unit_test
 
 ## Step 1
-| Classes      | mock up used |        Jest test cases        |
-|--------------|--------------|:-----------------------------:|
-| RestockOrder | -            |       get restock order       |
-|              |              |    get restock order issued   |
-|              |              |   change restock order state  |
-|              |              | set SKUItems to restock order |
-
-## Step 2
-| Classes  | mock up used |Jest test cases |
-|--|--|--|
-||||
-
-
-## Step n 
-
-   
-| Classes  | mock up used |Jest test cases |
-|--|--|--|
-||||
-
-
-
+| Classes         | mock up used |        Jest test cases        |
+|-----------------|--------------|:-----------------------------:|
+| RestockOrder    | -            |       get restock order       |
+|                 | -            |    get restock order issued   |
+|                 | -            |   change restock order state  |
+|                 | -            | set SKUItems to restock order |
+|                 | -            |       add restock order       |
+| InternalOrder   | -            |      get internal orders      |
+|                 | -            |   get internal orders issued  |
+|                 | -            |  get internal orders accepted |
+|                 | -            |     editing internal order    |
+|                 | -            |       add internal order      |
+| Position        | -            |         get positions         |
+|                 | -            |         edit position         |
+|                 | -            |     edit position ID only     |
+|                 | -            |        delete position        |
+| Test Descriptor | -            |      get test descriptors     |
+|                 | -            |      get test descriptor      |
+|                 | -            |      edit test descriptor     |
+|                 | -            |     delete test descriptor    |
 
 # API testing - Scenarios
 
@@ -90,11 +88,18 @@ Version:
 <Report in the following table the coverage of  scenarios (from official requirements and from above) vs FR. 
 Report also for each of the scenarios the (one or more) API Mocha tests that cover it. >  Mocha test cases should be here code/server/test
 
-| Scenario ID | Functional Requirements covered | Mocha  Test(s) |
-|-------------|---------------------------------|----------------|
-| UC5.1       | FR5.8                           | Testing UC5.1  |
-| UC5.2       | FR5.8.2                         | Testing UC5.2  |
-|             |                                 |                |
+| Scenario ID | Functional Requirements covered | Mocha  Test(s)         |
+|-------------|---------------------------------|------------------------|
+| UC2.2       | FR3.1.1                         | Testing UC 2.2         |
+| UC2.3-UC2.4 | FR3.1.1                         | Testing UC 2.3 and 2.4 |
+| UC2.5       | FR3.1.2                         | Testing UC 2.5         |
+| UC5.1       | FR5.8                           | Testing UC5.1          |
+| UC5.2       | FR5.8.2                         | Testing UC5.2          |
+| UC9         | FR6.6                           | Testing UC9            |
+| UC10        | FR6.8                           | Testing UC10           |
+| UC12.1      | -                               | Testing UC 12.1        |
+| UC12.2      | -                               | Testing UC 12.2        |
+| UC12.3      | -                               | Testing UC 12.3        |
 
 # Coverage of Non Functional Requirements
 
