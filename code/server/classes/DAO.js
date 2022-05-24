@@ -11,6 +11,8 @@ const SKUItemDAO = require('./DAOs/SKUItemDAO');
 const TestDescriptorDAO = require('./DAOs/TestDescriptorDAO');
 const TestResultDAO = require('./DAOs/TestResultDAO');
 const SKUItem = require('./SKUItem');
+const ReturnOrder = require('./ReturnOrder');
+
 class DAO {
 	sqlite = require('sqlite3');
 
@@ -383,6 +385,7 @@ class DAO {
     async getReturnOrderList() {
         const roList = await this.ReturnOrderDAO.getReturnOrderList();
         if (roList === undefined) {
+
             return undefined;
         }
         for (let ro of roList) {
@@ -390,22 +393,23 @@ class DAO {
             items = await this.ReturnOrderDAO.getReturnOrderProducts(ro.getID());
             ro.addSKUItem(items);
         }
-        let roListi = roList.map(({id, products, restockOrderId, returnDate, state}) => ({products, restockOrderId, returnDate}))
-
+        let roListi = roList.map(({id, products, restockOrderId, returnDate, state}) => ({id, products, restockOrderId, returnDate}))
         return roListi;
    }
 
 
     async getReturnOrder(returnOrderID) {
         const returnOrder = await this.ReturnOrderDAO.getReturnOrder(returnOrderID);
-        if (returnOrder !== undefined) {
-            let items;
-            items = await this.ReturnOrderDAO.getReturnOrderProducts(returnOrder.getID());
-            returnOrder.addSKUItem(items);
-        }
-        delete returnOrder.id;
-        delete returnOrder.state;
-        return returnOrder;
+		if (returnOrder !== undefined) {
+		const items = await this.ReturnOrderDAO.getReturnOrderProducts(returnOrder.getID());
+		const we = new ReturnOrder(returnOrder.id, returnOrder.restockOrderId, returnOrder.state, returnOrder.returnDate, items);
+        delete we.id;
+        delete we.state;
+		console.log(we);
+        return we;
+		} else {
+			return returnOrder;
+		}
     }
 
     async addReturnOrder(restockOrderId, products, date) {
