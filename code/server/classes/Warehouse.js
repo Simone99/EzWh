@@ -1,218 +1,233 @@
 class Warehouse {
+	Inventory = require('./Inventory');
+	DAO = require('./DAO');
+	Position = require('./Position');
+	Customer = require('./Customer');
+	User = require('./User');
+	TestDescriptor = require('./TestDescriptor');
+	RestockOrder = require('./RestockOrder');
+	ReturnOrder = require('./ReturnOrder');
+	InternalOrder = require('./InternalOrder');
+	Item = require('./Item');
+	SKU = require('./SKU');
+	DAO = require('./DAO');
 
-    Inventory = require('./Inventory');
-    DAO = require('./DAO');
-    Position = require('./Position');
-    Customer = require('./Customer');
-    User = require('./User');
-    TestDescriptor = require('./TestDescriptor');
-    RestockOrder = require('./RestockOrder');
-    ReturnOrder = require('./ReturnOrder');
-    InternalOrder = require('./InternalOrder');
-    Item = require('./Item');
-    SKU = require('./SKU');
-    DAO = require('./DAO');
+	constructor() {
+		this.inventory = new this.Inventory('./EZWarehouseDB.db');
+		this.DAO = new this.DAO('./EZWarehouseDB.db');
+	}
 
-    constructor() {
-        this.inventory = new this.Inventory('./EZWarehouseDB.db');
-        this.DAO = new this.DAO('./EZWarehouseDB.db');
-    }
+	getInventory() {
+		return this.inventory;
+	}
 
-    getInventory() {
-        return this.inventory;
-    }
+	async addPosition(positionID, aisle, row, col, weight, volume) {
+		await this.DAO.addPosition(positionID, aisle, row, col, weight, volume);
+	}
 
-    async addPosition(positionID, aisle, row, col, weight, volume) {
-        await this.DAO.addPosition(positionID, aisle, row, col, weight, volume);
-    }
+	async deletePosition(positionID) {
+		await this.DAO.deletePosition(positionID);
+	}
 
-    async deletePosition(positionID) {
-        await this.DAO.deletePosition(positionID);
-    }
+	async editPositionID(oldPositionID, position) {
+		return await this.DAO.editPositionID(oldPositionID, position);
+	}
 
-    async editPositionID(oldPositionID, position) {
-        return await this.DAO.editPositionID(oldPositionID, position);
-    }
+	async editPositionIDOnly(oldPositionID, newPositionID) {
+		return await this.DAO.editPositionIDOnly(oldPositionID, newPositionID);
+	}
 
-    async editPositionIDOnly(oldPositionID, newPositionID) {
-        return await this.DAO.editPositionIDOnly(oldPositionID, newPositionID);
-    }
+	async printPositionList() {
+		return await this.DAO.getAllPositions();
+	}
 
+	async addTestDescriptor(name, description, SKUID) {
+		return await this.DAO.addTestDescriptor(name, description, SKUID);
+	}
 
-    async printPositionList() {
-        return await this.DAO.getAllPositions();
-    }
+	async editTestDescriptor(
+		testDescriptorID,
+		newName,
+		newDescription,
+		newSKUId
+	) {
+		return await this.DAO.editTestDescriptor(
+			testDescriptorID,
+			newName,
+			newDescription,
+			newSKUId
+		);
+	}
 
+	async deleteTestDescriptor(testDescriptorID) {
+		await this.DAO.deleteTestDescriptor(testDescriptorID);
+	}
 
-    async addTestDescriptor(name, description, SKUID) {
-        return await this.DAO.addTestDescriptor(name, description, SKUID);
-    }
+	async searchTestDescriptor(testDescriptorID) {
+		return await this.DAO.getTestDescriporByID(testDescriptorID);
+	}
 
-    async editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId) {
-        return await this.DAO.editTestDescriptor(testDescriptorID, newName, newDescription, newSKUId);
-    }
+	async printTestDescriptorList() {
+		return this.DAO.getAllTestDescriptors();
+	}
 
-    async deleteTestDescriptor(testDescriptorID) {
-        await this.DAO.deleteTestDescriptor(testDescriptorID);
-    }
+	async getReturnOrderList() {
+		return await this.DAO.getReturnOrderList();
+	}
 
-    async searchTestDescriptor(testDescriptorID) {
-        return await this.DAO.getTestDescriporByID(testDescriptorID);
-    }
+	async getReturnOrder(returnOrderID) {
+		return await this.DAO.getReturnOrder(returnOrderID);
+	}
 
-    async printTestDescriptorList() {
-        return this.DAO.getAllTestDescriptors();
-    }
+	async addReturnOrder(returnOrderID, products, date) {
+		return await this.DAO.addReturnOrder(returnOrderID, products, date);
+	}
 
+	async deleteReturnOrder(returnOrderID) {
+		return await this.DAO.deleteReturnOrder(returnOrderID);
+	}
 
-    async getReturnOrderList() {
-        return await this.DAO.getReturnOrderList();
-    }
+	async addInternalOrder(issueDate, internalOrderItemList, customerId) {
+		return await this.DAO.addInternalOrder(
+			issueDate,
+			internalOrderItemList,
+			customerId
+		);
+	}
 
-    async getReturnOrder(returnOrderID) {
-        return await this.DAO.getReturnOrder(returnOrderID);
-    }
+	async getInternalOrdersList() {
+		return await this.DAO.getInternalOrdersList();
+	}
 
-    async addReturnOrder(returnOrderID, products, date) {
-        return await this.DAO.addReturnOrder(returnOrderID, products, date);
-    }
+	async getInternalOrdersIssuedList() {
+		return await this.DAO.getInternalOrdersIssuedList();
+	}
 
-    async deleteReturnOrder(returnOrderID) {
-        return await this.DAO.deleteReturnOrder(returnOrderID);
-    }
+	async getInternalOrdersAcceptedList() {
+		return await this.DAO.getInternalOrdersAcceptedList();
+	}
 
-    async addInternalOrder(issueDate, internalOrderItemList, customerId) {
-        return await this.DAO.addInternalOrder(issueDate, internalOrderItemList, customerId);
-    }
+	async getInternalOrder(internalOrderID) {
+		return await this.DAO.getInternalOrder(internalOrderID);
+	}
 
-    async getInternalOrdersList() {
-        return await this.DAO.getInternalOrdersList();
-    }
+	async deleteInternalOrder(internalOrderID) {
+		await this.DAO.deleteInternalOrder(internalOrderID);
+	}
 
-    async getInternalOrdersIssuedList() {
-        return await this.DAO.getInternalOrdersIssuedList();
-    }
+	async editInternalOrder(internalOrderID, newState, products) {
+		await this.DAO.editInternalOrder(internalOrderID, newState, products);
+	}
 
-    async getInternalOrdersAcceptedList() {
-        return await this.DAO.getInternalOrdersAcceptedList();
-    }
+	async getUserList() {
+		return await this.DAO.getAllUsers();
+	}
 
+	async getUser(username, type) {
+		return await this.DAO.getUser(username, type);
+	}
 
-    async getInternalOrder(internalOrderID) {
-        return await this.DAO.getInternalOrder(internalOrderID);
-    }
+	async getSupplierList() {
+		return await this.DAO.getAllSuppliers();
+	}
 
-    async deleteInternalOrder(internalOrderID) {
-        await this.DAO.deleteInternalOrder(internalOrderID);
-    }
+	async addUser(user) {
+		return await this.DAO.addUser(user);
+	}
 
-    async editInternalOrder(internalOrderID, newState, products) {
-        await this.DAO.editInternalOrder(internalOrderID, newState, products);
-    }
+	async editUser(username, oldType, newType) {
+		return await this.DAO.editUser(username, oldType, newType);
+	}
 
-    async getUserList() {
-        return await this.DAO.getAllUsers();
-    }
+	async deleteUser(username, type) {
+		return await this.DAO.deleteUser(username, type);
+	}
 
-    async getUser(username, type) {
-        return await this.DAO.getUser(username, type);
-    }
+	async getTestResultsByRFID(RFID) {
+		return await this.DAO.getTestResultsByRFID(RFID);
+	}
 
-    async getSupplierList() {
-        return await this.DAO.getAllSuppliers();
-    }
+	async getTestResultByRFIDAndID(RFID, ID) {
+		return await this.DAO.getTestResultByRFIDAndID(RFID, ID);
+	}
 
-    async addUser(user) {
-        return await this.DAO.addUser(user);
-    }
+	async addTestResult(rfid, idTestDescriptor, Date, Result) {
+		return await this.DAO.addTestResult(rfid, idTestDescriptor, Date, Result);
+	}
 
-    async editUser(username, oldType, newType) {
-        return await this.DAO.editUser(username, oldType, newType);
-    }
+	async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
+		return await this.DAO.editTestResult(
+			rfid,
+			id,
+			newIdTestDescriptor,
+			newDate,
+			newResult
+		);
+	}
 
-    async deleteUser(username, type) {
-        return await this.DAO.deleteUser(username, type);
-    }
+	async deleteTestResult(rfid, id) {
+		await this.DAO.deleteTestResult(rfid, id);
+	}
 
-    async getTestResultsByRFID(RFID) {
-        return await this.DAO.getTestResultsByRFID(RFID);
-    }
+	async getItemList() {
+		return await this.DAO.getAllItems();
+	}
 
-    async getTestResultByRFIDAndID(RFID, ID) {
-        return await this.DAO.getTestResultByRFIDAndID(RFID, ID);
-    }
+	async getItemById(id) {
+		return await this.DAO.getItemById(id);
+	}
 
-    async addTestResult(rfid, idTestDescriptor, Date, Result) {
-        return await this.DAO.addTestResult(rfid, idTestDescriptor, Date, Result);
-    }
+	async addItem(item) {
+		return await this.DAO.addItem(item);
+	}
 
-    async editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult) {
-        await this.DAO.editTestResult(rfid, id, newIdTestDescriptor, newDate, newResult);
-    }
+	async editItem(id, newDescription, newPrice) {
+		return await this.DAO.editItem(id, newDescription, newPrice);
+	}
 
-    async deleteTestResult(rfid, id) {
-        await this.DAO.deleteTestResult(rfid, id);
-    }
+	async deleteItem(id) {
+		await this.DAO.deleteItem(id);
+	}
 
-    async getItemList() {
-        return await this.DAO.getAllItems();
-    }
+	async addRestockOrder(issueDate, products, supplierId) {
+		return await this.DAO.addRestockOrder(issueDate, products, supplierId);
+	}
 
-    async getItemById(id) {
-        return await this.DAO.getItemById(id);
-    }
+	async getRestockOrderByID(restockOrderID) {
+		return await this.DAO.getRestockOrderByID(restockOrderID);
+	}
 
-    async addItem(item) {
-        return await this.DAO.addItem(item);
-    }
+	async getRestockOrderList() {
+		return await this.DAO.getAllRestockOrders();
+	}
 
-    async editItem(id, newDescription, newPrice) {
-        return await this.DAO.editItem(id, newDescription, newPrice);
-    }
+	async getAllRestockOrdersIssued() {
+		return await this.DAO.getAllRestockOrdersIssued();
+	}
 
-    async deleteItem(id) {
-        await this.DAO.deleteItem(id);
-    }
+	async addSKUItemsToRestockOrder(ResOrderID, SKUitems) {
+		return await this.DAO.addSKUItemsToRestockOrder(ResOrderID, SKUitems);
+	}
 
-    async addRestockOrder(issueDate, products, supplierId) {
-        return await this.DAO.addRestockOrder(issueDate, products, supplierId);
-    }
+	async editRestockOrderState(restockOrderID, newState) {
+		return await this.DAO.editRestockOrderState(restockOrderID, newState);
+	}
 
-    async getRestockOrderByID(restockOrderID) {
-        return await this.DAO.getRestockOrderByID(restockOrderID);
-    }
+	async deleteRestockOrder(restockOrderID) {
+		return await this.DAO.deleteRestockOrder(restockOrderID);
+	}
 
-    async getRestockOrderList() {
-        return await this.DAO.getAllRestockOrders();
-    }
+	async getSKUItemsWithNegTest(ResOrderID) {
+		return await this.DAO.getSKUItemsWithNegTest(ResOrderID);
+	}
 
-    async getAllRestockOrdersIssued() {
-        return await this.DAO.getAllRestockOrdersIssued();
-    }
+	async editRestockOrderTransportNote(ResOrderID, tNote) {
+		return await this.DAO.editRestockOrderTransportNote(ResOrderID, tNote);
+	}
 
-    async addSKUItemsToRestockOrder(ResOrderID, SKUitems) {
-        return await this.DAO.addSKUItemsToRestockOrder(ResOrderID, SKUitems);
-    }
-
-    async editRestockOrderState(restockOrderID, newState) {
-        return await this.DAO.editRestockOrderState(restockOrderID, newState);
-    }
-
-    async deleteRestockOrder(restockOrderID) {
-        return await this.DAO.deleteRestockOrder(restockOrderID);
-    }
-
-    async getSKUItemsWithNegTest(ResOrderID) {
-        return await this.DAO.getSKUItemsWithNegTest(ResOrderID);
-    }
-
-    async editRestockOrderTransportNote(ResOrderID, tNote) {
-        return await this.DAO.editRestockOrderTransportNote(ResOrderID,tNote);
-    }
-
-    async editRestockOrderSkuItems(restockOrderID, skuItems){
-        return await this.DAO.editRestockOrderSkuItems(restockOrderID, skuItems);
-    }
+	async editRestockOrderSkuItems(restockOrderID, skuItems) {
+		return await this.DAO.editRestockOrderSkuItems(restockOrderID, skuItems);
+	}
 }
 
 module.exports = Warehouse;

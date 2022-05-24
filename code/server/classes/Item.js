@@ -1,9 +1,9 @@
 class Item {
-	constructor(description, price, supplierID, SKUId, id = null) {
+	constructor(description, price, supplierId, SKUId, id = null) {
 		this.id = id;
 		this.description = description;
 		this.price = price;
-		this.supplierID = supplierID;
+		this.supplierId = supplierId;
 		this.SKUId = SKUId;
 	}
 
@@ -20,7 +20,7 @@ class Item {
 	}
 
 	getSupplierId() {
-		return this.supplierID;
+		return this.supplierId;
 	}
 
 	getSKUId() {
