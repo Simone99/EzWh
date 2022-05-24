@@ -61,6 +61,13 @@ Version:
  - Parameters type
 
 **Predicates for method *getSKUItemsWithNegTest*:**
+### **Class *DAO* - method *addTestDescriptor***
+
+**Criteria for method *addTestDescriptor*:**
+
+ - Parameters type
+
+**Predicates for method *addTestDescriptor*:**
 
 | Criteria        | Predicate                     |
 |-----------------|-------------------------------|
@@ -72,6 +79,8 @@ Version:
 | Criteria        | Boundary values          |
 |-----------------|--------------------------|
 | Parameters type | ResOrderID === undefined  |
+| Parameters type | SKUID === undefined |
+
 
 **Combination of predicates**:
 
@@ -88,11 +97,8 @@ Version:
  - Parameters type
 
 **Predicates for method *editRestockOrderState*:**
-
-| Criteria        | Predicate                     |
-|-----------------|-------------------------------|
-| Parameters type | Some parameters are undefined |
-|                 | All parameters are specified  |
+| SKUID === undefined     | I               | Create a test descriptor with no SKUID         |                   |
+| All parameters are specified | V               | Create a test descriptor with all correct parameters | get test descriptor |
 
 **Boundaries**:
 
@@ -263,6 +269,30 @@ Version:
 | newState === undefined       | I               | Edit an internal order with no state            |  |
 | products === undefined       | I               | Edit an internal order with no products            |  |
 | All parameters are specified | V               | Edit a restock order with all correct parameters | editing internal order |
+
+
+### **Class *DAO* - method *editPositionIDOnly***
+
+**Criteria for method *editPositionIDOnly*:**
+
+ - Parameters type
+
+**Predicates for method *editPositionIDOnly*:**
+
+| Criteria        | Predicate                     |
+|-----------------|-------------------------------|
+| Parameters type | Some parameters are undefined |
+|                 | All parameters are specified  |
+
+**Boundaries**:
+
+| Parameters type | oldPositionID === undefined |
+
+**Combination of predicates**:
+
+| oldPositionID === undefined     | I               |          |                   |
+| All parameters are specified | V               | Updates the position ID specified with the new one | get position |
+
 
 # White Box Unit Tests
 
