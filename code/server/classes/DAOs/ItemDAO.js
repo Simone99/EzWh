@@ -67,7 +67,6 @@ class ItemDAO {
 		});
 	}
 
-	
 	getItemIDByProperties(description, price, userID, SKUID) {
 		return new Promise((resolve, reject) => {
 			const sql =
@@ -86,7 +85,7 @@ class ItemDAO {
 			});
 		});
 	}
-    
+
 	getAllItems() {
 		return new Promise((resolve, reject) => {
 			const sql = 'SELECT * FROM ITEM_TABLE';

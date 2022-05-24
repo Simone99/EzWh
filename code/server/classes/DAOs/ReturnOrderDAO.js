@@ -69,7 +69,7 @@ class ReturnOrderDAO{
                 if(err){
                     reject(err);
                 }else{
-                    resolve(this.changes);
+                    resolve('ok');
                 }
             });   
         });

@@ -2,9 +2,9 @@ const dayjs = require('dayjs');
 class testResult {
 	constructor(idTestDescriptor, result, date, id) {
 		this.id = id;
-		this.date = date;
+		this.Date = date;
 		this.idTestDescriptor = idTestDescriptor;
-		this.result = result;
+		this.Result = result;
 	}
 
 	getResult() {
