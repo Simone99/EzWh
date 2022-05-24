@@ -58,4 +58,8 @@ describe('get internal orders', () => {
             }
         );
     });
+    test('add internal order', async() => {
+        const res = await DAO_test.addInternalOrder("2021/11/29 09:33", undefined, 1);
+        expect(res).toEqual(404);
+    });
 });

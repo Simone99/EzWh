@@ -610,6 +610,9 @@ class DAO {
 	}
 
 	async addInternalOrder(issueDate, internalOrderItemList, customerId) {
+		if(issueDate === undefined || internalOrderItemList === undefined || customerId === undefined){
+			return 404;
+		}
 		const idReturned = await this.InternalOrderDAO.addInternalOrder(
 			issueDate,
 			customerId

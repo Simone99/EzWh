@@ -31,3 +31,22 @@ exports.resetDB = async(dbPath) => {
     
     return new DAO(dbPath);
 }
+
+exports.createDB = async(dbPath) => {
+
+    let allFileContents = fs.readFileSync(
+        path.resolve(__dirname, '../classes/DBCreationQuery.sql'),
+        'utf-8'
+    );
+
+    const db = new sqlite.Database(dbPath, (err) => {
+        if (err) throw err;
+    });
+
+    for(let query of allFileContents.split(';')){
+        await runQuery(query, db);
+    }
+
+    return new DAO(dbPath);
+
+}

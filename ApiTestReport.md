@@ -46,25 +46,9 @@ Version:
 | Classes      | mock up used |        Jest test cases        |
 |--------------|--------------|:-----------------------------:|
 | RestockOrder | -            |       get restock order       |
-|              |              |    get restock order issued   |
-|              |              |   change restock order state  |
-|              |              | set SKUItems to restock order |
-
-## Step 2
-| Classes  | mock up used |Jest test cases |
-|--|--|--|
-||||
-
-
-## Step n 
-
-   
-| Classes  | mock up used |Jest test cases |
-|--|--|--|
-||||
-
-
-
+|              | -            |    get restock order issued   |
+|              | -            |   change restock order state  |
+|              | -            | set SKUItems to restock order |
 
 # API testing - Scenarios
 
