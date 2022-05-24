@@ -15,23 +15,6 @@ const runQuery = (query, db) => {
 	});
 };
 
-
-exports.resetDB = async(dbPath) => {
-    try{
-    }catch(err){
-
-    }finally{
-        const allFileContents = fs.readFileSync(
-            path.resolve(__dirname, '../classes/DBCreationQuery.sql'),
-            'utf-8'
-        );
-        
-        const db =  new sqlite.Database(dbPath, (err) => {
-            if (err) throw err;
-        });
-    }
-};
-
 exports.resetDB = async (dbPath) => {
 	allFileContents = fs.readFileSync(
 		path.resolve(__dirname, '../classes/DBDropQueries.sql'),

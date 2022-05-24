@@ -41,7 +41,7 @@ describe('get internal orders', () => {
         );
     });
 
-    test('get insternal orders accepted', async() => {
+    test('get internal orders accepted', async() => {
         const res = await DAO_test.getInternalOrdersAcceptedList();
         expect(res).toEqual([]);
     });

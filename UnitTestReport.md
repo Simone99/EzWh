@@ -271,11 +271,22 @@ Version:
     <Report here all the created Jest test cases, and the units/classes under test >
     <For traceability write the class and method name that contains the test case>
 
-| Unit name | Jest test case |
-|--|--|
-|||
-|||
-||||
+| Unit name | Jest test case                |
+|-----------|-------------------------------|
+| DAO       | get restock order             |
+|           | get restock order issued      |
+|           | change restock order state    |
+|           | set SKUItems to restock order |
+|           | add restock order             |
+|           | get internal orders           |
+|           | get internal orders issued    |
+|           | get internal orders accepted  |
+|           | editing internal order        |
+|           | add internal order            |
+|           |                               |
+|           |                               |
+|           |                               |
+|           |                               |
 
 ### Code coverage report
 

@@ -43,12 +43,19 @@ Version:
       Jest test cases should be here code/server/unit_test
 
 ## Step 1
-| Classes      | mock up used |        Jest test cases        |
-|--------------|--------------|:-----------------------------:|
-| RestockOrder | -            |       get restock order       |
-|              | -            |    get restock order issued   |
-|              | -            |   change restock order state  |
-|              | -            | set SKUItems to restock order |
+| Classes       | mock up used |        Jest test cases        |
+|---------------|--------------|:-----------------------------:|
+| RestockOrder  | -            |       get restock order       |
+|               | -            |    get restock order issued   |
+|               | -            |   change restock order state  |
+|               | -            | set SKUItems to restock order |
+|               | -            | add restock order             |
+| InternalOrder | -            | get internal orders           |
+|               | -            | get internal orders issued    |
+|               | -            | get internal orders accepted  |
+|               | -            | editing internal order        |
+|               | -            | add internal order            |
+|               |              |                               |
 
 # API testing - Scenarios
 
@@ -78,7 +85,8 @@ Report also for each of the scenarios the (one or more) API Mocha tests that cov
 |-------------|---------------------------------|----------------|
 | UC5.1       | FR5.8                           | Testing UC5.1  |
 | UC5.2       | FR5.8.2                         | Testing UC5.2  |
-|             |                                 |                |
+| UC9         | FR6.6                           | Testing UC9    |
+| UC10        | FR6.8                           | Testing UC10   |
 
 # Coverage of Non Functional Requirements
 

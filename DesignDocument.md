@@ -32,7 +32,7 @@ Together, they implement also an MVC pattern, with the V on the front end and th
 
 # Low level design
 
-![Class Diagram](./Diagrams/ClassDiagram1.jpg "Class Diagram")
+![Class Diagram](./Diagrams/Design_diagram_coding.jpg "Class Diagram")
 
 # Verification traceability matrix
 

@@ -454,7 +454,6 @@ class DAO {
 		const we = new ReturnOrder(returnOrder.id, returnOrder.restockOrderId, returnOrder.state, returnOrder.returnDate, items);
         delete we.id;
         delete we.state;
-		console.log(we);
         return we;
 		} else {
 			return returnOrder;

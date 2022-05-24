@@ -32,14 +32,14 @@ describe('Test SKUItem APIs', () => {
 
     ]);
 
-    testGetSKUItem(200, "12345678901234567890123456789015", [
+    testGetSKUItem(200, "12345678901234567890123456789015",
         {
             "RFID": "12345678901234567890123456789015",
             "Available": 0,
             "SKUId": 1,
             "DateOfStock": "2021/11/29 12:30"
         }    
-    ]);
+    );
 
     testPutSKUItem(422, "12345678901234567890123456789015", "12345678901234567890123456789015");
     testPutSKUItem(404, "12345678901234567890190456789089", "12345678901234567890123456789615", 1, "2021/11/29 12:30");
@@ -67,7 +67,7 @@ function testGetSKUItems(expectedHTTPStatus, expected) {
         agent.get('/api/skuitems').then(res => {
             res.should.have.status(expectedHTTPStatus);
             console.log(res.body);
-            expect(res.body).to.not.deep.equalInAnyOrder(expected);
+            expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });
     });
@@ -76,10 +76,8 @@ function testGetSKUItems(expectedHTTPStatus, expected) {
 function testGetSKUItem(expectedHTTPStatus, rfid, expected) {
     it('Getting sku', done => {
         agent.get(`/api/skuitems/${rfid}`).then(res => {
-            console.log(res.body);
-
             res.should.have.status(expectedHTTPStatus);
-            expect(res.body).to.not.deep.equalInAnyOrder(expected);
+            expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });
     });

@@ -88,8 +88,6 @@ async function testGetSKUs(expectedHTTPStatus, expected) {
 function testGetSKU(expectedHTTPStatus, ID, expected) {
     it('Getting sku', done => {
         agent.get(`/api/skus/${ID}`).then(res => {
-            console.log(res.body);
-
             res.should.have.status(expectedHTTPStatus);
             expect(res.body).to.not.deep.equalInAnyOrder(expected);
             done();
