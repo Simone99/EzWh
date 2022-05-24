@@ -10,6 +10,7 @@
     "apiTest": "mocha"
   },
   "dependencies": {
+    "arkit": "^1.6.4",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "cookie-parser": "~1.4.4",

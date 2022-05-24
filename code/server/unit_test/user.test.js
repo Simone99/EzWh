@@ -110,16 +110,12 @@ describe('get suppliers', () => {
 				name: 'Simone',
 				surname: 'Zanella',
 				email: 's295316@studenti.polito.it',
-				password: 'DioMattone',
-				type: 'supplier',
 			},
 			{
 				id: 2,
 				name: 'Alfredo',
 				surname: 'Paolino',
 				email: 'sXXXXXX@studenti.polito.it',
-				password: 'DioCancro',
-				type: 'supplier',
 			},
 		]);
 	});

@@ -29,7 +29,7 @@ describe('Tests on ItemDAO.js', () => {
 			id: 1,
 			price: 150,
 			SKUId: 2,
-			supplierID: 1,
+			supplierId: 1,
 			description: 'Item description 1',
 		});
 	});
@@ -46,21 +46,21 @@ describe('Tests on ItemDAO.js', () => {
 				id: 1,
 				price: 150,
 				SKUId: 2,
-				supplierID: 1,
+				supplierId: 1,
 				description: 'Item description 1',
 			},
 			{
 				id: 2,
 				price: 200,
 				SKUId: 4,
-				supplierID: 2,
+				supplierId: 2,
 				description: 'Item description 2',
 			},
 			{
 				id: 3,
 				price: 250,
 				SKUId: 5,
-				supplierID: 3,
+				supplierId: 3,
 				description: 'Item description 3',
 			},
 		]);
@@ -78,7 +78,7 @@ describe('Tests on ItemDAO.js', () => {
 			id: 2,
 			price: 90,
 			SKUId: 4,
-			supplierID: 2,
+			supplierId: 2,
 			description: 'Item description 7',
 		});
 	});
@@ -101,14 +101,14 @@ describe('Tests on ItemDAO.js', () => {
 				id: 1,
 				price: 150,
 				SKUId: 2,
-				supplierID: 1,
+				supplierId: 1,
 				description: 'Item description 1',
 			},
 			{
 				id: 3,
 				price: 250,
 				SKUId: 5,
-				supplierID: 3,
+				supplierId: 3,
 				description: 'Item description 3',
 			},
 		]);

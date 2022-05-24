@@ -18,6 +18,7 @@ class SKU {
 		this.notes = notes;
 		this.position = position;
 		this.availableQuantity = availableQuantity;
+		this.testDescriptors = [];
 	}
 
 	getId() {
@@ -50,6 +51,12 @@ class SKU {
 
 	getAvailableQuantity(){
 		return this.availableQuantity;
+	}
+
+	setTestDescriptors(tds){
+		tds.forEach(td => {
+			this.testDescriptors.push(td);
+		});
 	}
 }
 

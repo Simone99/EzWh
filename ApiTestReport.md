@@ -21,27 +21,34 @@ Version:
 
 # Dependency graph 
 
-     <report the here the dependency graph of the classes in EzWH, using plantuml or other tool>
-     
+![Create SKU](./code/server/dependency_graph.png "Create SKU")
+
 # Integration approach
 
     <Write here the integration sequence you adopted, in general terms (top down, bottom up, mixed) and as sequence
     (ex: step1: class A, step 2: class A+B, step 3: class A+B+C, etc)> 
     <Some steps may  correspond to unit testing (ex step1 in ex above), presented in other document UnitTestReport.md>
     <One step will  correspond to API testing>
-    
 
+    The approach we decided to follow is the bottom up one. Using unit tests we checked that our base units work properly. Then we moved up using no mock on the database, instead, before each test, we initialized the correct db state.
+    - First step: test DAO methods (unit tests)
+    - Second step: run API testing
 
 #  Integration Tests
 
    <define below a table for each integration step. For each integration step report the group of classes under test, and the names of
-     Jest test cases applied to them, and the mock ups used, if any> Jest test cases should be here code/server/unit_test
+     Jest test cases applied to them, and the mock ups used, if any>
+     
+          
+      Jest test cases should be here code/server/unit_test
 
 ## Step 1
-| Classes  | mock up used |Jest test cases |
-|--|--|--|
-||||
-
+| Classes      | mock up used |        Jest test cases        |
+|--------------|--------------|:-----------------------------:|
+| RestockOrder | -            |       get restock order       |
+|              |              |    get restock order issued   |
+|              |              |   change restock order state  |
+|              |              | set SKUItems to restock order |
 
 ## Step 2
 | Classes  | mock up used |Jest test cases |
@@ -83,19 +90,11 @@ Version:
 <Report in the following table the coverage of  scenarios (from official requirements and from above) vs FR. 
 Report also for each of the scenarios the (one or more) API Mocha tests that cover it. >  Mocha test cases should be here code/server/test
 
-
-
-
-| Scenario ID | Functional Requirements covered | Mocha  Test(s) | 
-| ----------- | ------------------------------- | ----------- | 
-|  ..         | FRx                             |             |             
-|  ..         | FRy                             |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-| ...         |                                 |             |             
-
-
+| Scenario ID | Functional Requirements covered | Mocha  Test(s) |
+|-------------|---------------------------------|----------------|
+| UC5.1       | FR5.8                           | Testing UC5.1  |
+| UC5.2       | FR5.8.2                         | Testing UC5.2  |
+|             |                                 |                |
 
 # Coverage of Non Functional Requirements
 
