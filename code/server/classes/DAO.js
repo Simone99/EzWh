@@ -429,23 +429,9 @@ class DAO {
             items = await this.ReturnOrderDAO.getReturnOrderProducts(ro.getID());
             ro.addSKUItem(items);
         }
-        let roListi = roList.map(({id, products, restockOrderId, returnDate, state}) => ({id, products, restockOrderId, returnDate}))
+        let roListi = roList.map(({id, products, restockOrderId, returnDate, state}) => ({products, restockOrderId, returnDate}))
         return roListi;
    }
-
-	async getReturnOrder(returnOrderID) {
-		const returnOrder = await this.ReturnOrderDAO.getReturnOrder(returnOrderID);
-		if (returnOrder !== undefined) {
-			let items;
-			items = await this.ReturnOrderDAO.getReturnOrderProducts(
-				returnOrder.getID()
-			);
-			returnOrder.addSKUItem(items);
-		}
-		delete returnOrder.id;
-		delete returnOrder.state;
-		return returnOrder;
-	}
 
     async getReturnOrder(returnOrderID) {
         const returnOrder = await this.ReturnOrderDAO.getReturnOrder(returnOrderID);
@@ -454,9 +440,10 @@ class DAO {
 		const we = new ReturnOrder(returnOrder.id, returnOrder.restockOrderId, returnOrder.state, returnOrder.returnDate, items);
         delete we.id;
         delete we.state;
-		console.log(we);
         return we;
 		} else {
+			delete returnOrder.id;
+        	delete returnOrder.state;
 			return returnOrder;
 		}
     }

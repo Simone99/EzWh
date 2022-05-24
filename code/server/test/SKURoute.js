@@ -146,10 +146,12 @@ describe('Testing UC 1.1', () => {
 describe('Testing UC 1.2', () => {
     before( async() => {
         const localDAO = await resetDB('./EZWarehouseDB.db');
-        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+        await localDAO.insertSKU(new SKU("a new sku", 1, 1, 10.99, "first SKU", null, null, 50));
         await localDAO.addPosition("800234543413", "8002", "3454", "3413", 1000, 1000);
 
     });
+    testPutSKUPosition(201, 1, "800234543413");
+
     testGetSKU(200, 1,
         {
             "description" : "a new sku",
@@ -163,3 +165,26 @@ describe('Testing UC 1.2', () => {
     );
 
 })
+
+
+describe('Testing UC 1.3', () => {
+    before( async() => {
+        const localDAO = await resetDB('./EZWarehouseDB.db');
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+
+    });
+    testPutSKU(200, 1, "a new sku", 1, 1, "first SKU", 10.99, 44);
+    testGetSKU(200, 1,
+        {
+            "description" : "a new sku",
+            "weight" : 1,
+            "volume" : 1,
+            "notes" : "first SKU",
+            "position" : null,
+            "availableQuantity" : 44,
+            "price" : 10.99
+        }    
+    );
+
+})
+

@@ -4,7 +4,7 @@ let DAO_test;
 
 describe("get sku", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test10.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.insertSKU(new SKU("another sku", 100, 50, 10.99, "first SKU", null, null, 50));
     });
@@ -30,7 +30,7 @@ describe("get sku", () => {
 
 describe("get skus", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test11.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.addPosition(800234543412, 8002, 3454, 3412, 1000, 1000);
         await DAO_test.updateSKUPosition(1, 800234543412);
@@ -74,7 +74,7 @@ describe("get skus", () => {
 
 describe("modify sku", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test13.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.addPosition(800234543414, 8002, 3454, 3414, 1000, 1000);
         await DAO_test.updateSKUPosition(1, 800234543414);
@@ -99,7 +99,7 @@ describe("modify sku", () => {
 
 describe("delete sku", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test14.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.deleteSKU(1);
     });

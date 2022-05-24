@@ -60,6 +60,7 @@ describe('Test ReturnOrder APIs', () => {
     
     testGetReturnOrderByID(200, 1, {
         "returnDate":"2021/11/29 09:33",
+        "id":1,
         "products": [{
             SKUId: 1,
             description: 'a new sku',

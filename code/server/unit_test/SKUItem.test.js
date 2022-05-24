@@ -6,7 +6,7 @@ let DAO_test;
 
 describe("get sku item", () => {
     beforeAll(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test20.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.addSKUItem(new SKUItem(1, 0, "2021/11/29 12:30", "12345678901234567890123456789015"));
     });
@@ -19,7 +19,7 @@ describe("get sku item", () => {
                 DateOfStock:"2021/11/29 12:30"    
         });
     });
-    test('get sku null', async () => {
+    test('get sku item null', async () => {
         const res = await DAO_test.getSKUItemByRFID(null);
         expect(res).toEqual(undefined);
     });
@@ -27,7 +27,7 @@ describe("get sku item", () => {
 
 describe("get sku item", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test21.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.addSKUItem(new SKUItem(1, 0, "2021/11/29 12:30", "12345678901234567890123456789015"));
         await DAO_test.addSKUItem(new SKUItem(1, 0, "2021/11/29 12:30", "12345678901234567890123456789016"));
@@ -55,7 +55,7 @@ describe("get sku item", () => {
 
 describe("get available sku items", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test24.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.addSKUItem(new SKUItem(1, 0, "2021/11/29 12:30", "12345678901234567890123456789015"));
         await DAO_test.addSKUItem(new SKUItem(1, 0, "2021/11/29 12:30", "12345678901234567890123456789016"));
@@ -78,7 +78,7 @@ describe("get available sku items", () => {
     
 describe("modify sku item", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test25.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.addSKUItem(new SKUItem(1, 0, "2021/11/29 12:30", "12345678901234567890123456789015"));
         await DAO_test.addSKUItem(new SKUItem(1, 0, "2021/11/29 12:30", "12345678901234567890123456789016"));
@@ -98,7 +98,7 @@ describe("modify sku item", () => {
 
 describe("delete sku item", () => {
     beforeEach(async() => {
-        DAO_test = await resetDB('./EZWarehouseDB_test26.db');
+        DAO_test = await resetDB('./EZWarehouseDB_test.db');
         await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await DAO_test.addSKUItem(new SKUItem(1, 0, "2021/11/29 12:30", "12345678901234567890123456789015"));
         await DAO_test.addSKUItem(new SKUItem(1, 0, "2021/11/29 12:30", "12345678901234567890123456789016"));
