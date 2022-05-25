@@ -52,6 +52,7 @@ describe('get internal orders', () => {
         const res = await DAO_test.getInternalOrder(1);
         expect(res).toEqual(
                 {
+                    "id":1,
                     "issueDate":"2021/11/29 09:33",
                     "state": "ISSUED",
                     "products": [{"SKUId":1,"description":"a product","price":10.99,"qty":3}],
@@ -69,6 +70,7 @@ describe('get internal orders', () => {
         await DAO_test.editInternalOrder(1, "COMPLETED", [{"SkuID":1,"RFID":"12345678901234567890123456789015"}]);
         const res = await DAO_test.getInternalOrder(1);
         expect(res).toEqual({
+                "id":1,
                 "issueDate":"2021/11/29 09:33",
                 "state": "COMPLETED",
                 "products": [{"SkuID":1,"RFID":"12345678901234567890123456789015"}],
