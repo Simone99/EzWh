@@ -1043,15 +1043,17 @@ Version:
 |         | get a non existing item by id |
 |         | get all items |
 |         | Edit an existing item |
+|         | Edit an existing item empty description |
 |         | Control content after editing an existing item |
 |         | Edit a non existing item |
 |         | delete an item |
 |         | check existance of deleted item |
-| Test result | Add a test result |
+| Test result | Add a false test result |
+|             | Add a true test result |
 |             | get all test results of an SKUItem |
 |             | get a specific test result of a specific SKUItem |
 |             | Edit a test result for a specific SKUItem |
-|             | Delete a test result by id |
+|             | Delete a test result by rfid and id |
 | User    | get User |
 |         | get User null |
 |         | get Users |
