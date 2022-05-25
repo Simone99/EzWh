@@ -15,10 +15,10 @@ class RestockOrderDAO {
             this.db.all(sql, [], (err, rows) => {
                 if (err) {
                     reject(err);
-                    return;
+                } else {
+                    const restockOrders = rows.map(row => new RestockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE));
+                    resolve(restockOrders);
                 }
-                const restockOrders = rows.map(row => new RestockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE));
-                resolve(restockOrders);
             });
         });
     }
@@ -29,10 +29,10 @@ class RestockOrderDAO {
             this.db.all(sql, [], (err, rows) => {
                 if (err) {
                     reject(err);
-                    return;
+                } else {
+                    const ResOrdersIssued = rows.map(row => new RestockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE));
+                    resolve(ResOrdersIssued);
                 }
-                const ResOrdersIssued = rows.map(row => new RestockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE));
-                resolve(ResOrdersIssued);
             });
         });
     }
@@ -43,12 +43,12 @@ class RestockOrderDAO {
             this.db.get(sql, [ID], (err, row) => {
                 if (err) {
                     reject(err);
-                    return;
-                }
-                if (row === undefined) {
-                    resolve(undefined);
                 } else {
-                    resolve(new RestockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE));
+                    if (row === undefined) {
+                        resolve(undefined);
+                    } else {
+                        resolve(new RestockOrder(row.ID, row.ISSUEDATE, row.STATE, row.USERID, row.TRANSPORTNOTE));
+                    }
                 }
             });
         });
@@ -66,10 +66,10 @@ class RestockOrderDAO {
             this.db.all(sql, [ResOrderID], (err, rows) => {
                 if (err) {
                     reject(err);
-                    return;
+                }else {
+                    const SKUItemsWithNegTest = rows.map(row => new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID));
+                    resolve(SKUItemsWithNegTest);
                 }
-                const SKUItemsWithNegTest = rows.map(row => new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID));
-                resolve(SKUItemsWithNegTest);
             });
         });
     }
@@ -80,9 +80,9 @@ class RestockOrderDAO {
             this.db.run(sql, [issueDate, state, supplierId], function(err){
                 if (err) {
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.lastID);
                 }
-                resolve(this.lastID);
             });
         });
     }
@@ -93,9 +93,9 @@ class RestockOrderDAO {
             this.db.run(sql, [newState, ResOrderID], function(err) {
                 if (err) {
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.changes);
                 }
-                resolve(this.changes);
             });
         });
     }
@@ -107,7 +107,6 @@ class RestockOrderDAO {
                 this.db.run(sql, [element.ID, ResOrderID], err => {
                     if (err) {
                         reject(err);
-                        return;
                     }
                 })
             });
@@ -121,9 +120,9 @@ class RestockOrderDAO {
             this.db.run(sql, [transportNoteID, ResOrderID], err => {
                 if (err) {
                     reject(err);
-                    return;
+                } else {
+                    resolve('OK');
                 }
-                resolve('OK');
             });
         });
     }
@@ -134,9 +133,9 @@ class RestockOrderDAO {
             this.db.run(sql, [ResOrderID], err => {
                 if (err) {
                     reject(err);
-                    return;
+                } else {
+                    resolve('OK');
                 }
-                resolve('OK');
             });
         });
     }
@@ -147,13 +146,13 @@ class RestockOrderDAO {
             this.db.get(sql, [ID], (err, row) => {
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    if(row === undefined){
+                        resolve(undefined);
+                    } else {
+                        resolve(new TransportNote(row.SHIPMENTDATE));
+                    }
                 }
-                if(row === undefined){
-                    resolve(undefined);
-                    return;
-                }
-                resolve(new TransportNote(row.SHIPMENTDATE));
             });
         });
     }
@@ -166,16 +165,16 @@ class RestockOrderDAO {
             this.db.all(sql, [ID], (err, rows) => {
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    if(rows === undefined){
+                        resolve(undefined);
+                    } else {
+                        const productsList = rows.map(row => {
+                            return { SKUId : row.SKUID, description : row.DESCRIPTION, price : row.PRICE, qty : row.QUANTITY };
+                        });
+                        resolve(productsList);
+                    }
                 }
-                if(rows === undefined){
-                    resolve(undefined);
-                    return;
-                }
-                const productsList = rows.map(row => {
-                    return { SKUId : row.SKUID, description : row.DESCRIPTION, price : row.PRICE, qty : row.QUANTITY };
-                });
-                resolve(productsList);
             });
         });
     }
@@ -186,9 +185,9 @@ class RestockOrderDAO {
             this.db.run(sql, [itemID, quantity], function(err){
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.lastID);
                 }
-                resolve(this.lastID);
             });
         });
     }
@@ -199,9 +198,9 @@ class RestockOrderDAO {
             this.db.run(sql, [restockOrderID, restockOrderItemID], function(err){
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.lastID);
                 }
-                resolve(this.lastID);
             });
         });
     }
@@ -212,9 +211,9 @@ class RestockOrderDAO {
             this.db.run(sql, [deliveryDate], function(err){
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.lastID);
                 }
-                resolve(this.lastID);
             });
         });
     }
@@ -225,9 +224,9 @@ class RestockOrderDAO {
             this.db.run(sql, [RFID, restockOrderID], function(err){
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.lastID);
                 }
-                resolve(this.lastID);
             });
         });
     }

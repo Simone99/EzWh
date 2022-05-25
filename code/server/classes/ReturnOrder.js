@@ -12,14 +12,6 @@ class ReturnOrder{
         return this.id;
     }
 
-    getRestockOrderID() {
-        return this.restockOrderId;
-    }
-
-    getReturnDate() {
-        return this.returnDate;
-    }
-
     addSKUItem(products) {
         products.forEach(product => this.products.push(product));
     }

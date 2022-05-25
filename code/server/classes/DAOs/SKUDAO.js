@@ -13,10 +13,10 @@ class SKUDAO{
             this.db.all(sql, [], (err, rows) => {
                 if(err){
                     reject(500);
-                    return;
+                } else {
+                    const skus = rows.map(row => new SKU(row.DESCRIPTION, row.WEIGHT, row.VOLUME, row.PRICE, row.NOTES, row.POSITION, row.ID, row.AVAILABLEQUANTITY));
+                    resolve(skus);
                 }
-                const skus = rows.map(row => new SKU(row.DESCRIPTION, row.WEIGHT, row.VOLUME, row.PRICE, row.NOTES, row.POSITION, row.ID, row.AVAILABLEQUANTITY));
-                resolve(skus);
             });
         });
     }
@@ -27,12 +27,12 @@ class SKUDAO{
             this.db.get(sql, [ID], (err, row) => {
                 if(err){
                     reject(err);
-                    return;
-                }
-                if(row === undefined){
-                    resolve(undefined);
-                }else{
-                    resolve(new SKU(row.DESCRIPTION, row.WEIGHT, row.VOLUME, row.PRICE, row.NOTES, row.POSITION, row.ID, row.AVAILABLEQUANTITY));
+                } else {
+                    if(row === undefined){
+                        resolve(undefined);
+                    } else{
+                        resolve(new SKU(row.DESCRIPTION, row.WEIGHT, row.VOLUME, row.PRICE, row.NOTES, row.POSITION, row.ID, row.AVAILABLEQUANTITY));
+                    }
                 }
             });
         });
@@ -71,7 +71,7 @@ class SKUDAO{
             this.db.run(sql, [newDescription, newWeight, newVolume, newPrice, newNotes, newAvailableQuantity, SKUID], err => {
                 if(err){
                     reject(err);
-                }else{
+                }else {
                     resolve('ok');
                 }
             });
@@ -88,7 +88,7 @@ class SKUDAO{
             this.db.run(sql, [newPositionID, SKUID], err => {
                 if(err){
                     reject(err);
-                }else{
+                } else {
                     resolve('OK');
                 }
             });

@@ -20,6 +20,7 @@ describe("get return orders", () => {
         let res = await DAO_test.getReturnOrderList();
         expect(res).toEqual([
             {
+                id : 1,
                 returnDate:"2021/11/29 09:33",
                 products: [{"SKUId":1,"description":"a new sku","price":10.99, "RFID":"12345678901234567890123456789015"}],
                 restockOrderId: 1

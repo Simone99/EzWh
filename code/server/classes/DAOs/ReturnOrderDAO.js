@@ -13,10 +13,10 @@ class ReturnOrderDAO{
             this.db.all(sql, [], (err, rows) => {
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    const roList = rows.map(row => new ReturnOrder(row.ID, row.RESTOCKORDER, null, row.RETURNDATE));
+                    resolve(roList);
                 }
-                const roList = rows.map(row => new ReturnOrder(row.ID, row.RESTOCKORDER, null, row.RETURNDATE));
-                resolve(roList);
             });
         });
     }
@@ -35,12 +35,12 @@ class ReturnOrderDAO{
             this.db.all(sql, [id], (err, rows) => {
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    const items = rows.map(row => {
+                        return {SKUId : row.ID, description : row.DESCRIPTION, price : row.PRICE, RFID : row.RFID};
+                    });
+                    resolve(items);
                 }
-                const items = rows.map(row => {
-                    return {SKUId : row.ID, description : row.DESCRIPTION, price : row.PRICE, RFID : row.RFID};
-                });
-                resolve(items);
             });
         });
     }
@@ -51,13 +51,13 @@ class ReturnOrderDAO{
             this.db.get(sql, [returnOrderID], (err, row) => {
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    if(row === undefined){
+                        resolve(row);
+                    } else {
+                        resolve(new ReturnOrder(row.ID, row.RESTOCKORDER, null, row.RETURNDATE));
+                    }
                 }
-                if(row === undefined){
-                    resolve(row);
-                    return;
-                }
-                resolve(new ReturnOrder(row.ID, row.RESTOCKORDER, null, row.RETURNDATE));
             });
         });
     }
@@ -81,9 +81,9 @@ class ReturnOrderDAO{
             this.db.run(sql, [r, date], function(err) {
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.lastID);
                 }
-                resolve(this.lastID);
             });
         });
     }
@@ -94,9 +94,9 @@ class ReturnOrderDAO{
             this.db.run(sql, [returnOrderID], function(err){
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.changes);
                 }
-                resolve(this.changes);
             });
         });
     }

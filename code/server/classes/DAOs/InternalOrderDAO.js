@@ -16,12 +16,12 @@ class InternalOrderDAO {
             this.db.all(sql, [], (err, rows) => {
                 if (err) {
                     reject(err);
-                    return;
+                } else {
+                    const internalOrders = rows.map(row => {
+                        return new InternalOrder(row.ID, row.STATE, row.ISSUEDATE, row.CUSTOMER);
+                    });
+                    resolve(internalOrders);
                 }
-                const internalOrders = rows.map(row => {
-                    return new InternalOrder(row.ID, row.STATE, row.ISSUEDATE, row.CUSTOMER);
-                });
-                resolve(internalOrders);
             });
         });
     }
@@ -32,12 +32,12 @@ class InternalOrderDAO {
             this.db.all(sql, ['ISSUED'], (err, rows) => {
                 if (err) {
                     reject(err);
-                    return;
+                } else {
+                    const internalOrdersIssued = rows.map(row => {
+                        return new InternalOrder(row.ID, row.STATE, row.ISSUEDATE, row.CUSTOMER);
+                    });
+                    resolve(internalOrdersIssued);
                 }
-                const internalOrdersIssued = rows.map(row => {
-                    return new InternalOrder(row.ID, row.STATE, row.ISSUEDATE, row.CUSTOMER);
-                });
-                resolve(internalOrdersIssued);
             });
         });
     }
@@ -48,12 +48,12 @@ class InternalOrderDAO {
             this.db.all(sql, ['ACCEPTED'], (err, rows) => {
                 if (err) {
                     reject(err);
-                    return;
+                } else {
+                    const internalOrdersIssued = rows.map(row => {
+                        return new InternalOrder(row.ID, row.STATE, row.ISSUEDATE, row.CUSTOMER);
+                    });
+                    resolve(internalOrdersIssued);
                 }
-                const internalOrdersIssued = rows.map(row => {
-                    return new InternalOrder(row.ID, row.STATE, row.ISSUEDATE, row.CUSTOMER);
-                });
-                resolve(internalOrdersIssued);
             });
         });
     }
@@ -64,14 +64,13 @@ class InternalOrderDAO {
             this.db.get(sql, [internalOrderID], (err, row) => {
                 if (err) {
                     reject(err);
-                    return;
-                }
-                if (row === undefined) {
-                    resolve(undefined);
                 } else {
-                    resolve(new InternalOrder(row.ID, row.STATE, row.ISSUEDATE, row.CUSTOMER));
+                    if (row === undefined) {
+                        resolve(undefined);
+                    } else {
+                        resolve(new InternalOrder(row.ID, row.STATE, row.ISSUEDATE, row.CUSTOMER));
+                    }
                 }
-
             });
         });
     }
@@ -90,12 +89,12 @@ class InternalOrderDAO {
             this.db.all(sql, [internalOrderID], (err, rows) => {
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    const items = rows.map(row => {
+                        return {SKUId : row.ID, description : row.DESCRIPTION, price : row.PRICE, qty : row.QUANTITY};
+                    });
+                    resolve(items);
                 }
-                const items = rows.map(row => {
-                    return {SKUId : row.ID, description : row.DESCRIPTION, price : row.PRICE, qty : row.QUANTITY};
-                });
-                resolve(items);
             });
         });
     }
@@ -106,9 +105,9 @@ class InternalOrderDAO {
             this.db.run(sql, [issueDate, 'ISSUED', customerId], function(err) {
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.lastID);
                 }
-                resolve(this.lastID);
             });
         });
     }
@@ -119,8 +118,9 @@ class InternalOrderDAO {
             this.db.run(sql, [internalOrderItem.SKUId, internalOrderItem.qty, internalOrderItem.description], function(err) {
                 if(err){
                     reject(err);
+                } else {
+                    resolve(this.lastID);
                 }
-                resolve(this.lastID);
             });
         });
     }
@@ -131,8 +131,9 @@ class InternalOrderDAO {
             this.db.run(sql, [OrderID, itemID], function(err) {
                 if(err){
                     reject(err);
+                } else {
+                    resolve('OK');
                 }
-                resolve('OK');
             });
         });
     }
@@ -143,7 +144,7 @@ class InternalOrderDAO {
             this.db.run(sql, [newState, internalOrderID], err => {
                 if(err){
                     reject(err);
-                }else{
+                } else{
                     resolve(this.changes);
                 }
             });
@@ -156,7 +157,7 @@ class InternalOrderDAO {
             this.db.run(sql, [internalOrderID, SKUID, RFID], err => {
                 if(err){
                     reject(err);
-                }else{
+                } else{
                     resolve(this.lastID);
                 }
             });
@@ -169,17 +170,17 @@ class InternalOrderDAO {
             this.db.all(sql, [internalOrderID], (err, rows) => {
                 if(err){
                     reject(err);
-                    return;
-                }
-                if(rows === undefined){
-                    resolve(undefined);
-                }else{
-                    const products = rows.map(row => {
-                        row['SkuID'] = row['SKUID'];
-                        delete row['SKUID'];
-                        return row;
-                    });
-                    resolve(products);
+                } else {
+                    if(rows === undefined){
+                        resolve(undefined);
+                    }else{
+                        const products = rows.map(row => {
+                            row['SkuID'] = row['SKUID'];
+                            delete row['SKUID'];
+                            return row;
+                        });
+                        resolve(products);
+                    }
                 }
             });
         });
@@ -191,7 +192,7 @@ class InternalOrderDAO {
             this.db.run(sql,[internalOrderID], err => {
                 if(err){
                     reject(err);
-                }else{
+                } else{
                     resolve('OK');
                 }
             });

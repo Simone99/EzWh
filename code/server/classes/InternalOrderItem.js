@@ -5,18 +5,6 @@ class InternalOrderItem{
         this.qty = qty;
         this.description = description;
     }
-
-    getSKU() {
-		return this.SKUObj;
-	}
-
-    getQuantity() {
-        return this.qty;
-    }
-
-    getDescription(){
-        return this.description;
-    }
 }
 
 module.exports = InternalOrderItem;

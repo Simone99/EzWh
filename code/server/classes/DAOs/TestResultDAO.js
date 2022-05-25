@@ -16,22 +16,22 @@ class TestResultDAO {
 			this.db.all(sql, [RFID], (err, rows) => {
 				if (err) {
 					reject(err);
-					return;
-				}
-				if (rows === undefined) {
-					resolve(undefined);
-					return;
-				}
-				const testResult = rows.map(
-					(row) =>
-						new TestResult(
-							row.DESCRIPTION,
-							row.RESULT === 1 ? true : false,
-							row.DATE_,
-							row.ID
-						)
-				);
-				resolve(testResult);
+				} else {
+					if (rows === undefined) {
+						resolve(undefined);
+					} else {
+						const testResult = rows.map(
+							(row) =>
+								new TestResult(
+									row.DESCRIPTION,
+									row.RESULT === 1 ? true : false,
+									row.DATE_,
+									row.ID
+								)
+						);
+						resolve(testResult);
+								}
+							}
 			});
 		});
 	}
@@ -45,19 +45,19 @@ class TestResultDAO {
 			this.db.get(sql, [RFID, ID], (err, row) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					if (row === undefined) {
+						resolve(404);
+					} else {
+						const testResult = new TestResult(
+							row.DESCRIPTION,
+							row.RESULT === 1 ? true : false,
+							row.DATE_,
+							row.ID
+						);
+						resolve(testResult);
+					}
 				}
-				if (row === undefined) {
-					resolve(404);
-					return;
-				}
-				const testResult = new TestResult(
-					row.DESCRIPTION,
-					row.RESULT === 1 ? true : false,
-					row.DATE_,
-					row.ID
-				);
-				resolve(testResult);
 			});
 		});
 	}

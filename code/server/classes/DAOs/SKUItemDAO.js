@@ -12,17 +12,17 @@ class SKUItemDAO {
 			this.db.all(sql, [], (err, rows) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					const skuitemslist = rows.map((row) => {
+						return new SKUItem(
+							row.SKUID,
+							row.AVAILABLE,
+							row.DATEOFSTOCK,
+							row.RFID
+						);
+					});
+					resolve(skuitemslist);
 				}
-				const skuitemslist = rows.map((row) => {
-					return new SKUItem(
-						row.SKUID,
-						row.AVAILABLE,
-						row.DATEOFSTOCK,
-						row.RFID
-					);
-				});
-				resolve(skuitemslist);
 			});
 		});
 	}
@@ -34,17 +34,17 @@ class SKUItemDAO {
 			this.db.all(sql, [SKUID, available], (err, rows) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					if (rows.length === 0) {
+						resolve(404);
+					} else {
+					const skuitemsAvailable = rows.map(
+						(row) =>
+							new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID)
+					);
+					resolve(skuitemsAvailable);
+					}
 				}
-				if (rows.length === 0) {
-					resolve(404);
-					return;
-				}
-				const skuitemsAvailable = rows.map(
-					(row) =>
-						new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID)
-				);
-				resolve(skuitemsAvailable);
 			});
 		});
 	}
@@ -55,14 +55,14 @@ class SKUItemDAO {
             this.db.all(sql, [SKUID, available], (err, rows) => {
                 if(err){
                     reject(err);
-                    return;
-                }
-                if(rows.length === 0){
-                    resolve(404);
-                    return;
-                }
-                const skuitemsAvailable = rows.map(row => new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID));
-                resolve(skuitemsAvailable);
+                } else {
+					if(rows.length === 0){
+						resolve(404);
+					} else {
+						const skuitemsAvailable = rows.map(row => new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID));
+						resolve(skuitemsAvailable);
+					}
+				}
             });
         });
     }
@@ -73,14 +73,14 @@ class SKUItemDAO {
             this.db.get(sql, [RFID], (err, row) => {
                 if(err){
                     reject(err);
-                    return;
-                }
-                if(row === undefined){
-                    resolve(undefined);
-                    return;
-                }
-                const skuItem = new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID);
-                resolve(skuItem);
+                } else {
+					if(row === undefined){
+						resolve(undefined);
+					} else {
+						const skuItem = new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID);
+						resolve(skuItem);
+					} 
+				}
             });
         });
     }
@@ -100,22 +100,22 @@ class SKUItemDAO {
 				(err) => {
 					if (err) {
 						reject(err);
-						return;
-					}
-					const anotherQuery =
-						'INSERT INTO SKUITEMSKU_LIST(ID_SKU, ID_SKUITEM) VALUES(?,?)';
-					this.db.run(
-						anotherQuery,
-						[skuItem.getSKUId(), skuItem.getSKU_RFID()],
-						(err) => {
-							if (err) {
-								reject(err);
-								return;
+					} else {
+						const anotherQuery =
+							'INSERT INTO SKUITEMSKU_LIST(ID_SKU, ID_SKUITEM) VALUES(?,?)';
+						this.db.run(
+							anotherQuery,
+							[skuItem.getSKUId(), skuItem.getSKU_RFID()],
+							(err) => {
+								if (err) {
+									reject(err);
+								} else {
+									resolve('OK');
+								}
 							}
-							resolve('OK');
-						}
-					);
-					resolve('OK');
+						);
+						resolve('OK');
+					}
 				}
 			);
 		});
@@ -131,9 +131,9 @@ class SKUItemDAO {
 				(err) => {
 					if (err) {
 						reject(err);
-						return;
+					} else {
+						resolve('OK');
 					}
-					resolve('OK');
 				}
 			);
 		});
@@ -145,9 +145,9 @@ class SKUItemDAO {
 			this.db.run(sql, [RFID], (err) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					resolve('OK');
 				}
-				resolve('OK');
 			});
 		});
 	}
@@ -161,13 +161,13 @@ class SKUItemDAO {
 			this.db.all(sql, [returnOrderID], (err, rows) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					const skuItemList = rows.map(
+						(row) =>
+							new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID)
+					);
+					resolve(skuItemList);
 				}
-				const skuItemList = rows.map(
-					(row) =>
-						new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID)
-				);
-				resolve(skuItemList);
 			});
 		});
 	}
@@ -181,12 +181,12 @@ class SKUItemDAO {
 			this.db.all(sql, [restockOrderID], (err, rows) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					const skuItemList = rows.map((row) => {
+						return { SKUId: row.SKUID, rfid: row.RFID };
+					});
+					resolve(skuItemList);
 				}
-				const skuItemList = rows.map((row) => {
-					return { SKUId: row.SKUID, rfid: row.RFID };
-				});
-				resolve(skuItemList);
 			});
 		});
 	}

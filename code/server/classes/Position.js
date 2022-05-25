@@ -10,27 +10,6 @@ class Position {
 		this.occupiedVolume = occupiedVolume;
 	}
 
-	setAisleID(aisleID) {
-		//TODO check if the format is correct
-		this.aisleID = aisleID;
-		this.positionID = parseInt(aisleID.toString() + row.toString() + col.toString());
-		//check duplicates
-	}
-
-	setRow(row) {
-		//TODO check if the format is correct
-		this.row = row;
-		this.positionID = parseInt(aisleID.toString() + row.toString() + col.toString());
-		//check duplicates
-	}
-
-	setCol(col) {
-		//TODO check if the format is correct
-		this.col = col;
-		this.positionID = parseInt(aisleID.toString() + row.toString() + col.toString());
-		//check duplicates
-	}
-
 	setPositionID(positionID) {
 		//TODO check if the format is correct
 		this.positionID = positionID;

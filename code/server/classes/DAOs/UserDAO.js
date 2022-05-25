@@ -12,19 +12,19 @@ class UserDAO {
 			this.db.all(sql, ['manager'], (err, rows) => {
 				if (err) {
 					reject(500);
-					return;
+				} else {
+					const users = rows.map((row) => {
+						return new User(
+							row.NAME,
+							row.SURNAME,
+							row.TYPE,
+							row.USERNAME,
+							row.PASSWORD,
+							row.ID
+						);
+					});
+					resolve(users);
 				}
-				const users = rows.map((row) => {
-					return new User(
-						row.NAME,
-						row.SURNAME,
-						row.TYPE,
-						row.USERNAME,
-						row.PASSWORD,
-						row.ID
-					);
-				});
-				resolve(users);
 			});
 		});
 	}
@@ -35,21 +35,21 @@ class UserDAO {
 			this.db.get(sql, [type, username], (err, row) => {
 				if (err) {
 					reject(err);
-					return;
-				}
-				if (row === undefined) {
-					resolve(undefined);
 				} else {
-					resolve(
-						new User(
-							row.NAME,
-							row.SURNAME,
-							row.TYPE,
-							row.USERNAME,
-							row.PASSWORD,
-							row.ID
-						)
-					);
+					if (row === undefined) {
+						resolve(undefined);
+					} else {
+						resolve(
+							new User(
+								row.NAME,
+								row.SURNAME,
+								row.TYPE,
+								row.USERNAME,
+								row.PASSWORD,
+								row.ID
+							)
+						);
+					}
 				}
 			});
 		});
@@ -85,28 +85,28 @@ class UserDAO {
 			this.db.all(sql, ['supplier'], (err, rows) => {
 				if (err) {
 					reject(500);
-					return;
-				}
-				const suppliers = rows.map((row) => {
-					return new User(
-						row.NAME,
-						row.SURNAME,
-						row.TYPE,
-						row.USERNAME,
-						row.PASSWORD,
-						row.ID
+				} else {
+					const suppliers = rows.map((row) => {
+						return new User(
+							row.NAME,
+							row.SURNAME,
+							row.TYPE,
+							row.USERNAME,
+							row.PASSWORD,
+							row.ID
+						);
+					});
+					resolve(
+						suppliers.map((supplier) => {
+							return {
+								id: supplier.id,
+								name: supplier.name,
+								surname: supplier.surname,
+								email: supplier.email,
+							};
+						})
 					);
-				});
-				resolve(
-					suppliers.map((supplier) => {
-						return {
-							id: supplier.id,
-							name: supplier.name,
-							surname: supplier.surname,
-							email: supplier.email,
-						};
-					})
-				);
+				}
 			});
 		});
 	}

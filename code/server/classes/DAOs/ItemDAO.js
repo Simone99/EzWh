@@ -35,14 +35,14 @@ class ItemDAO {
 			this.db.get(sql, [id], (err, row) => {
 				if (err) {
 					reject(err);
-					return;
-				}
-				if (row === undefined) {
-					resolve(undefined);
 				} else {
-					resolve(
-						new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID)
-					);
+					if (row === undefined) {
+						resolve(undefined);
+					} else {
+						resolve(
+							new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID)
+						);
+					}
 				}
 			});
 		});
@@ -54,14 +54,14 @@ class ItemDAO {
 			this.db.get(sql, [supplierId, SKUId], (err, row) => {
 				if (err) {
 					reject(err);
-					return;
-				}
-				if (row === undefined) {
-					resolve(undefined);
 				} else {
-					resolve(
-						new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID)
-					);
+					if (row === undefined) {
+						resolve(undefined);
+					} else {
+						resolve(
+							new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID)
+						);
+					}
 				}
 			});
 		});
@@ -75,13 +75,13 @@ class ItemDAO {
 			this.db.get(sql, [description, price, userID, SKUID], (err, row) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					if (row === undefined) {
+						resolve(undefined);
+					} else {
+						resolve(row.ID);
+					}
 				}
-				if (row === undefined) {
-					resolve(undefined);
-					return;
-				}
-				resolve(row.ID);
 			});
 		});
 	}
@@ -92,18 +92,18 @@ class ItemDAO {
 			this.db.all(sql, [], (err, rows) => {
 				if (err) {
 					reject(500);
-					return;
+				} else {
+					const items = rows.map((row) => {
+						return new Item(
+							row.DESCRIPTION,
+							row.PRICE,
+							row.USERID,
+							row.SKUID,
+							row.ID
+						);
+					});
+					resolve(items);
 				}
-				const items = rows.map((row) => {
-					return new Item(
-						row.DESCRIPTION,
-						row.PRICE,
-						row.USERID,
-						row.SKUID,
-						row.ID
-					);
-				});
-				resolve(items);
 			});
 		});
 	}

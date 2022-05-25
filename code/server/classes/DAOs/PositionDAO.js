@@ -13,12 +13,12 @@ class PositionDAO{
             this.db.all(sql, [], (err, rows) => {
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    const positions = rows.map(row => {
+                        return new Position(row.AISLE, row.ROW, row.COL, row.MAX_WEIGHT, row.MAX_VOLUME, row.OCCUPIED_WEIGHT, row.OCCUPIED_VOLUME);
+                    });
+                    resolve(positions);
                 }
-                const positions = rows.map(row => {
-                    return new Position(row.AISLE, row.ROW, row.COL, row.MAX_WEIGHT, row.MAX_VOLUME, row.OCCUPIED_WEIGHT, row.OCCUPIED_VOLUME);
-                });
-                resolve(positions);
             });
         });
     }
@@ -29,13 +29,13 @@ class PositionDAO{
             this.db.get(sql, [positionID], (err, row) => {
                 if(err){
                     reject(err);
-                    return
+                } else {
+                    if(row === undefined){
+                        resolve(undefined);
+                    } else {
+                        resolve(new Position(row.AISLE, row.ROW, row.COL, row.MAX_WEIGHT, row.MAX_VOLUME, row.OCCUPIED_WEIGHT, row.OCCUPIED_VOLUME));
+                    }
                 }
-                if(row === undefined){
-                    resolve(undefined);
-                    return;
-                }
-                resolve(new Position(row.AISLE, row.ROW, row.COL, row.MAX_WEIGHT, row.MAX_VOLUME, row.OCCUPIED_WEIGHT, row.OCCUPIED_VOLUME));
             });
         });
     }
@@ -60,7 +60,7 @@ class PositionDAO{
             this.db.run(sql, [positionID, aisleID, row, col, weight, volume, 0, 0], function(err){
                 if(err){
                     reject(err);
-                }else{
+                } else{
                     resolve(this.changes);
                 }
             });
@@ -75,9 +75,9 @@ class PositionDAO{
             this.db.run(sql, params, function(err){
                 if(err){
                     reject(err);
-                    return;
+                } else {
+                    resolve(this.changes);
                 }
-                resolve(this.changes);
             });
         });
     }
@@ -88,7 +88,7 @@ class PositionDAO{
             this.db.run(sql, [positionID], function(err){
                 if(err){
                     reject(err);
-                }else{
+                } else{
                     resolve(this.changes);
                 }
             });

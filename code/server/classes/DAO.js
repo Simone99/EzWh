@@ -632,6 +632,7 @@ class DAO {
 			);
 		}
 		order.setProductsList(items);
+		delete order.id;
 		return order;
 	}
 
@@ -643,9 +644,6 @@ class DAO {
 			issueDate,
 			customerId
 		);
-		if (idReturned === undefined) {
-			return 404;
-		}
 		for (let item of internalOrderItemList) {
 			const SKUObj = await this.SKUDAO.getSKUByID(item.SKUId);
 			if (item.qty < SKUObj.getAvailableQuantity()) {
@@ -666,6 +664,7 @@ class DAO {
 					idReturned
 				);
 			} else {
+				await this.InternalOrderDAO.deleteInternalOrder(idReturned);
 				return 422;
 			}
 		}

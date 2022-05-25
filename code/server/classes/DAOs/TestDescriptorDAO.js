@@ -13,13 +13,13 @@ class TestDescriptorDAO {
 			this.db.get(sql, [idTestDescriptor, SKUID], (err, row) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					if (row === undefined) {
+						resolve(404);
+					} else {
+						resolve('ok');
+					}
 				}
-				if (row === undefined) {
-					resolve(404);
-					return;
-				}
-				resolve('ok');
 			});
 		});
 	}
@@ -30,18 +30,18 @@ class TestDescriptorDAO {
 			this.db.all(sql, [], (err, rows) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					const testDescriptorList = rows.map(
+						(row) =>
+							new TestDescriptor(
+								row.ID,
+								row.NAME,
+								row.PROCEDURE_DESCRIPTION,
+								row.SKUID
+							)
+					);
+					resolve(testDescriptorList);
 				}
-				const testDescriptorList = rows.map(
-					(row) =>
-						new TestDescriptor(
-							row.ID,
-							row.NAME,
-							row.PROCEDURE_DESCRIPTION,
-							row.SKUID
-						)
-				);
-				resolve(testDescriptorList);
 			});
 		});
 	}
@@ -52,20 +52,20 @@ class TestDescriptorDAO {
 			this.db.get(sql, [testDescriptorID], (err, row) => {
 				if (err) {
 					reject(err);
-					return;
-				}
+				} else {
 				if (row === undefined) {
 					resolve(undefined);
-					return;
+				} else {
+					resolve(
+						new TestDescriptor(
+							row.ID,
+							row.NAME,
+							row.PROCEDURE_DESCRIPTION,
+							row.SKUID
+						)
+					);
 				}
-				resolve(
-					new TestDescriptor(
-						row.ID,
-						row.NAME,
-						row.PROCEDURE_DESCRIPTION,
-						row.SKUID
-					)
-				);
+			}
 			});
 		});
 	}
@@ -76,9 +76,9 @@ class TestDescriptorDAO {
 			this.db.all(sql, [SKUID], (err, rows) => {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					resolve(rows);
 				}
-				resolve(rows);
 			});
 		});
 	}
@@ -92,9 +92,9 @@ class TestDescriptorDAO {
 				this.db.run(sql, [name, description, SKUID], function (err) {
 					if (err) {
 						reject(err);
-						return;
+					} else {
+						resolve(this.lastID);
 					}
-					resolve(this.lastID);
 				});
 			});
 		}
@@ -112,9 +112,9 @@ class TestDescriptorDAO {
 				function (err) {
 					if (err) {
 						reject(err);
-						return;
+					} else {
+						resolve(this.changes);
 					}
-					resolve(this.changes);
 				}
 			);
 		});
@@ -126,9 +126,9 @@ class TestDescriptorDAO {
 			this.db.run(sql, [testDescriptorID], function (err) {
 				if (err) {
 					reject(err);
-					return;
+				} else {
+					resolve(this.changes);
 				}
-				resolve(this.changes);
 			});
 		});
 	}

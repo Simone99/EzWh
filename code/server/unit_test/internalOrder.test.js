@@ -11,6 +11,8 @@ describe('get internal orders', () => {
         await DAO_test.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789015'));
         await DAO_test.addUser(new User('Simone', 'Zanella', 'customer', 's295316@studenti.polito.it', 'testPassword'));
         await DAO_test.addInternalOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"qty":3}], 1);
+        await DAO_test.addInternalOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"qty":51}], 1);
+
     });
 
     test('get internal orders', async() => {
@@ -46,11 +48,27 @@ describe('get internal orders', () => {
         expect(res).toEqual([]);
     });
 
+    test('get internal order', async() => {
+        const res = await DAO_test.getInternalOrder(1);
+        expect(res).toEqual(
+                {
+                    "issueDate":"2021/11/29 09:33",
+                    "state": "ISSUED",
+                    "products": [{"SKUId":1,"description":"a product","price":10.99,"qty":3}],
+                    "customerId" : 1
+                }
+        );
+    });
+
+    test('get internal order null', async() => {
+        const res = await DAO_test.getInternalOrder(undefined);
+        expect(res).toEqual(undefined);
+    });
+
     test('editing internal order', async() => {
         await DAO_test.editInternalOrder(1, "COMPLETED", [{"SkuID":1,"RFID":"12345678901234567890123456789015"}]);
         const res = await DAO_test.getInternalOrder(1);
         expect(res).toEqual({
-                "id":1,
                 "issueDate":"2021/11/29 09:33",
                 "state": "COMPLETED",
                 "products": [{"SkuID":1,"RFID":"12345678901234567890123456789015"}],
@@ -58,8 +76,14 @@ describe('get internal orders', () => {
             }
         );
     });
+
     test('add internal order', async() => {
         const res = await DAO_test.addInternalOrder("2021/11/29 09:33", undefined, 1);
+        expect(res).toEqual(404);
+    });
+
+    test('add internal order undefined', async() => {
+        const res = await DAO_test.addInternalOrder("2021/11/29 09:33", undefined);
         expect(res).toEqual(404);
     });
 });
