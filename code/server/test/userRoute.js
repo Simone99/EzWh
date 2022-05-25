@@ -78,7 +78,7 @@ describe('Test user APIs', function () {
 });
 
 function GetSuppliers(expectedHTTPStatus, expected) {
-	it('Getting suppliers', (done) => {
+	it('Getting suppliers : GET /api/suppliers', (done) => {
 		agent
 			.get('/api/suppliers')
 			.then((res) => {
@@ -91,7 +91,7 @@ function GetSuppliers(expectedHTTPStatus, expected) {
 }
 
 function addUser(expectedHTTPStatus, username, name, surname, password, type) {
-	it('Adding a new user', (done) => {
+	it('Adding a new user : POST /api/newUser', (done) => {
 		const user = {
 			username: username,
 			name: name,
@@ -111,7 +111,7 @@ function addUser(expectedHTTPStatus, username, name, surname, password, type) {
 }
 
 function getUsers(expectedHTTPStatus, expected) {
-	it('get users', function (done) {
+	it('get users : GET /api/users', function (done) {
 		agent
 			.get('/api/users')
 			.then(function (res) {
@@ -124,7 +124,7 @@ function getUsers(expectedHTTPStatus, expected) {
 }
 
 function editUser(expectedHTTPStatus, username, oldType, newType) {
-	it('PUT /api/users/:username', function (done) {
+	it('edit user : PUT /api/users/:username', function (done) {
 		let reqBody = {
 			oldType: oldType,
 			newType: newType,
@@ -141,7 +141,7 @@ function editUser(expectedHTTPStatus, username, oldType, newType) {
 }
 
 function deleteUser(expectedHTTPStatus, username, type) {
-	it('DELETE /api/users/:username/:type', function (done) {
+	it('delete user : DELETE /api/users/:username/:type', function (done) {
 		agent
 			.delete(`/api/users/${username}/${type}`)
 			.then((res) => {

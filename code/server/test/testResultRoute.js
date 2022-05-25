@@ -75,7 +75,7 @@ describe('Test test Result APIs', function () {
 });
 
 function getTestResultsByRFID(expectedHTTPStatus, rfid, expected) {
-	it('GET /api/skuitems/:rfid/testResults', (done) => {
+	it('getTestResultsByRFID : GET /api/skuitems/:rfid/testResults', (done) => {
 		agent
 			.get(`/api/skuitems/${rfid}/testResults`)
 			.then((res) => {
@@ -88,7 +88,7 @@ function getTestResultsByRFID(expectedHTTPStatus, rfid, expected) {
 }
 
 function getTestResultByRFIDAndID(expectedHTTPStatus, rfid, id, expected) {
-	it('GET /api/skuitems/:rfid/testResults/:id', (done) => {
+	it('getTestResultByRFIDAndID : GET /api/skuitems/:rfid/testResults/:id', (done) => {
 		agent
 			.get(`/api/skuitems/${rfid}/testResults/${id}`)
 			.then((res) => {
@@ -107,7 +107,7 @@ function addTestResult(
 	date,
 	result
 ) {
-	it('POST /api/skuitems/testResult', (done) => {
+	it('add test result : POST /api/skuitems/testResult', (done) => {
 		let reqBody = {
 			rfid: rfid,
 			idTestDescriptor: idTestDescriptor,
@@ -133,7 +133,7 @@ function editTestResult(
 	newDate,
 	newResult
 ) {
-	it('PUT /api/skuitems/:rfid/testResult/:id', function (done) {
+	it('edit test result : PUT /api/skuitems/:rfid/testResult/:id', function (done) {
 		let reqBody = {
 			newIdTestDescriptor: newIdTestDescriptor,
 			newDate: newDate,
@@ -151,7 +151,7 @@ function editTestResult(
 }
 
 function deleteTestResult(expectedHTTPStatus, rfid, id) {
-	it('DELETE /api/skuitems/:rfid/testResult/:id', function (done) {
+	it('delete test result : DELETE /api/skuitems/:rfid/testResult/:id', function (done) {
 		agent
 			.delete(`/api/skuitems/${rfid}/testResult/${id}`)
 			.then((res) => {

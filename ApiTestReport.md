@@ -122,6 +122,19 @@ Report also for each of the scenarios the (one or more) API Mocha tests that cov
 | UC12.1      | -                               | Testing UC 12.1        |
 | UC12.2      | -                               | Testing UC 12.2        |
 | UC12.3      | -                               | Testing UC 12.3        |
+| UC4.1       | FR1.1                           | Adding a new user : POST /api/newUser                          |
+| -           | FR1.3                           | get users : GET /api/users                                     |
+| UC4.2       | FR1.1                           | edit user : PUT /api/users/:username                           |
+| UC4.3       | FR1.2                           | delete user : DELETE /api/users/:username/:type                |
+| UC5.2.1     | FR3.2.1                         | add test result : POST /api/skuitems/testResult                |
+| UC5.2.2     | FR3.2.1                         | add test result : POST /api/skuitems/testResult                |
+| UC5.2.3     | FR3.2.1                         | add test result : POST /api/skuitems/testResult                |
+| -           | FR3.2.2                         | edit test result : PUT /api/skuitems/:rfid/testResult/:id      |
+| -           | FR3.2.3                         | delete test result : DELETE /api/skuitems/:rfid/testResult/:id |
+| UC11.1      | FR7                             | add item : POST /api/item                                      |
+| -           | FR7                             | getItembyId : GET /api/items/:id                               |
+| UC11.2      | FR7                             | editItem : PUT /api/item/:id                                   |
+| -           | FR7                             | deleteItemById : DELETE /api/items/:id                         |
 
 # Coverage of Non Functional Requirements
 

@@ -49,7 +49,7 @@ describe('Test item APIs', function () {
 });
 
 function addItem(expectedHTTPStatus, description, price, supplierId, SKUId) {
-	it('POST /api/item', (done) => {
+	it('add item : POST /api/item', (done) => {
 		const reqBody = {
 			description: description,
 			price: price,
@@ -68,7 +68,7 @@ function addItem(expectedHTTPStatus, description, price, supplierId, SKUId) {
 }
 
 function getItems(expectedHTTPStatus, expected) {
-	it('GET /api/items', (done) => {
+	it('get items : GET /api/items', (done) => {
 		agent
 			.get('/api/items')
 			.then((res) => {
@@ -81,7 +81,7 @@ function getItems(expectedHTTPStatus, expected) {
 }
 
 function getItembyId(expectedHTTPStatus, id, expected) {
-	it('GET /api/items/:id', (done) => {
+	it('getItembyId : GET /api/items/:id', (done) => {
 		agent
 			.get(`/api/items/${id}`)
 			.then((res) => {
@@ -94,7 +94,7 @@ function getItembyId(expectedHTTPStatus, id, expected) {
 }
 
 function editItem(expectedHTTPStatus, id, newDescription, newPrice) {
-	it('PUT /api/item/:id', (done) => {
+	it('editItem : PUT /api/item/:id', (done) => {
 		agent
 			.put(`/api/item/${id}`)
 			.send({
@@ -110,7 +110,7 @@ function editItem(expectedHTTPStatus, id, newDescription, newPrice) {
 }
 
 function deleteItemById(expectedHTTPStatus, id) {
-	it('DELETE /api/items/:id', (done) => {
+	it('deleteItemById : DELETE /api/items/:id', (done) => {
 		agent
 			.delete(`/api/item/${id}`)
 			.then((res) => {
