@@ -133,6 +133,7 @@ function testEditInternalOrder(expectedHTTPStatus, ID, reqBody, expected){
         agent.put(`/api/internalOrders/${ID}`).send(reqBody).then(res => {
             res.should.have.status(expectedHTTPStatus);
             agent.get(`/api/internalOrders/${ID}`).then(res2 => {
+                console.log(res.body);
                 expect(res2.body).to.deep.equalInAnyOrder(expected);
                 done();
             });
