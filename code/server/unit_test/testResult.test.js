@@ -14,7 +14,20 @@ describe('addTestresult', () => {
 		await DAO_test.addTestDescriptor('TD1', 'unit_test descriptor', 1);
 	});
 
-	test('Add a test result', async () => {
+	test('Add a false test result', async () => {
+		await DAO_test.addTestResult('rfid123', 1, '23-05-2022', false);
+		let res = await DAO_test.getTestResultsByRFID('rfid123');
+		expect(res).toEqual([
+			{
+				idTestDescriptor: 1,
+				Result: false,
+				Date: '23-05-2022',
+				id: 1,
+			},
+		]);
+	});
+
+	test('Add a true test result', async () => {
 		await DAO_test.addTestResult('rfid123', 1, '23-05-2022', false);
 		let res = await DAO_test.getTestResultsByRFID('rfid123');
 		expect(res).toEqual([
@@ -93,7 +106,7 @@ describe('get test results for a specific SKUItem', () => {
 		});
 	});
 
-	test('Delete a test result by id', async () => {
+	test('Delete a test result by rfid and id', async () => {
 		await DAO_test.deleteTestResult('rfid123', 3);
 		let res = await DAO_test.getTestResultsByRFID('rfid123');
 		expect(res).toEqual([
