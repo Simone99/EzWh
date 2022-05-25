@@ -8,9 +8,9 @@ const runQuery = (query, db) => {
 		db.run(query, [], function (err) {
 			if (err) {
 				reject(err);
-				return;
+			}else{
+				resolve(this.changes);
 			}
-			resolve(this.changes);
 		});
 	});
 };

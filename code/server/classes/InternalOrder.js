@@ -12,14 +12,6 @@ class InternalOrder {
         return this.id;
     }
 
-    getCustomerID() {
-        return this.customerId;
-    }
-
-    getIssueDate() {
-        return this.issueDate;
-    }
-
     getState() {
         return this.state;
     }

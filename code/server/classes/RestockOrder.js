@@ -17,56 +17,12 @@ class restockOrder {
 		this.skuItems = [];
 	}
 
-	addRestockOrderItem(item, quantity) {
-		let roi = new RestockOrderItem(item, quantity); //can be changed based on the constructor
-		this.restockOrderItemsList.push(roi);
-		return;
-	}
-
-	deleteRestockOrderItem(itemID) {
-		//changed the argument from item type to int itemID since item has an id
-		let index = this.restockOrderItemsList.indexOf((i) => i.id === itemID);
-		this.restockOrderItemsList.splice(index, 1);
-		return;
-	}
-
-	editSupplier(supplierID) {
-		this.supplierID = supplierID;
-		return;
-	}
-
-	issue() {
-		this.state = "issue";
-		this.issueDate = dayjs(); //change also the issue day to the moment the issue function is called
-		return;
-	}
-
-	changeState(state) {
-		this.state = state;
-		return;
-	}
-
-	createTagSKUItems() {
-		for(let roi in this.restockOrderItemsList){
-			let itm = roi.getItmObj();
-			let tmp = new SKUItem(itm.getSKUId(), true);
-			this.addSKUItems(tmp);
-		}
-		return;
-	}
-
 	getTransportNote() {
 		return this.transportNote;
 	}
 
 	setTransportNote(tNote) {
 		this.transportNote = tNote;
-		return;
-	}
-
-	setReturnOrder(returnOrder) {
-		//new method
-		this.returnOrder = returnOrder;
 		return;
 	}
 

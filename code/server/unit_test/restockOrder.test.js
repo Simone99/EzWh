@@ -61,6 +61,11 @@ describe("get restock orders", () => {
             "transportNote" : {"deliveryDate":"2021/12/29"}
         });
     });
+    test('delete restock order', async() => {
+        await DAO_test.deleteRestockOrder(1);
+        const res = await DAO_test.getRestockOrderByID(1);
+        expect(res).toEqual(404);
+    });
     test('add restock order', async() => {
         await DAO_test.addRestockOrder("2021/11/29 09:33", undefined, 1);
         const res = await DAO_test.getRestockOrderByID(2);

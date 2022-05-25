@@ -66,7 +66,6 @@ function testGetSKUItems(expectedHTTPStatus, expected) {
     it('Getting sku items', done => {
         agent.get('/api/skuitems').then(res => {
             res.should.have.status(expectedHTTPStatus);
-            console.log(res.body);
             expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });

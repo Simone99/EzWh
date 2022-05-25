@@ -1,4 +1,4 @@
-class RestockOrderItem {
+/*class RestockOrderItem {
 
     Item = require('./Item');
 
@@ -9,4 +9,4 @@ class RestockOrderItem {
 
 }
 
-module.exports = RestockOrderItem;
+module.exports = RestockOrderItem;*/

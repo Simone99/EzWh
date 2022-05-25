@@ -1,4 +1,3 @@
-const SKU = require("./SKU");
 class InternalOrderItem{
     constructor(SKU, qty, description){
         this.SKUObj = SKU;

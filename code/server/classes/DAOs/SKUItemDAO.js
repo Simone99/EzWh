@@ -27,28 +27,6 @@ class SKUItemDAO {
 		});
 	}
 
-	getSKUItemsAvailable(SKUID, available) {
-		return new Promise((resolve, reject) => {
-			const sql =
-				'SELECT * FROM SKUITEM_TABLE WHERE SKUID = ? AND AVAILABLE = ?';
-			this.db.all(sql, [SKUID, available], (err, rows) => {
-				if (err) {
-					reject(err);
-				} else {
-					if (rows.length === 0) {
-						resolve(404);
-					} else {
-					const skuitemsAvailable = rows.map(
-						(row) =>
-							new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID)
-					);
-					resolve(skuitemsAvailable);
-					}
-				}
-			});
-		});
-	}
-
     getSKUItemsAvailable(SKUID, available){
         return new Promise((resolve, reject) => {
             const sql = "SELECT * FROM SKUITEM_TABLE WHERE SKUID = ? AND AVAILABLE = ?";
@@ -152,7 +130,7 @@ class SKUItemDAO {
 		});
 	}
 
-	getSKUItemByReturnOrder(returnOrderID) {
+	/*getSKUItemByReturnOrder(returnOrderID) {
 		return new Promise((resolve, reject) => {
 			const sql =
 				'SELECT SIT.RFID, SIT.AVAILABLE, SIT.SKUID, SIT.DATEOFSTOCK ' +
@@ -170,7 +148,7 @@ class SKUItemDAO {
 				}
 			});
 		});
-	}
+	}*/
 
 	getSKUItemByRestockOrder(restockOrderID) {
 		return new Promise((resolve, reject) => {

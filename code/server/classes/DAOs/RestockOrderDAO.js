@@ -54,7 +54,7 @@ class RestockOrderDAO {
         });
     }
 
-    getSKUItemsWithNegTest(ResOrderID) {
+    /*getSKUItemsWithNegTest(ResOrderID) {
         return new Promise((resolve, reject) => {
             const sql = "SELECT *" +
                 "FROM " +
@@ -66,13 +66,13 @@ class RestockOrderDAO {
             this.db.all(sql, [ResOrderID], (err, rows) => {
                 if (err) {
                     reject(err);
-                }else {
+                }else{
                     const SKUItemsWithNegTest = rows.map(row => new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID));
                     resolve(SKUItemsWithNegTest);
                 }
             });
         });
-    }
+    }*/
 
     addRestockOrder(issueDate, state, supplierId) {
         return new Promise((resolve, reject) => {
@@ -97,20 +97,6 @@ class RestockOrderDAO {
                     resolve(this.changes);
                 }
             });
-        });
-    }
-
-    addSKUItemsList(ResOrderID, SKUItemsList) {
-        return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO SKUITEMSRESTOCKORDER_LIST(ID_SKUITEM, ID_RESTOCKORDER) VALUES (?,?)";
-            SKUItemsList.forEach(element => {
-                this.db.run(sql, [element.ID, ResOrderID], err => {
-                    if (err) {
-                        reject(err);
-                    }
-                })
-            });
-            resolve('OK');
         });
     }
 

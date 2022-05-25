@@ -109,7 +109,6 @@ function testGetAllReturnOrders(expectedHTTPStatus, expected){
     it('Getting all return orders', done => {
         agent.get('/api/returnOrders').then(res => {
             res.should.have.status(expectedHTTPStatus);
-            console.log(res.body);
             expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });
@@ -121,7 +120,6 @@ function testGetReturnOrderByID(expectedHTTPStatus, ID, expected){
     it('Getting return order by ID', done => {
         agent.get(`/api/returnOrders/${ID}`).then(res => {
             res.should.have.status(expectedHTTPStatus);
-            console.log(res.body);
             expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });
