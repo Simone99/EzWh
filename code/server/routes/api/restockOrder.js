@@ -9,6 +9,7 @@ router.get('/restockOrders', async (req, res) => {
         const restockorderslist = await new Warehouse().getRestockOrderList();
         return res.status(200).json(restockorderslist);
     } catch (err) {
+        console.log(err);
         return res.status(500).end();
     }
 })

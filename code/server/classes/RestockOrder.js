@@ -1,7 +1,6 @@
 const dayjs = require("dayjs");
 var localizedFormat = require('dayjs/plugin/localizedFormat')
 dayjs.extend(localizedFormat);
-const RestockOrderItem = require("./RestockOrderItem");
 const TransportNote = require("./TransportNote");
 const Item = require('./Item');
 const SKUItem = require('./SKUItem');

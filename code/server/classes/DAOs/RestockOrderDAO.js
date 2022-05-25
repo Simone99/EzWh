@@ -54,26 +54,6 @@ class RestockOrderDAO {
         });
     }
 
-    /*getSKUItemsWithNegTest(ResOrderID) {
-        return new Promise((resolve, reject) => {
-            const sql = "SELECT *" +
-                "FROM " +
-                "RESTOCKORDER_TABLE INNER JOIN SKUITEMSRESTOCKORDER_LIST ON SKUITEMSRESTOCKORDER_LIST.ID_RESTOCKORDER = RESTOCKORDER_TABLE.ID," +
-                "SKUITEM_TABLE INNER JOIN SKUITEMSRESTOCKORDER_LIST ON SKUITEMSRESTOCKORDER_LIST.ID_SKUITEM = SKUITEM_TABLE.RFID," +
-                "TESTRESULTSKUITEM_LIST INNER JOIN TESTRESULT_TABLE ON TESTRESULT_TABLE.ID = TESTRESULTSKUITEM_LIST.ID_TESTRESULT," +
-                "TESTRESULTSKUITEM_LIST INNER JOIN SKUITEM_TABLE ON TESTRESULTSKUITEM_LIST.ID_SKUITEM = SKUITEM_TABLE.RFID " +
-                "WHERE RESULT = 0 AND RESTOCKORDER_TABLE.ID = ?"
-            this.db.all(sql, [ResOrderID], (err, rows) => {
-                if (err) {
-                    reject(err);
-                }else{
-                    const SKUItemsWithNegTest = rows.map(row => new SKUItem(row.SKUID, row.AVAILABLE, row.DATEOFSTOCK, row.RFID));
-                    resolve(SKUItemsWithNegTest);
-                }
-            });
-        });
-    }*/
-
     addRestockOrder(issueDate, state, supplierId) {
         return new Promise((resolve, reject) => {
             const sql = "INSERT INTO RESTOCKORDER_TABLE(ISSUEDATE, STATE, USERID) VALUES(?,?,?)";

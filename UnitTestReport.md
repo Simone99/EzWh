@@ -1064,16 +1064,4 @@ Version:
 
 ### Code coverage report
 
-    <Add here the screenshot report of the statement and branch coverage obtained using
-    the coverage tool. >
-
-### Loop coverage analysis
-
-    <Identify significant loops in the units and reports the test cases
-    developed to cover zero, one or multiple iterations >
-
-|Unit name | Loop rows | Number of iterations | Jest test case |
-|---|---|---|---|
-|||||
-|||||
-||||||
+![Coverage report](./Diagrams/Coverage_report.png "Coverage report")

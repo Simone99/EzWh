@@ -253,7 +253,7 @@ class DAO {
 
 	async getSKUItemsWithNegTest(ResOrderID) {
 		const restockOrder = await this.getRestockOrderByID(ResOrderID);
-		if (restockOrder == undefined) {
+		if (restockOrder === undefined) {
 			return 404;
 		}
 		if (restockOrder.getState() !== 'COMPLETEDRETURN') {
@@ -436,16 +436,13 @@ class DAO {
     async getReturnOrder(returnOrderID) {
         const returnOrder = await this.ReturnOrderDAO.getReturnOrder(returnOrderID);
 		if (returnOrder !== undefined) {
-		const items = await this.ReturnOrderDAO.getReturnOrderProducts(returnOrder.getID());
-		const we = new ReturnOrder(returnOrder.id, returnOrder.restockOrderId, returnOrder.state, returnOrder.returnDate, items);
-        delete we.id;
-        delete we.state;
+			const items = await this.ReturnOrderDAO.getReturnOrderProducts(returnOrder.getID());
+			const we = new ReturnOrder(returnOrder.id, returnOrder.restockOrderId, returnOrder.state, returnOrder.returnDate, items);
+			delete we.id;
+			delete we.state;
         return we;
-		} else {
-			delete returnOrder.id;
-        	delete returnOrder.state;
-			return returnOrder;
 		}
+		return returnOrder;
     }
 
     async addReturnOrder(restockOrderId, products, date) {

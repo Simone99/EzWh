@@ -53,6 +53,11 @@ describe("get return order", () => {
         );
     });
 
+    test('get return order undefined', async () => {
+        let res = await DAO_test.getReturnOrder(-1);
+        expect(res).toEqual(undefined);
+    });
+
 });
 
 describe("delete return order", () => {

@@ -48,6 +48,22 @@ describe('get internal orders', () => {
         expect(res).toEqual([]);
     });
 
+    test('get many internal orders accepted', async() => {
+        await DAO_test.editInternalOrder(1, "ACCEPTED");
+        const res = await DAO_test.getInternalOrdersAcceptedList();
+        await DAO_test.editInternalOrder(1, "ISSUED");
+        expect(res).toEqual([
+            {
+                "id":1,
+                "issueDate":"2021/11/29 09:33",
+                "state": "ACCEPTED",
+                "products": [{"SKUId":1,"description":"a product","price":10.99,"qty":3}],
+                "customerId" : 1
+            }
+        ]);
+    });
+
+
     test('get internal order', async() => {
         const res = await DAO_test.getInternalOrder(1);
         expect(res).toEqual(

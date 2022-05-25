@@ -17,7 +17,7 @@ const runQuery = (query, db) => {
 
 exports.resetDB = async (dbPath) => {
 	allFileContents = fs.readFileSync(
-		path.resolve(__dirname, '../classes/DBDropQueries.sql'),
+		path.resolve(__dirname, '../classes/DBCreationQuery_test.sql'),
 		'utf-8'
 	);
 

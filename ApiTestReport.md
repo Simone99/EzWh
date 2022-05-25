@@ -15,24 +15,18 @@ Version:
 - [Scenarios](#scenarios)
 
 - [Coverage of scenarios and FR](#scenario-coverage)
-- [Coverage of non-functional requirements](#nfr-coverage)
 
 
 
 # Dependency graph 
 
-![Create SKU](./code/server/dependency_graph.png "Create SKU")
+![Dependency Graph](./code/server/dependency_graph.png "Dependency Graph")
 
 # Integration approach
 
-    <Write here the integration sequence you adopted, in general terms (top down, bottom up, mixed) and as sequence
-    (ex: step1: class A, step 2: class A+B, step 3: class A+B+C, etc)> 
-    <Some steps may  correspond to unit testing (ex step1 in ex above), presented in other document UnitTestReport.md>
-    <One step will  correspond to API testing>
-
-    The approach we decided to follow is the bottom up one. Using unit tests we checked that our base units work properly. Then we moved up using no mock on the database, instead, before each test, we initialized the correct db state.
-    - First step: test DAO methods (unit tests)
-    - Second step: run API testing
+The approach we decided to follow is the bottom up one. Using unit tests we checked that our base units work properly. Then we moved up using no mock on the database, instead, before each test, we initialized the correct db state.
+- First step: test DAO methods (unit tests)
+- Second step: run API testing
 
 #  Integration Tests
 
@@ -50,11 +44,13 @@ Version:
 |                 | -            |   change restock order state  |
 |                 | -            | set SKUItems to restock order |
 |                 | -            |       add restock order       |
+|                 | -            |       add restock orderTest return items       |
 | InternalOrder   | -            |      get internal orders      |
 |                 | -            |   get internal orders issued  |
 |                 | -            |  get internal orders accepted |
 |                 | -            |     editing internal order    |
 |                 | -            |       add internal order      |
+|                 | -            |       add internal order undefined      |
 | Position        | -            |         get positions         |
 |                 | -            |         edit position         |
 |                 | -            |     edit position ID only     |
@@ -85,6 +81,21 @@ Version:
 |         |       -      | check inserted user |
 |         |       -      | change user type    |
 |         |       -      | delete user         |
+| SKU     |       -      | get sku             |
+|         |       -      | get sku null        |
+|         |       -      | get skus            |
+|         |       -      | modify sku          |
+|         |       -      | delete sku          |
+| SKUItem |       -      | get sku item        |
+|         |       -      | get sku item null   |
+|         |       -      | get sku items       |
+|         |       -      | get available sku items |
+|         |       -      | modify sku item     |
+|         |       -      | delete sku item     |
+| returnOrder |       -       | get return orders |
+|             |       -       | get return order  |
+|             |       -       | get return order null  |
+|             |       -       | delete return order |
 
 # API testing - Scenarios
 
@@ -112,11 +123,15 @@ Report also for each of the scenarios the (one or more) API Mocha tests that cov
 
 | Scenario ID | Functional Requirements covered | Mocha  Test(s)         |
 |-------------|---------------------------------|------------------------|
+| UC1.1       | FR2.1                           | Testing UC 1.1         |
+| UC1.2       | FR2.1                           | Testing UC 1.2         |
+| UC1.3       | FR2.1                           | Testing UC 1.3         |
 | UC2.2       | FR3.1.1                         | Testing UC 2.2         |
 | UC2.3-UC2.4 | FR3.1.1                         | Testing UC 2.3 and 2.4 |
 | UC2.5       | FR3.1.2                         | Testing UC 2.5         |
 | UC5.1       | FR5.8                           | Testing UC5.1          |
 | UC5.2       | FR5.8.2                         | Testing UC5.2          |
+| UC6.1       | FR5.9, FR5.10, FR5.11           | Testing UC6            |
 | UC9         | FR6.6                           | Testing UC9            |
 | UC10        | FR6.8                           | Testing UC10           |
 | UC12.1      | -                               | Testing UC 12.1        |
@@ -135,16 +150,3 @@ Report also for each of the scenarios the (one or more) API Mocha tests that cov
 | -           | FR7                             | getItembyId : GET /api/items/:id                               |
 | UC11.2      | FR7                             | editItem : PUT /api/item/:id                                   |
 | -           | FR7                             | deleteItemById : DELETE /api/items/:id                         |
-
-# Coverage of Non Functional Requirements
-
-
-<Report in the following table the coverage of the Non Functional Requirements of the application - only those that can be tested with automated testing frameworks.>
-
-
-### 
-
-| Non Functional Requirement | Test name |
-| -------------------------- | --------- |
-|                            |           |
-

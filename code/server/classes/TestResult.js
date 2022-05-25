@@ -7,9 +7,6 @@ class testResult {
 		this.Result = result;
 	}
 
-	getResult() {
-		return this.result;
-	}
 }
 
 module.exports = testResult;

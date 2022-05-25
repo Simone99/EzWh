@@ -11,7 +11,7 @@ describe('get user', () => {
 				'Zanella',
 				'manager',
 				's295316@studenti.polito.it',
-				'DioMattone'
+				'TestPassword'
 			)
 		);
 		await DAO_test.addUser(
@@ -20,7 +20,7 @@ describe('get user', () => {
 				'Paolino',
 				'manager',
 				'sXXXXXX@studenti.polito.it',
-				'DioCancro'
+				'TestPassword'
 			)
 		);
 	});
@@ -31,7 +31,7 @@ describe('get user', () => {
 			name: 'Simone',
 			surname: 'Zanella',
 			email: 's295316@studenti.polito.it',
-			password: 'DioMattone',
+			password: 'TestPassword',
 			type: 'manager',
 		});
 	});
@@ -50,7 +50,7 @@ describe('get users not managers', () => {
 				'Zanella',
 				'manager',
 				's295316@studenti.polito.it',
-				'DioMattone'
+				'TestPassword'
 			)
 		);
 		await DAO_test.addUser(
@@ -59,7 +59,7 @@ describe('get users not managers', () => {
 				'Paolino',
 				'supplier',
 				'sXXXXXX@studenti.polito.it',
-				'DioCancro'
+				'TestPassword'
 			)
 		);
 	});
@@ -72,7 +72,7 @@ describe('get users not managers', () => {
 				name: 'Alfredo',
 				surname: 'Paolino',
 				email: 'sXXXXXX@studenti.polito.it',
-				password: 'DioCancro',
+				password: 'TestPassword',
 				type: 'supplier',
 			},
 		]);
@@ -88,7 +88,7 @@ describe('get suppliers', () => {
 				'Zanella',
 				'supplier',
 				's295316@studenti.polito.it',
-				'DioMattone'
+				'TestPassword'
 			)
 		);
 		await DAO_test.addUser(
@@ -97,7 +97,7 @@ describe('get suppliers', () => {
 				'Paolino',
 				'supplier',
 				'sXXXXXX@studenti.polito.it',
-				'DioCancro'
+				'TestPassword'
 			)
 		);
 	});

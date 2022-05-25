@@ -2,7 +2,7 @@ const DAO = require('../classes/DAO');
 const SKU = require('../classes/SKU');
 const SKUItem = require('../classes/SKUItem');
 const { resetDB } = require('../test_modules/init_test_module');
-let DAO_test = new DAO('./EZWarehouseDB_test.db');
+let DAO_test;
 
 describe('addTestresult', () => {
 	beforeEach(async () => {
@@ -28,12 +28,12 @@ describe('addTestresult', () => {
 	});
 
 	test('Add a true test result', async () => {
-		await DAO_test.addTestResult('rfid123', 1, '23-05-2022', false);
+		await DAO_test.addTestResult('rfid123', 1, '23-05-2022', true);
 		let res = await DAO_test.getTestResultsByRFID('rfid123');
 		expect(res).toEqual([
 			{
 				idTestDescriptor: 1,
-				Result: false,
+				Result: true,
 				Date: '23-05-2022',
 				id: 1,
 			},
