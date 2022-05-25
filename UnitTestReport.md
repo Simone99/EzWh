@@ -653,7 +653,128 @@ Version:
 | oldPositionID === undefined     | I               |          |                   |
 | All parameters are specified | V               | Updates the position ID specified with the new one | get position |
 
+## **Class UserDAO**
+### UserDAO.getUserByTypeAndUsername(type, username);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
 
+### UserDAO.InsertUser(user);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### UserDAO.editUser(username, oldType, newType);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### UserDAO.deleteUser(username, type);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+## **Class TestResultDAO**
+### TestResultDAO.getTestResultByRFID(RFID);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### TestResultDAO.getTestResultBYRFIDAndID(RFID, ID);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### TestResultDAO.addTestResult(rfid, idTestDescriptor, Date, Result);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### TestResultDAO.addTestResultxSKUitem(rfid, idTestResult);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### TestResultDAO.editTestResult(id, newIdTestDescriptor, newDate, newResult);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### TestResultDAO.deleteTestResult(id);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### TestResultDAO.deleteTestResultxSKUitem(SKUId, id);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+## **Class ItemDAO**
+
+### ItemDAO.addItem(item);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### ItemDAO.getItemById(id);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### ItemDAO.getItemBySupplierAndSKUId(supplierId, SKUId);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### ItemDAO.getItemByProperties(description, price, userID, SKUID);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### ItemDAO.editItem(id, newDescription, newPrice);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
+
+### ItemDAO.deleteItem(id);
+* Criteria
+    * Parameters type
+* Predicates
+* Boundaries
+* Combination of predicates:
 # White Box Unit Tests
 
 ### Test cases definition
