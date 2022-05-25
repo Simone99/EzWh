@@ -770,10 +770,10 @@ Version:
 |  Invalid  |     undefined    |   ''  | omitted |       I       |                         |
 |   valid   |     undefined    |   ''  | omitted |       I       |                         |
 |   valid   |      invalid     |   ''  | omitted |       I       |                         |
-|   valid   |       valid      |   ''  | omitted |       V       |                         |
-|   valid   |       valid      |   ''  |   true  |       V       |                         |
-|   valid   |       valid      |   ''  |  false  |       V       |                         |
-|   valid   |       valid      | valid | omitted |       V       |                         |
+|   valid   |       valid      |   ''  | omitted |       I       |                         |
+|   valid   |       valid      |   ''  |   true  |       I       |                         |
+|   valid   |       valid      |   ''  |  false  |       I       |                         |
+|   valid   |       valid      | valid | omitted |       I       |                         |
 |   valid   |       valid      | valid |   true  |       V       | Add a false test result |
 |   valid   |       valid      | valid |  false  |       V       |  Add a true test result |
 
@@ -896,8 +896,17 @@ Version:
 |                 | item === valid     |
 |                 | item === undefined |
 |                 | item === invalid   |
+|                 | item === duplicate |
 
 - **Equivalence classes and tests**
+
+|    Item   | valid/invalid |      test case     |
+|:---------:|:-------------:|:------------------:|
+|     {}    |       I       |                    |
+| undefined |       I       |                    |
+|  invalid  |       I       |                    |
+|   valid   |       V       |      add item      |
+| duplicate |       V       | add duplicate item |
 
 ### <u>METHOD</u> <i>ItemDAO.getItemById(id);</i>
 
@@ -907,14 +916,17 @@ Version:
 
 | Criteria        | Predicate           |
 |-----------------|---------------------|
-| Parameters type | SKUID === valid     |
-|                 | SKUID === undefined |
-|                 | SKUID === invalid   |
-|                 | id === valid        |
+| Parameters type | id === valid        |
 |                 | id === undefined    |
 |                 | id === invalid      |
 
 - **Equivalence classes and tests**
+
+|     id    | valid/invalid |     test case                 |
+|:---------:|:-------------:|:-----------------------------:|
+| undefined |       I       |                               |
+|  invalid  |       I       | get a non existing item by id |
+|   valid   |       V       | get an item by id             |
 
 ### <u>METHOD</u> <i>ItemDAO.getItemBySupplierAndSKUId(supplierId, SKUId);</i>
 
@@ -933,6 +945,14 @@ Version:
 
 - **Equivalence classes and tests**
 
+| SKUId     | supplierId | valid/invalid | test case |
+|-----------|------------|---------------|-----------|
+| undefined | undefined  | I             |           |
+| invalid   | undefined  | I             |           |
+| valid     | undefined  | I             |           |
+| valid     | invalid    | I             |           |
+| valid     | valid      | V             |           |
+
 ### <u>METHOD</u> <i>ItemDAO.editItem(id, newDescription, newPrice);</i>
 
 - **Criteria**
@@ -945,13 +965,27 @@ Version:
 |                 | id === undefined             |
 |                 | id === invalid               |
 |                 | newDescription === ' '       |
-|                 | newDescription === omitted   |
 |                 | newDescription === undefined |
+|                 | newDescription === valid     |
 |                 | newPrice === 0               |
 |                 | newPrice < 0                 |
 |                 | newPrice > 0                 |
 
 - **Equivalence classes and tests**
+
+|     id    | newDescription | newPrice | valid/invalid |                test case                |
+|:---------:|:--------------:|:--------:|:-------------:|:---------------------------------------:|
+| undefined |    undefined   |     0    |       I       |                                         |
+|  invalid  |    undefined   |     0    |       I       |        Edit a non existing item         |
+|   valid   |    undefined   |     0    |       I       |                                         |
+|   valid   |    undefined   |    <0    |       I       |                                         |
+|   valid   |    undefined   |    >0    |       I       |                                         |
+|   valid   |       ''       |     0    |       I       |                                         |
+|   valid   |       ''       |    <0    |       I       |                                         |
+|   valid   |       ''       |    >0    |       V       | Edit an existing item empty description |
+|   valid   |      valid     |     0    |       I       |                                         |
+|   valid   |      valid     |    <0    |       I       |                                         |
+|   valid   |      valid     |    >0    |       V       |          Edit an existing item          |
 
 ### <u>METHOD</u> : <i>ItemDAO.deleteItem(id);</i></i>
 
@@ -966,6 +1000,12 @@ Version:
 |                 | id === invalid               |
 
 - **Equivalence classes and tests**
+
+|     id    | valid/invalid |    test case   |
+|:---------:|:-------------:|:--------------:|
+| undefined |       I       |                |
+|  invalid  |       I       |                |
+|   valid   |       V       | delete an item |
 
 # White Box Unit Tests
 

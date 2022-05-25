@@ -71,6 +71,11 @@ describe('Tests on ItemDAO.js', () => {
 		expect(res).toEqual('ok');
 	});
 
+	test('Edit an existing item empty description', async () => {
+		let res = await DAO_test.editItem(2, '', 90);
+		expect(res).toEqual('ok');
+	});
+
 	test('Control content after editing an existing item', async () => {
 		await DAO_test.editItem(2, 'Item description 7', 90);
 		let res = await DAO_test.getItemById(2);
