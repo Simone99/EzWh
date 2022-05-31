@@ -47,6 +47,18 @@ app.use(function (req, res, next) {
 	next(createError(404));
 });
 
+const runQuery = (query, db) => {
+	return new Promise((resolve, reject) => {
+		db.run(query, [], function (err) {
+			if (err) {
+				reject(err);
+			}else{
+				resolve(this.changes);
+			}
+		});
+	});
+};
+
 // error handler
 app.use(function (err, req, res, next) {
 	// set locals, only providing error in development
@@ -67,14 +79,10 @@ const db = new sqlite.Database('./EZWarehouseDB.db', (err) => {
 	if (err) throw err;
 });
 
-db.serialize(() => {
-	allFileContents.split(';').forEach((query) =>{
-		db.run(query, [], (err) => {
-			if (err) throw err;
-		})
-	}
-	);	
-});
+const queries = allFileContents.split(';');
+for (let query of queries) {
+	runQuery(query, db);
+}
 
 app.listen(port, () => {
 	console.log(`Server listening at http://localhost:${port}`);

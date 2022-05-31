@@ -29,13 +29,40 @@ router.get('/skus/:id', async (req, res) => {
 });
 
 router.post('/sku', async (req, res) => {
+  console.log(!req.body.hasOwnProperty('description') ||
+  !req.body.hasOwnProperty('weight') ||
+  !req.body.hasOwnProperty('volume') ||
+  !req.body.hasOwnProperty('price') ||
+  !req.body.hasOwnProperty('notes') ||
+  !req.body.hasOwnProperty('availableQuantity') ||
+  !req.body.notes ||
+  !req.body.description ||
+  req.body.weight < 0 ||
+  req.body.volume < 0 ||
+  req.body.price < 0 ||
+  req.body.availableQuantity < 0 ||
+  !Number.isInteger(req.body.availableQuantity) ||
+  !Number.isInteger(req.body.weight) ||
+  !Number.isInteger(req.body.volume) ||
+  !Number.isInteger(req.body.price));
   if(!req.body.hasOwnProperty('description') ||
      !req.body.hasOwnProperty('weight') ||
      !req.body.hasOwnProperty('volume') ||
      !req.body.hasOwnProperty('price') ||
      !req.body.hasOwnProperty('notes') ||
-     !req.body.hasOwnProperty('availableQuantity')){
-    return res.status(422).end()
+     !req.body.hasOwnProperty('availableQuantity') ||
+     !req.body.notes ||
+     !req.body.description ||
+     req.body.weight < 0 ||
+     req.body.volume < 0 ||
+     req.body.price < 0 ||
+     req.body.availableQuantity < 0 ||
+     !Number.isInteger(req.body.availableQuantity) ||
+     !Number.isInteger(req.body.weight) ||
+     !Number.isInteger(req.body.volume) ||
+     !Number.isInteger(req.body.price)){
+       
+    return res.status(422).end();
   }
   try{
     await new Warehouse().getInventory().addSKU(new SKU(req.body.description, req.body.weight, req.body.volume, req.body.price, req.body.notes, null, null, req.body.availableQuantity));
@@ -58,8 +85,6 @@ router.put('/sku/:id', async (req, res) => {
     const tmp = await new Warehouse().getInventory().editSKU(req.params.id, req.body.newDescription, req.body.newWeight, req.body.newVolume, req.body.newNotes, req.body.newPrice, req.body.newAvailableQuantity);
     if(tmp === 422){
       return res.status(422).end();
-    }else if(tmp === 404){
-      return res.status(404).end();
     }
     return res.status(200).end();
   }catch(err){
@@ -68,7 +93,9 @@ router.put('/sku/:id', async (req, res) => {
 });
 
 router.put('/sku/:id/position', async (req, res) => {
-  if(!req.body.hasOwnProperty('position'))
+  if(!req.body.hasOwnProperty('position') ||
+     req.body.position === null ||
+     req.params.id === null)
     return res.status(422).end();
   try{
     const tmp = await new Warehouse().getInventory().editSKUPosition(req.params.id, req.body.position);

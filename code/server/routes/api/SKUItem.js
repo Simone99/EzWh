@@ -45,7 +45,10 @@ router.get('/skuitems/:rfid', async (req, res) => {
 router.post('/skuitem', async (req, res) => {
     if(!req.body.hasOwnProperty('RFID') ||
         !req.body.hasOwnProperty('SKUId') ||
-        !req.body.hasOwnProperty('DateOfStock')){
+        !req.body.hasOwnProperty('DateOfStock') ||
+        req.body.RFID === null ||
+        req.body.SKUId === null ||
+        req.body.DateOfStock === null){
         return res.status(422).end()
     }
     try{
@@ -63,7 +66,10 @@ router.post('/skuitem', async (req, res) => {
 router.put('/skuitems/:rfid', async (req, res) => {
     if(!req.body.hasOwnProperty('newRFID') ||
         !req.body.hasOwnProperty('newAvailable') ||
-        !req.body.hasOwnProperty('newDateOfStock')){
+        !req.body.hasOwnProperty('newDateOfStock') ||
+        req.body.newRFID === null ||
+        req.body.newAvailable === null ||
+        req.body.newDateOfStock === null){
         return res.status(422).end()
     }
     try{

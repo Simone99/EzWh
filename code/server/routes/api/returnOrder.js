@@ -33,7 +33,10 @@ router.get('/returnOrders/:id', async (req, res) => {
 router.post('/returnOrder', async (req, res) => {
     if(!req.body.hasOwnProperty('returnDate') ||
      !req.body.hasOwnProperty('products') ||
-     !req.body.hasOwnProperty('restockOrderId')){
+     !req.body.hasOwnProperty('restockOrderId') ||
+      req.body.returnDate === null ||
+      req.body.products === null ||
+      req.body.restockOrderId === null){
     return res.status(422).end();
     }
     try{

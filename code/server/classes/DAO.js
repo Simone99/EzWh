@@ -82,7 +82,7 @@ class DAO {
 	) {
 		const sku = await this.SKUDAO.getSKUByID(SKUID);
 		if (sku === undefined) {
-			return 404;
+			return 422;
 		}
 		if (newAvailableQuantity !== undefined) {
 			const pos = await this.PositionDAO.getPosition(sku.getPosition());
@@ -446,11 +446,15 @@ class DAO {
     }
 
     async addReturnOrder(restockOrderId, products, date) {
+		const idReturnedRestock = await this.RestockOrderDAO.getRestockOrderByID(restockOrderId);
+        if (idReturnedRestock === undefined) {
+            return 0;
+        }
         const idReturned = await this.ReturnOrderDAO.addReturnOrder(restockOrderId, date);
         if (idReturned === undefined) {
             return 0;
         }
-        for(let product of products) {
+		for(let product of products) {
             await this.ReturnOrderDAO.addProductxReturnOrder(idReturned, product.RFID);
         }
     }
