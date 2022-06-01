@@ -69,7 +69,7 @@ app.use(function (err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error');
 });
-
+/*
 const allFileContents = fs.readFileSync(
 	path.resolve(__dirname, './classes/DBCreationQuery.sql'),
 	'utf-8'
@@ -82,7 +82,7 @@ const db = new sqlite.Database('./EZWarehouseDB.db', (err) => {
 const queries = allFileContents.split(';');
 for (let query of queries) {
 	runQuery(query, db);
-}
+}*/
 
 app.listen(port, () => {
 	console.log(`Server listening at http://localhost:${port}`);
