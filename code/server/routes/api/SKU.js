@@ -29,12 +29,12 @@ router.get('/skus/:id', async (req, res) => {
 });
 
 router.post('/sku', async (req, res) => {
-  if(!req.body.hasOwnProperty('description') ||
-     !req.body.hasOwnProperty('weight') ||
-     !req.body.hasOwnProperty('volume') ||
-     !req.body.hasOwnProperty('price') ||
-     !req.body.hasOwnProperty('notes') ||
-     !req.body.hasOwnProperty('availableQuantity') ||
+  if(!Object.prototype.hasOwnProperty.call(req.body, 'description') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'weight') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'volume') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'price') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'notes') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'availableQuantity') ||
      !req.body.notes ||
      !req.body.description ||
      req.body.weight < 0 ||
@@ -57,12 +57,12 @@ router.post('/sku', async (req, res) => {
 });
 
 router.put('/sku/:id', async (req, res) => {
-  if(!req.body.hasOwnProperty('newDescription') ||
-     !req.body.hasOwnProperty('newWeight') ||
-     !req.body.hasOwnProperty('newVolume') ||
-     !req.body.hasOwnProperty('newPrice') ||
-     !req.body.hasOwnProperty('newNotes') ||
-     !req.body.hasOwnProperty('newAvailableQuantity')){
+  if(!Object.prototype.hasOwnProperty.call(req.body, 'newDescription') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'newWeight') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'newVolume') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'newPrice') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'newNotes') ||
+     !Object.prototype.hasOwnProperty.call(req.body, 'newAvailableQuantity')){
     return res.status(422).end()
   }
   try{
@@ -77,7 +77,7 @@ router.put('/sku/:id', async (req, res) => {
 });
 
 router.put('/sku/:id/position', async (req, res) => {
-  if(!req.body.hasOwnProperty('position') ||
+  if(!Object.prototype.hasOwnProperty.call(req.body, 'position') ||
      req.body.position === null ||
      req.params.id === null)
     return res.status(422).end();
