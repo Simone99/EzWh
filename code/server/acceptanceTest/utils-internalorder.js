@@ -94,7 +94,7 @@ function testGetAllInternalOrders(agent, size, expCode){
         it('Getting all internal orders', function (done){
             agent.get('/api/internalOrders')
             .then(function(res){
-                //console.log(res.body);
+                console.log(size);
                 res.should.have.status(expCode);
                 res.body.should.be.a('array');
                 res.body.length.should.be.eql(size);

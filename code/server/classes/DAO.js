@@ -327,9 +327,9 @@ class DAO {
 			return 422;
 		}
 		for (let skuItem of SKUItemsList) {
-			await this.SKUItemDAO.addSKUItem(
+			/*await this.SKUItemDAO.addSKUItem(
 				new SKUItem(skuItem.SKUId, 1, dayjs().format(), skuItem.rfid)
-			);
+			);*/
 			await this.RestockOrderDAO.editRestockOrderSkuItems(
 				restockOrderID,
 				skuItem.rfid
@@ -574,6 +574,7 @@ class DAO {
 
 	async getInternalOrdersList() {
 		const orders = await this.InternalOrderDAO.getInternalOrdersList();
+		console.log(orders);
 		if (orders === undefined) {
 			return undefined;
 		}
@@ -649,7 +650,7 @@ class DAO {
 		}
 		for (let item of internalOrderItemList) {
 			const SKUObj = await this.SKUDAO.getSKUByID(item.SKUId);
-			if (item.qty < SKUObj.getAvailableQuantity()) {
+			if (SKUObj && item.qty < SKUObj.getAvailableQuantity()) {
 				const itemInserted = await this.InternalOrderDAO.addInternalOrderItem(
 					item
 				);
@@ -666,9 +667,6 @@ class DAO {
 					itemInserted,
 					idReturned
 				);
-			} else {
-				await this.InternalOrderDAO.deleteInternalOrder(idReturned);
-				return 422;
 			}
 		}
 	}
@@ -689,12 +687,14 @@ class DAO {
 					product.RFID
 				);
 				const skuItem = await this.SKUItemDAO.getSKUItemByRFID(product.RFID);
-				await this.SKUItemDAO.editSKUItem(
-					product.RFID,
-					0,
-					skuItem.getDateOfStock(),
-					product.RFID
-				);
+				if(skuItem){
+					await this.SKUItemDAO.editSKUItem(
+						product.RFID,
+						0,
+						skuItem.getDateOfStock(),
+						product.RFID
+					);	
+				}
 			}
 		}
 	}

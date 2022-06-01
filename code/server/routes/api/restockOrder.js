@@ -77,8 +77,9 @@ router.post('/restockOrder', async (req, res) => {
 })
 
 router.put('/restockOrder/:id', async (req, res) => {
-    if(isNaN(parseInt(req.params.id) ||
-       !req.body.hasOwnProperty("newState"))){
+    if(isNaN(parseInt(req.params.id)) ||
+       !req.body.hasOwnProperty("newState") ||
+       req.body.newState == null){
         return res.status(422).end();
        }
     try {

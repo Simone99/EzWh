@@ -58,11 +58,12 @@ router.post('/internalOrders', async (req, res) => {
     }
     try{
         const result = await new Warehouse().addInternalOrder(req.body.issueDate, req.body.products, req.body.customerId);
-        if(result === 422){
+        if(result === 404){
             return res.status(404).end();
         }
         return res.status(201).end();
     }catch(err){
+        console.log(err);
         return res.status(503).end();
     }
 })
@@ -85,6 +86,7 @@ router.put('/internalOrders/:id', async (req, res) => {
         await new Warehouse().editInternalOrder(req.params.id, req.body.newState, req.body.products);
         return res.status(200).end();
     } catch (err) {
+        console.log(err);
         return res.status(503).end();
     }
 })

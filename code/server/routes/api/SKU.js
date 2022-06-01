@@ -29,22 +29,6 @@ router.get('/skus/:id', async (req, res) => {
 });
 
 router.post('/sku', async (req, res) => {
-  console.log(!req.body.hasOwnProperty('description') ||
-  !req.body.hasOwnProperty('weight') ||
-  !req.body.hasOwnProperty('volume') ||
-  !req.body.hasOwnProperty('price') ||
-  !req.body.hasOwnProperty('notes') ||
-  !req.body.hasOwnProperty('availableQuantity') ||
-  !req.body.notes ||
-  !req.body.description ||
-  req.body.weight < 0 ||
-  req.body.volume < 0 ||
-  req.body.price < 0 ||
-  req.body.availableQuantity < 0 ||
-  !Number.isInteger(req.body.availableQuantity) ||
-  !Number.isInteger(req.body.weight) ||
-  !Number.isInteger(req.body.volume) ||
-  !Number.isInteger(req.body.price));
   if(!req.body.hasOwnProperty('description') ||
      !req.body.hasOwnProperty('weight') ||
      !req.body.hasOwnProperty('volume') ||
