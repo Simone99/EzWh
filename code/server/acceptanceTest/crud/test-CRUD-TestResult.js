@@ -40,9 +40,9 @@ function testTestResultCRUD() {
 		testdescriptors.deleteAllTestDescriptors(agent);
 		skuitems.deleteAllSkuItems(agent);
 		skus.deleteAllSkus(agent);
-		skus.testPostNewSku(agent, mysku[0], 201);
-		skus.testPostNewSku(agent, mysku[1], 201);
-		skus.testGetAllSkus(agent, mysku, 2, 200);
+		skus.testPostNewSku(agent, mysku[0], 201); // first sku
+		skus.testPostNewSku(agent, mysku[1], 201); // 2nd sku
+		skus.testGetAllSkus(agent, mysku, 2, 200); //the tests fail here it expects 2 skus and it finds 3 in DB
 		skuitems.testPostNewSkuItem(agent, myskuitems[0], 201);
 		skuitems.testPostNewSkuItem(agent, myskuitems[1], 201);
 		testdescriptors.testPostNewTestDescriptor(agent, mytd[0], 201);

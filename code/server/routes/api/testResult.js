@@ -4,7 +4,7 @@ const Warehouse = require('../../classes/Warehouse');
 const TestResult = require('../../classes/TestResult');
 
 router.get('/skuitems/:rfid/testResults', async (req, res) => {
-	if (isNaN(parseInt(req.params.rfid))) {
+	if (String(req.params.rfid).length !== 32) {
 		return res.status(422).end();
 	}
 	try {
@@ -22,7 +22,7 @@ router.get('/skuitems/:rfid/testResults', async (req, res) => {
 });
 
 router.get('/skuitems/:rfid/testResults/:id', async (req, res) => {
-	if (isNaN(parseInt(req.params.rfid)) || isNaN(parseInt(req.params.id))) {
+	if (String(req.params.rfid).length !== 32 || isNaN(parseInt(req.params.id))) {
 		return res.status(422).end();
 	}
 	try {
@@ -68,7 +68,7 @@ router.post('/skuitems/testResult', async (req, res) => {
 
 router.put('/skuitems/:rfid/testResult/:id', async (req, res) => {
 	if (
-		isNaN(parseInt(req.params.rfid)) ||
+		String(req.params.rfid).length !== 32 ||
 		isNaN(parseInt(req.params.id)) ||
 		!Object.prototype.hasOwnProperty.call(req.body, 'newIdTestDescriptor') ||
 		!Object.prototype.hasOwnProperty.call(req.body, 'newDate') ||
@@ -94,7 +94,7 @@ router.put('/skuitems/:rfid/testResult/:id', async (req, res) => {
 });
 
 router.delete('/skuitems/:rfid/testResult/:id', async (req, res) => {
-	if (isNaN(parseInt(req.params.rfid)) || isNaN(parseInt(req.params.id))) {
+	if (String(req.params.rfid).length !== 32 || isNaN(parseInt(req.params.id))) {
 		return res.status(422).end();
 	}
 	try {

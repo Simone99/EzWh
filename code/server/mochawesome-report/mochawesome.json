@@ -5,9 +5,9 @@
     "passes": 58,
     "pending": 0,
     "failures": 0,
-    "start": "2022-06-02T06:56:17.690Z",
-    "end": "2022-06-02T06:56:18.620Z",
-    "duration": 930,
+    "start": "2022-06-02T08:03:38.506Z",
+    "end": "2022-06-02T08:03:39.415Z",
+    "duration": 909,
     "testsRegistered": 58,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "335d5e20-0ab3-4631-b166-46b1b9f8316b",
+      "uuid": "67fd4c8d-ba17-4790-b786-b97e76ee4a23",
       "title": "",
       "fullFile": "",
       "file": "",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "c0078ce9-18e6-4735-84ba-d51bedf0e919",
+          "uuid": "22edb415-3063-4ba8-8b9e-f46056c7c31b",
           "title": "Test TestResult CRUD",
           "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
           "file": "/acceptanceTest/testEzWhAPI.js",
@@ -36,7 +36,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "0dfaef81-1359-486a-834f-979958bd8409",
+              "uuid": "ce3f859a-34c2-4d6b-8acd-22617401a01e",
               "title": "removing all test descriptors",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -47,7 +47,7 @@
                   "title": "Getting test descriptors",
                   "fullTitle": "Test TestResult CRUD removing all test descriptors Getting test descriptors",
                   "timedOut": false,
-                  "duration": 28,
+                  "duration": 31,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -56,26 +56,26 @@
                   "context": null,
                   "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    res.should.have.status(200);\n    if(res.body.length !==0){\n        for (let i=0; i<res.body.length; i++){\n            agent.delete('/api/testDescriptor/'+res.body[i].id)\n            .then(function(res2){\n                res2.should.have.status(204);\n            });\n        }\n    }\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "c6b51510-c1b6-4032-9415-0a387c994eeb",
-                  "parentUUID": "0dfaef81-1359-486a-834f-979958bd8409",
+                  "uuid": "5b138d2b-2335-4afe-ad0d-4b946c83f963",
+                  "parentUUID": "ce3f859a-34c2-4d6b-8acd-22617401a01e",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "c6b51510-c1b6-4032-9415-0a387c994eeb"
+                "5b138d2b-2335-4afe-ad0d-4b946c83f963"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 28,
+              "duration": 31,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "bf03bcd8-8b6b-4bdc-998b-d599b58c33fe",
+              "uuid": "152b2a71-2d36-4628-8db0-5b0db643ae2c",
               "title": "removing all skuitems",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -86,7 +86,7 @@
                   "title": "Getting SKUitems",
                   "fullTitle": "Test TestResult CRUD removing all skuitems Getting SKUitems",
                   "timedOut": false,
-                  "duration": 7,
+                  "duration": 9,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -95,26 +95,26 @@
                   "context": null,
                   "code": "const res = await agent.get('/api/skuitems');\nconsole.log(res.body);\nres.should.have.status(200);\nif (res.body.length !==0) {\n    let res2;\n    for (let i = 0; i < res.body.length; i++) {\n        res2 = await\n        agent.delete('/api/skuitems/'+res.body[i].RFID);\n        res2.should.have.status(204);\n        console.log(\"Deleted \"+ res.body[i].RFID);\n    }\n}\nconsole.log(\"done!\");",
                   "err": {},
-                  "uuid": "8efcb789-9f4e-4613-9188-2520ad6edae9",
-                  "parentUUID": "bf03bcd8-8b6b-4bdc-998b-d599b58c33fe",
+                  "uuid": "8da935f9-e8cc-454d-9f96-78cce583400a",
+                  "parentUUID": "152b2a71-2d36-4628-8db0-5b0db643ae2c",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "8efcb789-9f4e-4613-9188-2520ad6edae9"
+                "8da935f9-e8cc-454d-9f96-78cce583400a"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 7,
+              "duration": 9,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "1c9f52e2-0a7c-4e97-9e41-58dbaf7b52c9",
+              "uuid": "bddfd6e6-788b-4894-8abd-cc77d2ddfb93",
               "title": "removing all skus",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -125,7 +125,7 @@
                   "title": "Getting SKUs",
                   "fullTitle": "Test TestResult CRUD removing all skus Getting SKUs",
                   "timedOut": false,
-                  "duration": 7,
+                  "duration": 5,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -134,26 +134,26 @@
                   "context": null,
                   "code": "agent.get('/api/skus')\n.then(function (res) {\n    res.should.have.status(200);\n    if (res.body.length !==0) {\n        for (let i = 0; i < res.body.length; i++) {\n            agent.delete('/api/skus/'+res.body[i].id)\n            .then(function (res2) {\n                res2.should.have.status(204);\n            });\n        }\n    } \n    done();\n}).catch(err => done(err));",
                   "err": {},
-                  "uuid": "b779e018-9199-4e8c-92a5-6d5a168b8138",
-                  "parentUUID": "1c9f52e2-0a7c-4e97-9e41-58dbaf7b52c9",
+                  "uuid": "b9dc354f-9411-404a-acf3-fa25db9860a6",
+                  "parentUUID": "bddfd6e6-788b-4894-8abd-cc77d2ddfb93",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "b779e018-9199-4e8c-92a5-6d5a168b8138"
+                "b9dc354f-9411-404a-acf3-fa25db9860a6"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 7,
+              "duration": 5,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "cac9978f-02de-4919-93da-52c6177c9989",
+              "uuid": "7301bd49-8876-4e8c-b905-f82aef0f50ba",
               "title": "post /api/sku/",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -164,7 +164,7 @@
                   "title": "FR 2.1 a -> Define a new SKU",
                   "fullTitle": "Test TestResult CRUD post /api/sku/ FR 2.1 a -> Define a new SKU",
                   "timedOut": false,
-                  "duration": 26,
+                  "duration": 28,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -173,26 +173,26 @@
                   "context": null,
                   "code": "agent.post('/api/sku/')\n.send(thesku)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "c8a88652-7d1d-4719-a950-87baf3381786",
-                  "parentUUID": "cac9978f-02de-4919-93da-52c6177c9989",
+                  "uuid": "0d2c4687-a61c-4638-885b-41424a2c56b0",
+                  "parentUUID": "7301bd49-8876-4e8c-b905-f82aef0f50ba",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "c8a88652-7d1d-4719-a950-87baf3381786"
+                "0d2c4687-a61c-4638-885b-41424a2c56b0"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 26,
+              "duration": 28,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "706c6804-bbca-4725-ac66-56114876eb21",
+              "uuid": "2a3200ff-bc08-4e2f-8977-50697f655a3f",
               "title": "post /api/sku/",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -202,162 +202,6 @@
                 {
                   "title": "FR 2.1 a -> Define a new SKU",
                   "fullTitle": "Test TestResult CRUD post /api/sku/ FR 2.1 a -> Define a new SKU",
-                  "timedOut": false,
-                  "duration": 10,
-                  "state": "passed",
-                  "speed": "fast",
-                  "pass": true,
-                  "fail": false,
-                  "pending": false,
-                  "context": null,
-                  "code": "agent.post('/api/sku/')\n.send(thesku)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
-                  "err": {},
-                  "uuid": "6c6e3f1d-0910-47d0-bee0-9a59f27944ce",
-                  "parentUUID": "706c6804-bbca-4725-ac66-56114876eb21",
-                  "isHook": false,
-                  "skipped": false
-                }
-              ],
-              "suites": [],
-              "passes": [
-                "6c6e3f1d-0910-47d0-bee0-9a59f27944ce"
-              ],
-              "failures": [],
-              "pending": [],
-              "skipped": [],
-              "duration": 10,
-              "root": false,
-              "rootEmpty": false,
-              "_timeout": 10000
-            },
-            {
-              "uuid": "7c07120f-6053-487d-aaa8-79556103912a",
-              "title": "get /api/skus",
-              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-              "file": "/acceptanceTest/testEzWhAPI.js",
-              "beforeHooks": [],
-              "afterHooks": [],
-              "tests": [
-                {
-                  "title": "FR 2.3 -> List all SKUs",
-                  "fullTitle": "Test TestResult CRUD get /api/skus FR 2.3 -> List all SKUs",
-                  "timedOut": false,
-                  "duration": 6,
-                  "state": "passed",
-                  "speed": "fast",
-                  "pass": true,
-                  "fail": false,
-                  "pending": false,
-                  "context": null,
-                  "code": "agent.get('/api/skus')\n.then(function (res) {\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    res.body.length.should.be.eql(size);\n    let id = [];\n    if (size > 0) {\n        for (let i = 0; i < size; i++) {\n            id[i] = res.body[i].id;\n            res.body[i].description.should.equal(sku[i].description);\n            res.body[i].weight.should.equal(sku[i].weight);\n            res.body[i].volume.should.equal(sku[i].volume);\n            res.body[i].notes.should.equal(sku[i].notes);\n            res.body[i].availableQuantity.should.equal(sku[i].availableQuantity);\n            res.body[i].price.should.equal(sku[i].price);\n        }\n        ids.setIdSku(id);\n    }             \n    done();\n}).catch(err=>done(err));",
-                  "err": {},
-                  "uuid": "7415a8f8-5033-4adc-8ff4-cbc46b96f724",
-                  "parentUUID": "7c07120f-6053-487d-aaa8-79556103912a",
-                  "isHook": false,
-                  "skipped": false
-                }
-              ],
-              "suites": [],
-              "passes": [
-                "7415a8f8-5033-4adc-8ff4-cbc46b96f724"
-              ],
-              "failures": [],
-              "pending": [],
-              "skipped": [],
-              "duration": 6,
-              "root": false,
-              "rootEmpty": false,
-              "_timeout": 10000
-            },
-            {
-              "uuid": "79f0aaed-e7ca-41d1-8585-d448277f9d9f",
-              "title": "post /api/skuitem/",
-              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-              "file": "/acceptanceTest/testEzWhAPI.js",
-              "beforeHooks": [],
-              "afterHooks": [],
-              "tests": [
-                {
-                  "title": "Adding skuitem details",
-                  "fullTitle": "Test TestResult CRUD post /api/skuitem/ Adding skuitem details",
-                  "timedOut": false,
-                  "duration": 12,
-                  "state": "passed",
-                  "speed": "fast",
-                  "pass": true,
-                  "fail": false,
-                  "pending": false,
-                  "context": null,
-                  "code": "let id = ids.getIdSku();\nlet skuitem;\nif(myskuitem.SKUId > id.length || myskuitem.SKUId === null){\n    skuitem = newSkuItem(myskuitem.RFID, myskuitem.SKUId , myskuitem.DateOfStock); \n}\nelse{\n    skuitem = newSkuItem(myskuitem.RFID, id[myskuitem.SKUId] , myskuitem.DateOfStock);\n}\nagent.post('/api/skuitem/')\n.send(skuitem)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
-                  "err": {},
-                  "uuid": "d4a21937-bb2b-431b-84a9-265b99b010ab",
-                  "parentUUID": "79f0aaed-e7ca-41d1-8585-d448277f9d9f",
-                  "isHook": false,
-                  "skipped": false
-                }
-              ],
-              "suites": [],
-              "passes": [
-                "d4a21937-bb2b-431b-84a9-265b99b010ab"
-              ],
-              "failures": [],
-              "pending": [],
-              "skipped": [],
-              "duration": 12,
-              "root": false,
-              "rootEmpty": false,
-              "_timeout": 10000
-            },
-            {
-              "uuid": "f12347b4-d49d-42e1-9aa8-0523b307ddce",
-              "title": "post /api/skuitem/",
-              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-              "file": "/acceptanceTest/testEzWhAPI.js",
-              "beforeHooks": [],
-              "afterHooks": [],
-              "tests": [
-                {
-                  "title": "Adding skuitem details",
-                  "fullTitle": "Test TestResult CRUD post /api/skuitem/ Adding skuitem details",
-                  "timedOut": false,
-                  "duration": 10,
-                  "state": "passed",
-                  "speed": "fast",
-                  "pass": true,
-                  "fail": false,
-                  "pending": false,
-                  "context": null,
-                  "code": "let id = ids.getIdSku();\nlet skuitem;\nif(myskuitem.SKUId > id.length || myskuitem.SKUId === null){\n    skuitem = newSkuItem(myskuitem.RFID, myskuitem.SKUId , myskuitem.DateOfStock); \n}\nelse{\n    skuitem = newSkuItem(myskuitem.RFID, id[myskuitem.SKUId] , myskuitem.DateOfStock);\n}\nagent.post('/api/skuitem/')\n.send(skuitem)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
-                  "err": {},
-                  "uuid": "c8668a7c-2df9-4c59-a39c-4e246201be73",
-                  "parentUUID": "f12347b4-d49d-42e1-9aa8-0523b307ddce",
-                  "isHook": false,
-                  "skipped": false
-                }
-              ],
-              "suites": [],
-              "passes": [
-                "c8668a7c-2df9-4c59-a39c-4e246201be73"
-              ],
-              "failures": [],
-              "pending": [],
-              "skipped": [],
-              "duration": 10,
-              "root": false,
-              "rootEmpty": false,
-              "_timeout": 10000
-            },
-            {
-              "uuid": "cfa691a3-92f1-4d40-a8f5-57c90a42899d",
-              "title": "test adding a test descriptor with post",
-              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-              "file": "/acceptanceTest/testEzWhAPI.js",
-              "beforeHooks": [],
-              "afterHooks": [],
-              "tests": [
-                {
-                  "title": "Creating a test descriptor",
-                  "fullTitle": "Test TestResult CRUD test adding a test descriptor with post Creating a test descriptor",
                   "timedOut": false,
                   "duration": 11,
                   "state": "passed",
@@ -366,17 +210,17 @@
                   "fail": false,
                   "pending": false,
                   "context": null,
-                  "code": "let id = ids.getIdSku();\nlet testdescriptor;\nif(mytd.idSKU > id.length || mytd.idSKU === null){\n    testdescriptor = newTestDescriptor(mytd.name, mytd.procedureDescription, mytd.idSKU);\n} \nelse {\n    testdescriptor = newTestDescriptor(mytd.name, mytd.procedureDescription, id[mytd.idSKU]);\n}\n//console.log(testdescriptor);\nagent.post('/api/testDescriptor')\n.send(testdescriptor)\n.then(res2 => {\n    assert.equal(res2.status, expCode);\n    done();\n}).catch(err=>done(err));",
+                  "code": "agent.post('/api/sku/')\n.send(thesku)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "49f0a72d-0fd0-420e-a578-40f08bac0f38",
-                  "parentUUID": "cfa691a3-92f1-4d40-a8f5-57c90a42899d",
+                  "uuid": "9d86a7e1-f83d-4986-8b00-5af92359759d",
+                  "parentUUID": "2a3200ff-bc08-4e2f-8977-50697f655a3f",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "49f0a72d-0fd0-420e-a578-40f08bac0f38"
+                "9d86a7e1-f83d-4986-8b00-5af92359759d"
               ],
               "failures": [],
               "pending": [],
@@ -387,7 +231,163 @@
               "_timeout": 10000
             },
             {
-              "uuid": "cc4e4fb9-8cbe-439e-9715-c47d38c6f0c1",
+              "uuid": "2b06ef43-fa9e-4b92-9120-413535a24f50",
+              "title": "get /api/skus",
+              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+              "file": "/acceptanceTest/testEzWhAPI.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "FR 2.3 -> List all SKUs",
+                  "fullTitle": "Test TestResult CRUD get /api/skus FR 2.3 -> List all SKUs",
+                  "timedOut": false,
+                  "duration": 5,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "agent.get('/api/skus')\n.then(function (res) {\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    res.body.length.should.be.eql(size);\n    let id = [];\n    if (size > 0) {\n        for (let i = 0; i < size; i++) {\n            id[i] = res.body[i].id;\n            res.body[i].description.should.equal(sku[i].description);\n            res.body[i].weight.should.equal(sku[i].weight);\n            res.body[i].volume.should.equal(sku[i].volume);\n            res.body[i].notes.should.equal(sku[i].notes);\n            res.body[i].availableQuantity.should.equal(sku[i].availableQuantity);\n            res.body[i].price.should.equal(sku[i].price);\n        }\n        ids.setIdSku(id);\n    }             \n    done();\n}).catch(err=>done(err));",
+                  "err": {},
+                  "uuid": "8cbba1d0-955a-44c1-bb22-fe9886d5c847",
+                  "parentUUID": "2b06ef43-fa9e-4b92-9120-413535a24f50",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "8cbba1d0-955a-44c1-bb22-fe9886d5c847"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 5,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 10000
+            },
+            {
+              "uuid": "9664c5fd-3a51-4ee0-83f2-821c2ee1b760",
+              "title": "post /api/skuitem/",
+              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+              "file": "/acceptanceTest/testEzWhAPI.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Adding skuitem details",
+                  "fullTitle": "Test TestResult CRUD post /api/skuitem/ Adding skuitem details",
+                  "timedOut": false,
+                  "duration": 11,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "let id = ids.getIdSku();\nlet skuitem;\nif(myskuitem.SKUId > id.length || myskuitem.SKUId === null){\n    skuitem = newSkuItem(myskuitem.RFID, myskuitem.SKUId , myskuitem.DateOfStock); \n}\nelse{\n    skuitem = newSkuItem(myskuitem.RFID, id[myskuitem.SKUId] , myskuitem.DateOfStock);\n}\nagent.post('/api/skuitem/')\n.send(skuitem)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
+                  "err": {},
+                  "uuid": "2f50a5ab-aceb-4f33-a440-315207e7567c",
+                  "parentUUID": "9664c5fd-3a51-4ee0-83f2-821c2ee1b760",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "2f50a5ab-aceb-4f33-a440-315207e7567c"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 11,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 10000
+            },
+            {
+              "uuid": "1959cae8-49ba-4851-a9dc-33988470fafa",
+              "title": "post /api/skuitem/",
+              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+              "file": "/acceptanceTest/testEzWhAPI.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Adding skuitem details",
+                  "fullTitle": "Test TestResult CRUD post /api/skuitem/ Adding skuitem details",
+                  "timedOut": false,
+                  "duration": 9,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "let id = ids.getIdSku();\nlet skuitem;\nif(myskuitem.SKUId > id.length || myskuitem.SKUId === null){\n    skuitem = newSkuItem(myskuitem.RFID, myskuitem.SKUId , myskuitem.DateOfStock); \n}\nelse{\n    skuitem = newSkuItem(myskuitem.RFID, id[myskuitem.SKUId] , myskuitem.DateOfStock);\n}\nagent.post('/api/skuitem/')\n.send(skuitem)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
+                  "err": {},
+                  "uuid": "33cb77f8-c54d-4592-a66b-2d676dd9f23b",
+                  "parentUUID": "1959cae8-49ba-4851-a9dc-33988470fafa",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "33cb77f8-c54d-4592-a66b-2d676dd9f23b"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 9,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 10000
+            },
+            {
+              "uuid": "0e078d2f-2f70-46a6-b8ab-bf6aac2c141a",
+              "title": "test adding a test descriptor with post",
+              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+              "file": "/acceptanceTest/testEzWhAPI.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Creating a test descriptor",
+                  "fullTitle": "Test TestResult CRUD test adding a test descriptor with post Creating a test descriptor",
+                  "timedOut": false,
+                  "duration": 12,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "let id = ids.getIdSku();\nlet testdescriptor;\nif(mytd.idSKU > id.length || mytd.idSKU === null){\n    testdescriptor = newTestDescriptor(mytd.name, mytd.procedureDescription, mytd.idSKU);\n} \nelse {\n    testdescriptor = newTestDescriptor(mytd.name, mytd.procedureDescription, id[mytd.idSKU]);\n}\n//console.log(testdescriptor);\nagent.post('/api/testDescriptor')\n.send(testdescriptor)\n.then(res2 => {\n    assert.equal(res2.status, expCode);\n    done();\n}).catch(err=>done(err));",
+                  "err": {},
+                  "uuid": "e03d57f4-1e4f-48cb-aa4e-367cce4c0341",
+                  "parentUUID": "0e078d2f-2f70-46a6-b8ab-bf6aac2c141a",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "e03d57f4-1e4f-48cb-aa4e-367cce4c0341"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 12,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 10000
+            },
+            {
+              "uuid": "204a4263-8243-4f0e-8d12-8469ba562a4c",
               "title": "get /api/testDescriptors",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -407,15 +407,15 @@
                   "context": null,
                   "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    res.should.have.status(expCode);\n    res.body.length.should.be.equal(size);\n    res.body.should.be.a('array');\n    let id = [];\n    let idSKUs = ids.getIdSku();\n    for(let i=0; i<res.body.length; i++){\n        id[i]=res.body[i].id;\n        res.body[i].name.should.equal(mytd[i].name);\n        res.body[i].procedureDescription.should.equal(mytd[i].procedureDescription);\n        res.body[i].idSKU.should.equal(idSKUs[mytd[i].idSKU]);\n    }\n    ids.setIdTestDescriptor(id);\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "59685262-e820-46e7-9d5f-2ad35f072e35",
-                  "parentUUID": "cc4e4fb9-8cbe-439e-9715-c47d38c6f0c1",
+                  "uuid": "2f83fec7-2be0-40a8-bb71-feaf937c61ee",
+                  "parentUUID": "204a4263-8243-4f0e-8d12-8469ba562a4c",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "59685262-e820-46e7-9d5f-2ad35f072e35"
+                "2f83fec7-2be0-40a8-bb71-feaf937c61ee"
               ],
               "failures": [],
               "pending": [],
@@ -426,7 +426,7 @@
               "_timeout": 10000
             },
             {
-              "uuid": "ee72ce7e-d17e-48a1-95cc-a62e7f77ebd2",
+              "uuid": "aaf4c120-8aaa-4fdb-9a30-4ff83ddcf852",
               "title": " get /api/skuitems/:rfid/testResults",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -437,7 +437,7 @@
                   "title": "Get all test results associated to a certain rfid",
                   "fullTitle": "Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
                   "timedOut": false,
-                  "duration": 6,
+                  "duration": 7,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -446,26 +446,26 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let all = [];\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"all tr for rfid\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        all[i] = res.body[i].id;\n    }\n    ids.setIdTRonRFID(all);\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "46aa2da1-7a74-4f7a-88e4-b3cc88c9095f",
-                  "parentUUID": "ee72ce7e-d17e-48a1-95cc-a62e7f77ebd2",
+                  "uuid": "4f4d8994-998f-47a8-bd0f-76a39bd8c088",
+                  "parentUUID": "aaf4c120-8aaa-4fdb-9a30-4ff83ddcf852",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "46aa2da1-7a74-4f7a-88e4-b3cc88c9095f"
+                "4f4d8994-998f-47a8-bd0f-76a39bd8c088"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 6,
+              "duration": 7,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "aeeec482-33a7-4192-9ffa-a09913f62d1a",
+              "uuid": "6dc9eeef-26f9-4a1a-818a-8819abc5386a",
               "title": " get /api/skuitems/:rfid/testResults",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -485,15 +485,15 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"delete all\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        agent.delete('/api/skuitems/'+rfid+'/testResult/'+res.body[i].id)\n        .then(function(res2){\n            res2.should.have.status(204);\n        });\n    }\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "2ac05481-c9ca-4719-a8a0-66d2f9408c46",
-                  "parentUUID": "aeeec482-33a7-4192-9ffa-a09913f62d1a",
+                  "uuid": "2938884a-5730-49cd-82e8-c03fb4f86638",
+                  "parentUUID": "6dc9eeef-26f9-4a1a-818a-8819abc5386a",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "2ac05481-c9ca-4719-a8a0-66d2f9408c46"
+                "2938884a-5730-49cd-82e8-c03fb4f86638"
               ],
               "failures": [],
               "pending": [],
@@ -504,7 +504,7 @@
               "_timeout": 10000
             },
             {
-              "uuid": "fb383c33-e8aa-4d63-bb8e-a2971bc61ff7",
+              "uuid": "e56eed03-b2b7-48ed-a410-e71779c9b6dd",
               "title": " post /api/skuitems/testResult",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -515,7 +515,7 @@
                   "title": "FR 3.2.1 -> Add a quality test",
                   "fullTitle": "Test TestResult CRUD  post /api/skuitems/testResult FR 3.2.1 -> Add a quality test",
                   "timedOut": false,
-                  "duration": 20,
+                  "duration": 21,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -524,26 +524,26 @@
                   "context": null,
                   "code": "let idtds = ids.getIdTestDescriptor();\nlet testResult = newTestResult(mytr.rfid, idtds[mytr.idTestDescriptor], mytr.Date, mytr.Result);\n//console.log(testResult);\nagent.post('/api/skuitems/testResult')\n.send(testResult)\n.then(function(res){\n    console.log(res.body);\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "a58bf893-f119-473f-9e33-47843d265115",
-                  "parentUUID": "fb383c33-e8aa-4d63-bb8e-a2971bc61ff7",
+                  "uuid": "d78bde35-ef82-49fa-bee1-6206fd830707",
+                  "parentUUID": "e56eed03-b2b7-48ed-a410-e71779c9b6dd",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "a58bf893-f119-473f-9e33-47843d265115"
+                "d78bde35-ef82-49fa-bee1-6206fd830707"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 20,
+              "duration": 21,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "df0879e6-74af-4cc8-84ca-888250c796dc",
+              "uuid": "280b4f07-5339-4533-9af1-e387fd54bb9c",
               "title": " post /api/skuitems/testResult",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -553,84 +553,6 @@
                 {
                   "title": "Creates a new test Result for a certain sku item defined by RFID",
                   "fullTitle": "Test TestResult CRUD  post /api/skuitems/testResult Creates a new test Result for a certain sku item defined by RFID",
-                  "timedOut": false,
-                  "duration": 15,
-                  "state": "passed",
-                  "speed": "fast",
-                  "pass": true,
-                  "fail": false,
-                  "pending": false,
-                  "context": null,
-                  "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    testResultid = res.body[0].id;\n    testResult = newTestResult(rfid, testResultid, '2021/12/11', true);\n    agent.post('/api/skuitems/testResult')\n    .send(testResult)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
-                  "err": {},
-                  "uuid": "196eb521-e850-43d7-b2f4-475fd4b13625",
-                  "parentUUID": "df0879e6-74af-4cc8-84ca-888250c796dc",
-                  "isHook": false,
-                  "skipped": false
-                }
-              ],
-              "suites": [],
-              "passes": [
-                "196eb521-e850-43d7-b2f4-475fd4b13625"
-              ],
-              "failures": [],
-              "pending": [],
-              "skipped": [],
-              "duration": 15,
-              "root": false,
-              "rootEmpty": false,
-              "_timeout": 10000
-            },
-            {
-              "uuid": "c6ff9e00-4dc3-4f98-b67a-ad097b9e7dad",
-              "title": " post /api/skuitems/testResult",
-              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-              "file": "/acceptanceTest/testEzWhAPI.js",
-              "beforeHooks": [],
-              "afterHooks": [],
-              "tests": [
-                {
-                  "title": "Creates a new test Result for a certain sku item defined by RFID",
-                  "fullTitle": "Test TestResult CRUD  post /api/skuitems/testResult Creates a new test Result for a certain sku item defined by RFID",
-                  "timedOut": false,
-                  "duration": 7,
-                  "state": "passed",
-                  "speed": "fast",
-                  "pass": true,
-                  "fail": false,
-                  "pending": false,
-                  "context": null,
-                  "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    testResultid = res.body[0].id;\n    testResult = newTestResult(rfid, testResultid, '2021/12/11', true);\n    agent.post('/api/skuitems/testResult')\n    .send(testResult)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
-                  "err": {},
-                  "uuid": "ae2fa3fe-84f0-4579-aa58-8f2d75bd718c",
-                  "parentUUID": "c6ff9e00-4dc3-4f98-b67a-ad097b9e7dad",
-                  "isHook": false,
-                  "skipped": false
-                }
-              ],
-              "suites": [],
-              "passes": [
-                "ae2fa3fe-84f0-4579-aa58-8f2d75bd718c"
-              ],
-              "failures": [],
-              "pending": [],
-              "skipped": [],
-              "duration": 7,
-              "root": false,
-              "rootEmpty": false,
-              "_timeout": 10000
-            },
-            {
-              "uuid": "44a34846-3dbe-44d9-98ab-4304d7520f41",
-              "title": " get /api/skuitems/:rfid/testResults",
-              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-              "file": "/acceptanceTest/testEzWhAPI.js",
-              "beforeHooks": [],
-              "afterHooks": [],
-              "tests": [
-                {
-                  "title": "Get all test results associated to a certain rfid",
-                  "fullTitle": "Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
                   "timedOut": false,
                   "duration": 10,
                   "state": "passed",
@@ -639,17 +561,17 @@
                   "fail": false,
                   "pending": false,
                   "context": null,
-                  "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let all = [];\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"all tr for rfid\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        all[i] = res.body[i].id;\n    }\n    ids.setIdTRonRFID(all);\n    done();\n}).catch(err=>done(err));",
+                  "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    testResultid = res.body[0].id;\n    testResult = newTestResult(rfid, testResultid, '2021/12/11', true);\n    agent.post('/api/skuitems/testResult')\n    .send(testResult)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                   "err": {},
-                  "uuid": "9a2e0cc8-6791-495c-931d-c29a044069fb",
-                  "parentUUID": "44a34846-3dbe-44d9-98ab-4304d7520f41",
+                  "uuid": "b3e8d3b3-238c-4946-9404-b220342bb915",
+                  "parentUUID": "280b4f07-5339-4533-9af1-e387fd54bb9c",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "9a2e0cc8-6791-495c-931d-c29a044069fb"
+                "b3e8d3b3-238c-4946-9404-b220342bb915"
               ],
               "failures": [],
               "pending": [],
@@ -660,7 +582,85 @@
               "_timeout": 10000
             },
             {
-              "uuid": "f140a78e-89aa-4b34-a297-975f5f3c440c",
+              "uuid": "f0eb1825-3523-4eaa-b234-76ccb7cda639",
+              "title": " post /api/skuitems/testResult",
+              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+              "file": "/acceptanceTest/testEzWhAPI.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Creates a new test Result for a certain sku item defined by RFID",
+                  "fullTitle": "Test TestResult CRUD  post /api/skuitems/testResult Creates a new test Result for a certain sku item defined by RFID",
+                  "timedOut": false,
+                  "duration": 9,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    testResultid = res.body[0].id;\n    testResult = newTestResult(rfid, testResultid, '2021/12/11', true);\n    agent.post('/api/skuitems/testResult')\n    .send(testResult)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
+                  "err": {},
+                  "uuid": "ab5bb0e1-6e67-4cb0-bcd9-25db68085832",
+                  "parentUUID": "f0eb1825-3523-4eaa-b234-76ccb7cda639",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "ab5bb0e1-6e67-4cb0-bcd9-25db68085832"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 9,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 10000
+            },
+            {
+              "uuid": "852f1556-de4a-4eb9-a1af-30ca6749ae42",
+              "title": " get /api/skuitems/:rfid/testResults",
+              "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+              "file": "/acceptanceTest/testEzWhAPI.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Get all test results associated to a certain rfid",
+                  "fullTitle": "Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
+                  "timedOut": false,
+                  "duration": 8,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let all = [];\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"all tr for rfid\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        all[i] = res.body[i].id;\n    }\n    ids.setIdTRonRFID(all);\n    done();\n}).catch(err=>done(err));",
+                  "err": {},
+                  "uuid": "e3122e0d-1adb-40c0-8fdc-e71892752585",
+                  "parentUUID": "852f1556-de4a-4eb9-a1af-30ca6749ae42",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "e3122e0d-1adb-40c0-8fdc-e71892752585"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 8,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 10000
+            },
+            {
+              "uuid": "992a155e-875c-4d67-8073-efdbd9786e22",
               "title": " get /api/skuitems/:rfid/testResults",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -680,15 +680,15 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "bf4a7862-06a7-4bf4-945d-f4c1d792c71c",
-                  "parentUUID": "f140a78e-89aa-4b34-a297-975f5f3c440c",
+                  "uuid": "2f34d691-d8d4-4821-8af9-ae8478f5b664",
+                  "parentUUID": "992a155e-875c-4d67-8073-efdbd9786e22",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "bf4a7862-06a7-4bf4-945d-f4c1d792c71c"
+                "2f34d691-d8d4-4821-8af9-ae8478f5b664"
               ],
               "failures": [],
               "pending": [],
@@ -699,7 +699,7 @@
               "_timeout": 10000
             },
             {
-              "uuid": "74cc47e0-c2fd-41b8-add9-5d0be9de34ae",
+              "uuid": "bb818581-a671-4172-860d-f68711d2556d",
               "title": " get /api/skuitems/:rfid/testResults",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -719,15 +719,15 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "56bb6a08-0855-4ba5-814f-06081675e3e4",
-                  "parentUUID": "74cc47e0-c2fd-41b8-add9-5d0be9de34ae",
+                  "uuid": "5c838830-a051-4d20-b3c8-f6fde5701f28",
+                  "parentUUID": "bb818581-a671-4172-860d-f68711d2556d",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "56bb6a08-0855-4ba5-814f-06081675e3e4"
+                "5c838830-a051-4d20-b3c8-f6fde5701f28"
               ],
               "failures": [],
               "pending": [],
@@ -738,7 +738,7 @@
               "_timeout": 10000
             },
             {
-              "uuid": "ed17c320-192c-4f62-9a66-4b1bab0bc047",
+              "uuid": "20d83210-3d1a-4688-8d22-4f347ab40d9f",
               "title": " get /api/skuitems/:rfid/testResults/:id",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -758,15 +758,15 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let trid = res.body[0].id;\n    //console.log(res.body[0]);\n    agent.get('/api/skuitems/'+rfid+'/testResults/'+trid)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                   "err": {},
-                  "uuid": "8ed5f906-c7ed-4f76-bdd9-7b48c7fc6172",
-                  "parentUUID": "ed17c320-192c-4f62-9a66-4b1bab0bc047",
+                  "uuid": "2e2a33fc-7353-4714-87aa-86e23e0d8486",
+                  "parentUUID": "20d83210-3d1a-4688-8d22-4f347ab40d9f",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "8ed5f906-c7ed-4f76-bdd9-7b48c7fc6172"
+                "2e2a33fc-7353-4714-87aa-86e23e0d8486"
               ],
               "failures": [],
               "pending": [],
@@ -777,7 +777,7 @@
               "_timeout": 10000
             },
             {
-              "uuid": "10537a18-44ce-45e4-99c0-428c8be056f6",
+              "uuid": "6c690149-9762-4756-af92-1e8d752d1956",
               "title": " get /api/skuitems/:rfid/testResult/:id",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -788,7 +788,7 @@
                   "title": "Get a specific test result with the rfid and id",
                   "fullTitle": "Test TestResult CRUD  get /api/skuitems/:rfid/testResult/:id Get a specific test result with the rfid and id",
                   "timedOut": false,
-                  "duration": 205,
+                  "duration": 214,
                   "state": "passed",
                   "speed": "slow",
                   "pass": true,
@@ -797,26 +797,26 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let alltdids = ids.getIdTestDescriptor();\n    console.log(alltdids);\n    agent.get('/api/skuitems/'+rfid+'/testResult/'+alltdids[0])\n    .then(function(res2){\n        console.log(res2.body);\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                   "err": {},
-                  "uuid": "0dac1c71-100d-4f48-ab0b-17607f19b85b",
-                  "parentUUID": "10537a18-44ce-45e4-99c0-428c8be056f6",
+                  "uuid": "20e9632a-246a-4b49-8cbf-07f352a88bf0",
+                  "parentUUID": "6c690149-9762-4756-af92-1e8d752d1956",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "0dac1c71-100d-4f48-ab0b-17607f19b85b"
+                "20e9632a-246a-4b49-8cbf-07f352a88bf0"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 205,
+              "duration": 214,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "f9bf3227-5786-478b-bc61-d2f0e5e2c59c",
+              "uuid": "72da4f17-cb1c-41f8-b67d-790c7962b59c",
               "title": " put /api/skuitems/:rfid/testResult/:id",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -827,7 +827,7 @@
                   "title": "FR 3.2.2 -> Modify a quality test",
                   "fullTitle": "Test TestResult CRUD  put /api/skuitems/:rfid/testResult/:id FR 3.2.2 -> Modify a quality test",
                   "timedOut": false,
-                  "duration": 16,
+                  "duration": 15,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -836,26 +836,26 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+validrfid+'/testResults')\n.then(function(res){\n    console.log(\"this is it\", res.body);\n    let trid = res.body[0].id;\n    agent.put('/api/skuitems/'+rfid+'/testResult/'+trid)\n    .send({\"newIdTestDescriptor\":res.body[0].idTestDescriptor,\"newDate\":\"2022/01/01\",\"newResult\":false})\n    .then(function(res2){\n        console.log(\"I'm heeeeereeee\", res2.body);\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                   "err": {},
-                  "uuid": "0b8238bb-cbfb-4cd7-8cf0-ebcc1f660a2d",
-                  "parentUUID": "f9bf3227-5786-478b-bc61-d2f0e5e2c59c",
+                  "uuid": "4e0b568f-95d8-4fbc-a9c2-d3e37641565e",
+                  "parentUUID": "72da4f17-cb1c-41f8-b67d-790c7962b59c",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "0b8238bb-cbfb-4cd7-8cf0-ebcc1f660a2d"
+                "4e0b568f-95d8-4fbc-a9c2-d3e37641565e"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 16,
+              "duration": 15,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "16cd91af-afde-4475-93d6-9b70a0f7baf7",
+              "uuid": "d5f5d219-a03e-4002-8002-6ebdf7892575",
               "title": " put /api/skuitems/:rfid/testResult/:id",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -866,7 +866,7 @@
                   "title": "Modify a test results given its rfid and id and new fields",
                   "fullTitle": "Test TestResult CRUD  put /api/skuitems/:rfid/testResult/:id Modify a test results given its rfid and id and new fields",
                   "timedOut": false,
-                  "duration": 9,
+                  "duration": 8,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -875,26 +875,26 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+validrfid+'/testResults')\n.then(function(res){\n    let trid = res.body[0].id;\n    agent.put('/api/skuitems/'+rfid+'/testResult/'+trid)\n    .send({\"newIdTestDescriptor\":res.body[0].idTestDescriptor,\"newDate\":\"2022/01/01\",\"newResult\":false})\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                   "err": {},
-                  "uuid": "e007448c-f931-47b5-a107-aaf8f39f7c4c",
-                  "parentUUID": "16cd91af-afde-4475-93d6-9b70a0f7baf7",
+                  "uuid": "882afe01-66d5-4bac-b6d0-4aac61ab04d3",
+                  "parentUUID": "d5f5d219-a03e-4002-8002-6ebdf7892575",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "e007448c-f931-47b5-a107-aaf8f39f7c4c"
+                "882afe01-66d5-4bac-b6d0-4aac61ab04d3"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 9,
+              "duration": 8,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "503e6359-78bf-43ed-8472-9454b03e4af0",
+              "uuid": "2745f8b5-0a66-4bb6-8768-001c2bdcf90d",
               "title": " put /api/skuitems/:rfid/testResult/:id",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -914,15 +914,15 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+validrfid+'/testResults')\n.then(function(res){\n    let trid = res.body[0].id;\n    agent.put('/api/skuitems/'+rfid+'/testResult/'+trid)\n    .send({\"newIdTestDescriptor\":res.body[0].idTestDescriptor,\"newDate\":\"2022/01/01\",\"newResult\":false})\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                   "err": {},
-                  "uuid": "20f11fdf-4f34-44c6-9df0-a60f0203f58d",
-                  "parentUUID": "503e6359-78bf-43ed-8472-9454b03e4af0",
+                  "uuid": "36027f60-1d43-49c6-bd93-931d2ddf8fc1",
+                  "parentUUID": "2745f8b5-0a66-4bb6-8768-001c2bdcf90d",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "20f11fdf-4f34-44c6-9df0-a60f0203f58d"
+                "36027f60-1d43-49c6-bd93-931d2ddf8fc1"
               ],
               "failures": [],
               "pending": [],
@@ -933,7 +933,7 @@
               "_timeout": 10000
             },
             {
-              "uuid": "d32cc1c5-16b9-4373-a228-da2aa68f20a8",
+              "uuid": "b85c796c-6d42-4f73-ada1-eab0e5009dfe",
               "title": " get /api/skuitems/:rfid/testResults",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -944,7 +944,7 @@
                   "title": "Get all test results associated to a certain rfid",
                   "fullTitle": "Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
                   "timedOut": false,
-                  "duration": 5,
+                  "duration": 3,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -953,26 +953,26 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let all = [];\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"all tr for rfid\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        all[i] = res.body[i].id;\n    }\n    ids.setIdTRonRFID(all);\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "d628d124-bb5e-4271-9002-0089cabc81c1",
-                  "parentUUID": "d32cc1c5-16b9-4373-a228-da2aa68f20a8",
+                  "uuid": "f39a8a5f-574d-446d-8f20-664660270e44",
+                  "parentUUID": "b85c796c-6d42-4f73-ada1-eab0e5009dfe",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "d628d124-bb5e-4271-9002-0089cabc81c1"
+                "f39a8a5f-574d-446d-8f20-664660270e44"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 5,
+              "duration": 3,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "cc0d0d78-b8aa-40ea-a2bc-1a79c0be96c6",
+              "uuid": "f2d5066d-cfb7-4bfa-89e0-25d44ee5f821",
               "title": " delete /api/skuitems/:rfid/testResult/:id",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -983,7 +983,7 @@
                   "title": "FR 3.2.3 -> Delete a quality test",
                   "fullTitle": "Test TestResult CRUD  delete /api/skuitems/:rfid/testResult/:id FR 3.2.3 -> Delete a quality test",
                   "timedOut": false,
-                  "duration": 15,
+                  "duration": 14,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -992,26 +992,26 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let trid = res.body[0].id;\n    //console.log(res.body);\n    agent.delete('/api/skuitems/'+rfid+'/testResult/'+trid)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                   "err": {},
-                  "uuid": "69c0ab2f-400f-4c53-ab1f-c1cb6e69aa16",
-                  "parentUUID": "cc0d0d78-b8aa-40ea-a2bc-1a79c0be96c6",
+                  "uuid": "066f3d76-3797-400d-a18e-d4a14e10abc5",
+                  "parentUUID": "f2d5066d-cfb7-4bfa-89e0-25d44ee5f821",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "69c0ab2f-400f-4c53-ab1f-c1cb6e69aa16"
+                "066f3d76-3797-400d-a18e-d4a14e10abc5"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 15,
+              "duration": 14,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "62c6a739-13dc-44ca-9cc8-037b2cd0a5e1",
+              "uuid": "7f295493-6b56-4f0e-85df-8efea170400b",
               "title": " get /api/skuitems/:rfid/testResults",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1031,15 +1031,15 @@
                   "context": null,
                   "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"delete all\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        agent.delete('/api/skuitems/'+rfid+'/testResult/'+res.body[i].id)\n        .then(function(res2){\n            res2.should.have.status(204);\n        });\n    }\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "49a39fbf-910b-42c0-8b94-c5f6ece1e1c3",
-                  "parentUUID": "62c6a739-13dc-44ca-9cc8-037b2cd0a5e1",
+                  "uuid": "1e1601fe-2c04-42ea-9497-280814d8b29a",
+                  "parentUUID": "7f295493-6b56-4f0e-85df-8efea170400b",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "49a39fbf-910b-42c0-8b94-c5f6ece1e1c3"
+                "1e1601fe-2c04-42ea-9497-280814d8b29a"
               ],
               "failures": [],
               "pending": [],
@@ -1050,7 +1050,7 @@
               "_timeout": 10000
             },
             {
-              "uuid": "defeeda1-67b4-4e33-bf30-e3000a0af091",
+              "uuid": "494364ee-c3ba-4eed-84fe-96c8a801d7a9",
               "title": "removing all skuitems",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1070,15 +1070,15 @@
                   "context": null,
                   "code": "const res = await agent.get('/api/skuitems');\nconsole.log(res.body);\nres.should.have.status(200);\nif (res.body.length !==0) {\n    let res2;\n    for (let i = 0; i < res.body.length; i++) {\n        res2 = await\n        agent.delete('/api/skuitems/'+res.body[i].RFID);\n        res2.should.have.status(204);\n        console.log(\"Deleted \"+ res.body[i].RFID);\n    }\n}\nconsole.log(\"done!\");",
                   "err": {},
-                  "uuid": "b643f901-c0cf-454f-a64b-7ee8410af8f0",
-                  "parentUUID": "defeeda1-67b4-4e33-bf30-e3000a0af091",
+                  "uuid": "23fea1e2-b52a-4e86-bf34-ee7e56e046e6",
+                  "parentUUID": "494364ee-c3ba-4eed-84fe-96c8a801d7a9",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "b643f901-c0cf-454f-a64b-7ee8410af8f0"
+                "23fea1e2-b52a-4e86-bf34-ee7e56e046e6"
               ],
               "failures": [],
               "pending": [],
@@ -1089,7 +1089,7 @@
               "_timeout": 10000
             },
             {
-              "uuid": "4c305f17-15cc-47de-98f3-9cda98a88c9f",
+              "uuid": "fd631f32-e3f8-4c93-9875-e85c26d4ceba",
               "title": "removing all skus",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1100,7 +1100,7 @@
                   "title": "Getting SKUs",
                   "fullTitle": "Test TestResult CRUD removing all skus Getting SKUs",
                   "timedOut": false,
-                  "duration": 5,
+                  "duration": 4,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1109,26 +1109,26 @@
                   "context": null,
                   "code": "agent.get('/api/skus')\n.then(function (res) {\n    res.should.have.status(200);\n    if (res.body.length !==0) {\n        for (let i = 0; i < res.body.length; i++) {\n            agent.delete('/api/skus/'+res.body[i].id)\n            .then(function (res2) {\n                res2.should.have.status(204);\n            });\n        }\n    } \n    done();\n}).catch(err => done(err));",
                   "err": {},
-                  "uuid": "7be9e882-b066-492c-9e7a-29996c4a5fa9",
-                  "parentUUID": "4c305f17-15cc-47de-98f3-9cda98a88c9f",
+                  "uuid": "0a8218d9-6048-42d4-a6fa-87aab22e8fe9",
+                  "parentUUID": "fd631f32-e3f8-4c93-9875-e85c26d4ceba",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "7be9e882-b066-492c-9e7a-29996c4a5fa9"
+                "0a8218d9-6048-42d4-a6fa-87aab22e8fe9"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 5,
+              "duration": 4,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "7f8ead09-bcda-4a71-a6c4-88206bbeb65b",
+              "uuid": "a3b5db23-6695-4971-b4ba-ada830af86ed",
               "title": "removing all test descriptors",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1139,7 +1139,7 @@
                   "title": "Getting test descriptors",
                   "fullTitle": "Test TestResult CRUD removing all test descriptors Getting test descriptors",
                   "timedOut": false,
-                  "duration": 13,
+                  "duration": 10,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -1148,20 +1148,20 @@
                   "context": null,
                   "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    res.should.have.status(200);\n    if(res.body.length !==0){\n        for (let i=0; i<res.body.length; i++){\n            agent.delete('/api/testDescriptor/'+res.body[i].id)\n            .then(function(res2){\n                res2.should.have.status(204);\n            });\n        }\n    }\n    done();\n}).catch(err=>done(err));",
                   "err": {},
-                  "uuid": "595c8c2c-b8e5-4558-83c8-08469a1b10ea",
-                  "parentUUID": "7f8ead09-bcda-4a71-a6c4-88206bbeb65b",
+                  "uuid": "47e27e9f-8c4d-403c-82f6-4cddae9b5d86",
+                  "parentUUID": "a3b5db23-6695-4971-b4ba-ada830af86ed",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "595c8c2c-b8e5-4558-83c8-08469a1b10ea"
+                "47e27e9f-8c4d-403c-82f6-4cddae9b5d86"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 13,
+              "duration": 10,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
@@ -1177,7 +1177,7 @@
           "_timeout": 10000
         },
         {
-          "uuid": "cac231f1-6860-4af1-8880-b8d6d172ad46",
+          "uuid": "882344c0-95a0-4477-a293-212813fe49fc",
           "title": "Testing Functional requirements pt2",
           "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
           "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1186,7 +1186,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "60f12bcc-0ab2-4b3f-8ee1-aafb9f17088d",
+              "uuid": "6b4c4c70-90b1-49e8-84d5-2471b2f53771",
               "title": "Test TestResult CRUD",
               "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
               "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1195,7 +1195,7 @@
               "tests": [],
               "suites": [
                 {
-                  "uuid": "b2c190a1-0491-465d-8c4a-7612cad25df3",
+                  "uuid": "c3e98836-386c-49db-bfc8-6e621b279ddc",
                   "title": "removing all test descriptors",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1206,7 +1206,7 @@
                       "title": "Getting test descriptors",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD removing all test descriptors Getting test descriptors",
                       "timedOut": false,
-                      "duration": 16,
+                      "duration": 5,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1215,26 +1215,26 @@
                       "context": null,
                       "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    res.should.have.status(200);\n    if(res.body.length !==0){\n        for (let i=0; i<res.body.length; i++){\n            agent.delete('/api/testDescriptor/'+res.body[i].id)\n            .then(function(res2){\n                res2.should.have.status(204);\n            });\n        }\n    }\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "5d921ac4-5147-4c31-9604-0f73bdeb49a2",
-                      "parentUUID": "b2c190a1-0491-465d-8c4a-7612cad25df3",
+                      "uuid": "4d3db926-084e-4b4b-8ad2-a4b2f1de634f",
+                      "parentUUID": "c3e98836-386c-49db-bfc8-6e621b279ddc",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "5d921ac4-5147-4c31-9604-0f73bdeb49a2"
+                    "4d3db926-084e-4b4b-8ad2-a4b2f1de634f"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 16,
+                  "duration": 5,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "ad681d65-065c-4346-a731-b9a495137597",
+                  "uuid": "28bea4d1-e2c5-46c0-9315-483965c38cc7",
                   "title": "removing all skuitems",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1245,7 +1245,7 @@
                       "title": "Getting SKUitems",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD removing all skuitems Getting SKUitems",
                       "timedOut": false,
-                      "duration": 4,
+                      "duration": 11,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1254,26 +1254,26 @@
                       "context": null,
                       "code": "const res = await agent.get('/api/skuitems');\nconsole.log(res.body);\nres.should.have.status(200);\nif (res.body.length !==0) {\n    let res2;\n    for (let i = 0; i < res.body.length; i++) {\n        res2 = await\n        agent.delete('/api/skuitems/'+res.body[i].RFID);\n        res2.should.have.status(204);\n        console.log(\"Deleted \"+ res.body[i].RFID);\n    }\n}\nconsole.log(\"done!\");",
                       "err": {},
-                      "uuid": "db0d72af-da0e-4d1b-abac-4bbd943e26a8",
-                      "parentUUID": "ad681d65-065c-4346-a731-b9a495137597",
+                      "uuid": "1718beb1-7a2c-4d2e-a450-fc6eadeb5578",
+                      "parentUUID": "28bea4d1-e2c5-46c0-9315-483965c38cc7",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "db0d72af-da0e-4d1b-abac-4bbd943e26a8"
+                    "1718beb1-7a2c-4d2e-a450-fc6eadeb5578"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 4,
+                  "duration": 11,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "9074819b-4323-45b9-a60a-dfc49c875527",
+                  "uuid": "f431289a-9c14-4fba-a01e-ff8f5f149bd5",
                   "title": "removing all skus",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1284,7 +1284,7 @@
                       "title": "Getting SKUs",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD removing all skus Getting SKUs",
                       "timedOut": false,
-                      "duration": 4,
+                      "duration": 5,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1293,26 +1293,65 @@
                       "context": null,
                       "code": "agent.get('/api/skus')\n.then(function (res) {\n    res.should.have.status(200);\n    if (res.body.length !==0) {\n        for (let i = 0; i < res.body.length; i++) {\n            agent.delete('/api/skus/'+res.body[i].id)\n            .then(function (res2) {\n                res2.should.have.status(204);\n            });\n        }\n    } \n    done();\n}).catch(err => done(err));",
                       "err": {},
-                      "uuid": "5e28e784-b748-4e54-b2ab-3d27ad73caa5",
-                      "parentUUID": "9074819b-4323-45b9-a60a-dfc49c875527",
+                      "uuid": "61810f2b-493d-4b3d-8b12-6ac5b928965d",
+                      "parentUUID": "f431289a-9c14-4fba-a01e-ff8f5f149bd5",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "5e28e784-b748-4e54-b2ab-3d27ad73caa5"
+                    "61810f2b-493d-4b3d-8b12-6ac5b928965d"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 4,
+                  "duration": 5,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "6f9dee27-dc93-44f1-a6a3-ec3ba78d9f84",
+                  "uuid": "7bf7d71b-3fb2-4bbd-8579-b8f62d705690",
+                  "title": "post /api/sku/",
+                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+                  "file": "/acceptanceTest/testEzWhAPI.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "FR 2.1 a -> Define a new SKU",
+                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD post /api/sku/ FR 2.1 a -> Define a new SKU",
+                      "timedOut": false,
+                      "duration": 16,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "agent.post('/api/sku/')\n.send(thesku)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
+                      "err": {},
+                      "uuid": "c27753c5-5693-4ef3-8d2d-202cc8123f2b",
+                      "parentUUID": "7bf7d71b-3fb2-4bbd-8579-b8f62d705690",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "c27753c5-5693-4ef3-8d2d-202cc8123f2b"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 16,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 10000
+                },
+                {
+                  "uuid": "5bb055f8-f61d-41bd-942f-76e4925600e6",
                   "title": "post /api/sku/",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1332,15 +1371,15 @@
                       "context": null,
                       "code": "agent.post('/api/sku/')\n.send(thesku)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "33566a3e-331a-45dd-ac91-762896a71d2a",
-                      "parentUUID": "6f9dee27-dc93-44f1-a6a3-ec3ba78d9f84",
+                      "uuid": "5f9d3e3d-378b-4f85-91b0-27c2b034dab3",
+                      "parentUUID": "5bb055f8-f61d-41bd-942f-76e4925600e6",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "33566a3e-331a-45dd-ac91-762896a71d2a"
+                    "5f9d3e3d-378b-4f85-91b0-27c2b034dab3"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1351,46 +1390,7 @@
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "2d68a1e5-23cb-4de2-bd2a-344c44401034",
-                  "title": "post /api/sku/",
-                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-                  "file": "/acceptanceTest/testEzWhAPI.js",
-                  "beforeHooks": [],
-                  "afterHooks": [],
-                  "tests": [
-                    {
-                      "title": "FR 2.1 a -> Define a new SKU",
-                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD post /api/sku/ FR 2.1 a -> Define a new SKU",
-                      "timedOut": false,
-                      "duration": 14,
-                      "state": "passed",
-                      "speed": "fast",
-                      "pass": true,
-                      "fail": false,
-                      "pending": false,
-                      "context": null,
-                      "code": "agent.post('/api/sku/')\n.send(thesku)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
-                      "err": {},
-                      "uuid": "adb920f8-55b1-4e52-882e-9f7830e00a84",
-                      "parentUUID": "2d68a1e5-23cb-4de2-bd2a-344c44401034",
-                      "isHook": false,
-                      "skipped": false
-                    }
-                  ],
-                  "suites": [],
-                  "passes": [
-                    "adb920f8-55b1-4e52-882e-9f7830e00a84"
-                  ],
-                  "failures": [],
-                  "pending": [],
-                  "skipped": [],
-                  "duration": 14,
-                  "root": false,
-                  "rootEmpty": false,
-                  "_timeout": 10000
-                },
-                {
-                  "uuid": "483f6599-a487-429f-8e08-60a9c61e4043",
+                  "uuid": "e2b51fe9-60e9-4a92-a40b-6fca0b30c2b8",
                   "title": "get /api/skus",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1401,7 +1401,7 @@
                       "title": "FR 2.3 -> List all SKUs",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD get /api/skus FR 2.3 -> List all SKUs",
                       "timedOut": false,
-                      "duration": 5,
+                      "duration": 4,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1410,26 +1410,26 @@
                       "context": null,
                       "code": "agent.get('/api/skus')\n.then(function (res) {\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    res.body.length.should.be.eql(size);\n    let id = [];\n    if (size > 0) {\n        for (let i = 0; i < size; i++) {\n            id[i] = res.body[i].id;\n            res.body[i].description.should.equal(sku[i].description);\n            res.body[i].weight.should.equal(sku[i].weight);\n            res.body[i].volume.should.equal(sku[i].volume);\n            res.body[i].notes.should.equal(sku[i].notes);\n            res.body[i].availableQuantity.should.equal(sku[i].availableQuantity);\n            res.body[i].price.should.equal(sku[i].price);\n        }\n        ids.setIdSku(id);\n    }             \n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "2967755a-43e7-4654-bbb9-f3aa1b903901",
-                      "parentUUID": "483f6599-a487-429f-8e08-60a9c61e4043",
+                      "uuid": "5d5fea0c-b9bc-484e-b26f-accc69fc5b61",
+                      "parentUUID": "e2b51fe9-60e9-4a92-a40b-6fca0b30c2b8",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "2967755a-43e7-4654-bbb9-f3aa1b903901"
+                    "5d5fea0c-b9bc-484e-b26f-accc69fc5b61"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 5,
+                  "duration": 4,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "befb2dcd-dcf6-47c8-b45f-c1499e494e10",
+                  "uuid": "fc5e2e39-c8c8-478e-8d24-836ada50ced9",
                   "title": "post /api/skuitem/",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1440,7 +1440,7 @@
                       "title": "Adding skuitem details",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD post /api/skuitem/ Adding skuitem details",
                       "timedOut": false,
-                      "duration": 14,
+                      "duration": 17,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1449,26 +1449,26 @@
                       "context": null,
                       "code": "let id = ids.getIdSku();\nlet skuitem;\nif(myskuitem.SKUId > id.length || myskuitem.SKUId === null){\n    skuitem = newSkuItem(myskuitem.RFID, myskuitem.SKUId , myskuitem.DateOfStock); \n}\nelse{\n    skuitem = newSkuItem(myskuitem.RFID, id[myskuitem.SKUId] , myskuitem.DateOfStock);\n}\nagent.post('/api/skuitem/')\n.send(skuitem)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "c059b521-dff8-4b76-9e49-8b404567d3eb",
-                      "parentUUID": "befb2dcd-dcf6-47c8-b45f-c1499e494e10",
+                      "uuid": "8a79a044-3d53-410e-a2b6-2b5c3f6bb085",
+                      "parentUUID": "fc5e2e39-c8c8-478e-8d24-836ada50ced9",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "c059b521-dff8-4b76-9e49-8b404567d3eb"
+                    "8a79a044-3d53-410e-a2b6-2b5c3f6bb085"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 14,
+                  "duration": 17,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "699f18af-ca42-4d5b-a0e0-8dca7c3c99c4",
+                  "uuid": "90e220e8-970b-4a41-8df2-a56a57f011cc",
                   "title": "post /api/skuitem/",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1479,7 +1479,7 @@
                       "title": "Adding skuitem details",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD post /api/skuitem/ Adding skuitem details",
                       "timedOut": false,
-                      "duration": 14,
+                      "duration": 15,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1488,26 +1488,26 @@
                       "context": null,
                       "code": "let id = ids.getIdSku();\nlet skuitem;\nif(myskuitem.SKUId > id.length || myskuitem.SKUId === null){\n    skuitem = newSkuItem(myskuitem.RFID, myskuitem.SKUId , myskuitem.DateOfStock); \n}\nelse{\n    skuitem = newSkuItem(myskuitem.RFID, id[myskuitem.SKUId] , myskuitem.DateOfStock);\n}\nagent.post('/api/skuitem/')\n.send(skuitem)\n.then(function (res) {\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "2e335e25-0009-4839-adca-5064c6781a37",
-                      "parentUUID": "699f18af-ca42-4d5b-a0e0-8dca7c3c99c4",
+                      "uuid": "e446f817-7d63-4a35-b4c2-d95bb25b3995",
+                      "parentUUID": "90e220e8-970b-4a41-8df2-a56a57f011cc",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "2e335e25-0009-4839-adca-5064c6781a37"
+                    "e446f817-7d63-4a35-b4c2-d95bb25b3995"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 14,
+                  "duration": 15,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "eea6ad2f-f6d7-4565-8f28-61e4cdad06dc",
+                  "uuid": "f6110533-f618-439a-a7bd-07f910e9409d",
                   "title": "test adding a test descriptor with post",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1518,7 +1518,7 @@
                       "title": "Creating a test descriptor",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD test adding a test descriptor with post Creating a test descriptor",
                       "timedOut": false,
-                      "duration": 13,
+                      "duration": 14,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1527,26 +1527,26 @@
                       "context": null,
                       "code": "let id = ids.getIdSku();\nlet testdescriptor;\nif(mytd.idSKU > id.length || mytd.idSKU === null){\n    testdescriptor = newTestDescriptor(mytd.name, mytd.procedureDescription, mytd.idSKU);\n} \nelse {\n    testdescriptor = newTestDescriptor(mytd.name, mytd.procedureDescription, id[mytd.idSKU]);\n}\n//console.log(testdescriptor);\nagent.post('/api/testDescriptor')\n.send(testdescriptor)\n.then(res2 => {\n    assert.equal(res2.status, expCode);\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "eb3788ce-ca8f-4519-9c8d-53383adfaaa3",
-                      "parentUUID": "eea6ad2f-f6d7-4565-8f28-61e4cdad06dc",
+                      "uuid": "44a88e3f-8255-4a4c-91e4-19ccf52917f7",
+                      "parentUUID": "f6110533-f618-439a-a7bd-07f910e9409d",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "eb3788ce-ca8f-4519-9c8d-53383adfaaa3"
+                    "44a88e3f-8255-4a4c-91e4-19ccf52917f7"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 13,
+                  "duration": 14,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "fc3ebd0f-2578-4024-b44b-cc97d2143abd",
+                  "uuid": "b0432133-d176-496e-8a65-87819cb57f70",
                   "title": "get /api/testDescriptors",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1557,7 +1557,7 @@
                       "title": "Getting All TestDescriptors",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD get /api/testDescriptors Getting All TestDescriptors",
                       "timedOut": false,
-                      "duration": 5,
+                      "duration": 6,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1566,249 +1566,15 @@
                       "context": null,
                       "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    res.should.have.status(expCode);\n    res.body.length.should.be.equal(size);\n    res.body.should.be.a('array');\n    let id = [];\n    let idSKUs = ids.getIdSku();\n    for(let i=0; i<res.body.length; i++){\n        id[i]=res.body[i].id;\n        res.body[i].name.should.equal(mytd[i].name);\n        res.body[i].procedureDescription.should.equal(mytd[i].procedureDescription);\n        res.body[i].idSKU.should.equal(idSKUs[mytd[i].idSKU]);\n    }\n    ids.setIdTestDescriptor(id);\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "f2af4307-92ec-4f97-b6ce-ded546a78f3e",
-                      "parentUUID": "fc3ebd0f-2578-4024-b44b-cc97d2143abd",
+                      "uuid": "5c7ca825-3cd1-4c4e-b5ba-1f6ba14d6020",
+                      "parentUUID": "b0432133-d176-496e-8a65-87819cb57f70",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "f2af4307-92ec-4f97-b6ce-ded546a78f3e"
-                  ],
-                  "failures": [],
-                  "pending": [],
-                  "skipped": [],
-                  "duration": 5,
-                  "root": false,
-                  "rootEmpty": false,
-                  "_timeout": 10000
-                },
-                {
-                  "uuid": "7ab5e69e-ecc0-498d-b506-60d2b90acb99",
-                  "title": " get /api/skuitems/:rfid/testResults",
-                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-                  "file": "/acceptanceTest/testEzWhAPI.js",
-                  "beforeHooks": [],
-                  "afterHooks": [],
-                  "tests": [
-                    {
-                      "title": "Get all test results associated to a certain rfid",
-                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
-                      "timedOut": false,
-                      "duration": 5,
-                      "state": "passed",
-                      "speed": "fast",
-                      "pass": true,
-                      "fail": false,
-                      "pending": false,
-                      "context": null,
-                      "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let all = [];\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"all tr for rfid\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        all[i] = res.body[i].id;\n    }\n    ids.setIdTRonRFID(all);\n    done();\n}).catch(err=>done(err));",
-                      "err": {},
-                      "uuid": "8a8362bb-2d5a-4272-b00e-b0c15ec5dc02",
-                      "parentUUID": "7ab5e69e-ecc0-498d-b506-60d2b90acb99",
-                      "isHook": false,
-                      "skipped": false
-                    }
-                  ],
-                  "suites": [],
-                  "passes": [
-                    "8a8362bb-2d5a-4272-b00e-b0c15ec5dc02"
-                  ],
-                  "failures": [],
-                  "pending": [],
-                  "skipped": [],
-                  "duration": 5,
-                  "root": false,
-                  "rootEmpty": false,
-                  "_timeout": 10000
-                },
-                {
-                  "uuid": "7945e18e-b5b0-4cf5-841f-5f190c656478",
-                  "title": " get /api/skuitems/:rfid/testResults",
-                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-                  "file": "/acceptanceTest/testEzWhAPI.js",
-                  "beforeHooks": [],
-                  "afterHooks": [],
-                  "tests": [
-                    {
-                      "title": "Delete all test results associated to a certain rfid",
-                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResults Delete all test results associated to a certain rfid",
-                      "timedOut": false,
-                      "duration": 5,
-                      "state": "passed",
-                      "speed": "fast",
-                      "pass": true,
-                      "fail": false,
-                      "pending": false,
-                      "context": null,
-                      "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"delete all\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        agent.delete('/api/skuitems/'+rfid+'/testResult/'+res.body[i].id)\n        .then(function(res2){\n            res2.should.have.status(204);\n        });\n    }\n    done();\n}).catch(err=>done(err));",
-                      "err": {},
-                      "uuid": "ea829643-6a2e-4651-944d-dedbc588bb89",
-                      "parentUUID": "7945e18e-b5b0-4cf5-841f-5f190c656478",
-                      "isHook": false,
-                      "skipped": false
-                    }
-                  ],
-                  "suites": [],
-                  "passes": [
-                    "ea829643-6a2e-4651-944d-dedbc588bb89"
-                  ],
-                  "failures": [],
-                  "pending": [],
-                  "skipped": [],
-                  "duration": 5,
-                  "root": false,
-                  "rootEmpty": false,
-                  "_timeout": 10000
-                },
-                {
-                  "uuid": "f508648a-edec-4a24-acbb-b798efc1813c",
-                  "title": " post /api/skuitems/testResult",
-                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-                  "file": "/acceptanceTest/testEzWhAPI.js",
-                  "beforeHooks": [],
-                  "afterHooks": [],
-                  "tests": [
-                    {
-                      "title": "FR 3.2.1 -> Add a quality test",
-                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  post /api/skuitems/testResult FR 3.2.1 -> Add a quality test",
-                      "timedOut": false,
-                      "duration": 24,
-                      "state": "passed",
-                      "speed": "fast",
-                      "pass": true,
-                      "fail": false,
-                      "pending": false,
-                      "context": null,
-                      "code": "let idtds = ids.getIdTestDescriptor();\nlet testResult = newTestResult(mytr.rfid, idtds[mytr.idTestDescriptor], mytr.Date, mytr.Result);\n//console.log(testResult);\nagent.post('/api/skuitems/testResult')\n.send(testResult)\n.then(function(res){\n    console.log(res.body);\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
-                      "err": {},
-                      "uuid": "ba9b56c4-38f8-456b-b728-44733167d17c",
-                      "parentUUID": "f508648a-edec-4a24-acbb-b798efc1813c",
-                      "isHook": false,
-                      "skipped": false
-                    }
-                  ],
-                  "suites": [],
-                  "passes": [
-                    "ba9b56c4-38f8-456b-b728-44733167d17c"
-                  ],
-                  "failures": [],
-                  "pending": [],
-                  "skipped": [],
-                  "duration": 24,
-                  "root": false,
-                  "rootEmpty": false,
-                  "_timeout": 10000
-                },
-                {
-                  "uuid": "d471e669-3a91-42cd-9f1d-6530e0ed3578",
-                  "title": " post /api/skuitems/testResult",
-                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-                  "file": "/acceptanceTest/testEzWhAPI.js",
-                  "beforeHooks": [],
-                  "afterHooks": [],
-                  "tests": [
-                    {
-                      "title": "Creates a new test Result for a certain sku item defined by RFID",
-                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  post /api/skuitems/testResult Creates a new test Result for a certain sku item defined by RFID",
-                      "timedOut": false,
-                      "duration": 8,
-                      "state": "passed",
-                      "speed": "fast",
-                      "pass": true,
-                      "fail": false,
-                      "pending": false,
-                      "context": null,
-                      "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    testResultid = res.body[0].id;\n    testResult = newTestResult(rfid, testResultid, '2021/12/11', true);\n    agent.post('/api/skuitems/testResult')\n    .send(testResult)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
-                      "err": {},
-                      "uuid": "50485d23-4048-4322-9721-8e7249f304bc",
-                      "parentUUID": "d471e669-3a91-42cd-9f1d-6530e0ed3578",
-                      "isHook": false,
-                      "skipped": false
-                    }
-                  ],
-                  "suites": [],
-                  "passes": [
-                    "50485d23-4048-4322-9721-8e7249f304bc"
-                  ],
-                  "failures": [],
-                  "pending": [],
-                  "skipped": [],
-                  "duration": 8,
-                  "root": false,
-                  "rootEmpty": false,
-                  "_timeout": 10000
-                },
-                {
-                  "uuid": "6f442cda-8d81-4317-acda-012399e8550d",
-                  "title": " post /api/skuitems/testResult",
-                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-                  "file": "/acceptanceTest/testEzWhAPI.js",
-                  "beforeHooks": [],
-                  "afterHooks": [],
-                  "tests": [
-                    {
-                      "title": "Creates a new test Result for a certain sku item defined by RFID",
-                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  post /api/skuitems/testResult Creates a new test Result for a certain sku item defined by RFID",
-                      "timedOut": false,
-                      "duration": 8,
-                      "state": "passed",
-                      "speed": "fast",
-                      "pass": true,
-                      "fail": false,
-                      "pending": false,
-                      "context": null,
-                      "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    testResultid = res.body[0].id;\n    testResult = newTestResult(rfid, testResultid, '2021/12/11', true);\n    agent.post('/api/skuitems/testResult')\n    .send(testResult)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
-                      "err": {},
-                      "uuid": "854104f4-1647-4601-af77-eee8ff24e24c",
-                      "parentUUID": "6f442cda-8d81-4317-acda-012399e8550d",
-                      "isHook": false,
-                      "skipped": false
-                    }
-                  ],
-                  "suites": [],
-                  "passes": [
-                    "854104f4-1647-4601-af77-eee8ff24e24c"
-                  ],
-                  "failures": [],
-                  "pending": [],
-                  "skipped": [],
-                  "duration": 8,
-                  "root": false,
-                  "rootEmpty": false,
-                  "_timeout": 10000
-                },
-                {
-                  "uuid": "87a82a55-e210-4912-a4e6-f8b0e258bf54",
-                  "title": " get /api/skuitems/:rfid/testResults",
-                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-                  "file": "/acceptanceTest/testEzWhAPI.js",
-                  "beforeHooks": [],
-                  "afterHooks": [],
-                  "tests": [
-                    {
-                      "title": "Get all test results associated to a certain rfid",
-                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
-                      "timedOut": false,
-                      "duration": 6,
-                      "state": "passed",
-                      "speed": "fast",
-                      "pass": true,
-                      "fail": false,
-                      "pending": false,
-                      "context": null,
-                      "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let all = [];\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"all tr for rfid\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        all[i] = res.body[i].id;\n    }\n    ids.setIdTRonRFID(all);\n    done();\n}).catch(err=>done(err));",
-                      "err": {},
-                      "uuid": "6dfcc4b8-88ea-45af-8089-c30354920d2d",
-                      "parentUUID": "87a82a55-e210-4912-a4e6-f8b0e258bf54",
-                      "isHook": false,
-                      "skipped": false
-                    }
-                  ],
-                  "suites": [],
-                  "passes": [
-                    "6dfcc4b8-88ea-45af-8089-c30354920d2d"
+                    "5c7ca825-3cd1-4c4e-b5ba-1f6ba14d6020"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1819,7 +1585,241 @@
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "c6c6f101-5051-46d5-b13d-3b53fcabad2c",
+                  "uuid": "dcf55ffc-14d5-44c5-b19e-5dbf7a579ffb",
+                  "title": " get /api/skuitems/:rfid/testResults",
+                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+                  "file": "/acceptanceTest/testEzWhAPI.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Get all test results associated to a certain rfid",
+                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
+                      "timedOut": false,
+                      "duration": 5,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let all = [];\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"all tr for rfid\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        all[i] = res.body[i].id;\n    }\n    ids.setIdTRonRFID(all);\n    done();\n}).catch(err=>done(err));",
+                      "err": {},
+                      "uuid": "cbc43bc2-95dc-4efb-8603-973457f63f4e",
+                      "parentUUID": "dcf55ffc-14d5-44c5-b19e-5dbf7a579ffb",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "cbc43bc2-95dc-4efb-8603-973457f63f4e"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 5,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 10000
+                },
+                {
+                  "uuid": "0598fad2-6e38-49af-9617-b38db6618409",
+                  "title": " get /api/skuitems/:rfid/testResults",
+                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+                  "file": "/acceptanceTest/testEzWhAPI.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Delete all test results associated to a certain rfid",
+                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResults Delete all test results associated to a certain rfid",
+                      "timedOut": false,
+                      "duration": 4,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"delete all\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        agent.delete('/api/skuitems/'+rfid+'/testResult/'+res.body[i].id)\n        .then(function(res2){\n            res2.should.have.status(204);\n        });\n    }\n    done();\n}).catch(err=>done(err));",
+                      "err": {},
+                      "uuid": "7190dc21-8482-472c-b423-3d38d80274b8",
+                      "parentUUID": "0598fad2-6e38-49af-9617-b38db6618409",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "7190dc21-8482-472c-b423-3d38d80274b8"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 4,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 10000
+                },
+                {
+                  "uuid": "b668ccf1-d9d2-43ba-a865-d9b35f6953d8",
+                  "title": " post /api/skuitems/testResult",
+                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+                  "file": "/acceptanceTest/testEzWhAPI.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "FR 3.2.1 -> Add a quality test",
+                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  post /api/skuitems/testResult FR 3.2.1 -> Add a quality test",
+                      "timedOut": false,
+                      "duration": 22,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "let idtds = ids.getIdTestDescriptor();\nlet testResult = newTestResult(mytr.rfid, idtds[mytr.idTestDescriptor], mytr.Date, mytr.Result);\n//console.log(testResult);\nagent.post('/api/skuitems/testResult')\n.send(testResult)\n.then(function(res){\n    console.log(res.body);\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
+                      "err": {},
+                      "uuid": "3717130f-0c99-4951-97d0-ae29e1741c20",
+                      "parentUUID": "b668ccf1-d9d2-43ba-a865-d9b35f6953d8",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "3717130f-0c99-4951-97d0-ae29e1741c20"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 22,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 10000
+                },
+                {
+                  "uuid": "f8d92ec7-415e-49ef-947d-88250a8360d6",
+                  "title": " post /api/skuitems/testResult",
+                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+                  "file": "/acceptanceTest/testEzWhAPI.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Creates a new test Result for a certain sku item defined by RFID",
+                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  post /api/skuitems/testResult Creates a new test Result for a certain sku item defined by RFID",
+                      "timedOut": false,
+                      "duration": 9,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    testResultid = res.body[0].id;\n    testResult = newTestResult(rfid, testResultid, '2021/12/11', true);\n    agent.post('/api/skuitems/testResult')\n    .send(testResult)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
+                      "err": {},
+                      "uuid": "5c989d18-4be7-4305-83a8-64d3e84ffc45",
+                      "parentUUID": "f8d92ec7-415e-49ef-947d-88250a8360d6",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "5c989d18-4be7-4305-83a8-64d3e84ffc45"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 9,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 10000
+                },
+                {
+                  "uuid": "f043658b-101e-41d8-ba9c-f0dad4df15f0",
+                  "title": " post /api/skuitems/testResult",
+                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+                  "file": "/acceptanceTest/testEzWhAPI.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Creates a new test Result for a certain sku item defined by RFID",
+                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  post /api/skuitems/testResult Creates a new test Result for a certain sku item defined by RFID",
+                      "timedOut": false,
+                      "duration": 7,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    testResultid = res.body[0].id;\n    testResult = newTestResult(rfid, testResultid, '2021/12/11', true);\n    agent.post('/api/skuitems/testResult')\n    .send(testResult)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
+                      "err": {},
+                      "uuid": "25fbb1c9-aa46-4f93-a913-a0bdf78dcd73",
+                      "parentUUID": "f043658b-101e-41d8-ba9c-f0dad4df15f0",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "25fbb1c9-aa46-4f93-a913-a0bdf78dcd73"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 7,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 10000
+                },
+                {
+                  "uuid": "e3bec907-587e-4f68-85e9-37ba26302e55",
+                  "title": " get /api/skuitems/:rfid/testResults",
+                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+                  "file": "/acceptanceTest/testEzWhAPI.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Get all test results associated to a certain rfid",
+                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
+                      "timedOut": false,
+                      "duration": 8,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let all = [];\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"all tr for rfid\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        all[i] = res.body[i].id;\n    }\n    ids.setIdTRonRFID(all);\n    done();\n}).catch(err=>done(err));",
+                      "err": {},
+                      "uuid": "7e37586e-61ed-4a51-859a-ac5e386f5723",
+                      "parentUUID": "e3bec907-587e-4f68-85e9-37ba26302e55",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "7e37586e-61ed-4a51-859a-ac5e386f5723"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 8,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 10000
+                },
+                {
+                  "uuid": "b73cb058-aaa9-4b61-8716-708761b4bd6b",
                   "title": " get /api/skuitems/:rfid/testResults",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1839,15 +1839,15 @@
                       "context": null,
                       "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "1c68547f-7909-4df1-9a4d-13345c949dd4",
-                      "parentUUID": "c6c6f101-5051-46d5-b13d-3b53fcabad2c",
+                      "uuid": "f13fa75b-661d-4264-93a5-aa91b3a95131",
+                      "parentUUID": "b73cb058-aaa9-4b61-8716-708761b4bd6b",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "1c68547f-7909-4df1-9a4d-13345c949dd4"
+                    "f13fa75b-661d-4264-93a5-aa91b3a95131"
                   ],
                   "failures": [],
                   "pending": [],
@@ -1858,7 +1858,7 @@
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "902bca58-be94-47c5-9198-2ae01eb152b2",
+                  "uuid": "4633c2a6-ed4f-4ced-a815-96fad6b9cabf",
                   "title": " get /api/skuitems/:rfid/testResults",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1869,7 +1869,7 @@
                       "title": "Get all test results associated to a certain rfid",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
                       "timedOut": false,
-                      "duration": 6,
+                      "duration": 4,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1878,26 +1878,26 @@
                       "context": null,
                       "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    res.should.have.status(expCode);\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "c8acc4c3-6836-4fc1-a0ed-6db1f28b4deb",
-                      "parentUUID": "902bca58-be94-47c5-9198-2ae01eb152b2",
+                      "uuid": "676dc522-d0b9-47a2-a3d7-c0a5d143bb86",
+                      "parentUUID": "4633c2a6-ed4f-4ced-a815-96fad6b9cabf",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "c8acc4c3-6836-4fc1-a0ed-6db1f28b4deb"
+                    "676dc522-d0b9-47a2-a3d7-c0a5d143bb86"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 6,
+                  "duration": 4,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "819d20c1-dd9f-49ef-bdd4-213d5465fbbe",
+                  "uuid": "bbafd56c-d1db-4e7b-bbe0-c8e62f9ca08a",
                   "title": " get /api/skuitems/:rfid/testResults/:id",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1908,7 +1908,7 @@
                       "title": "Get a specific test result with the rfid and id",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResults/:id Get a specific test result with the rfid and id",
                       "timedOut": false,
-                      "duration": 12,
+                      "duration": 11,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1917,26 +1917,26 @@
                       "context": null,
                       "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let trid = res.body[0].id;\n    //console.log(res.body[0]);\n    agent.get('/api/skuitems/'+rfid+'/testResults/'+trid)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                       "err": {},
-                      "uuid": "9691bfe6-42d0-4c05-9ea2-36090eb75a4d",
-                      "parentUUID": "819d20c1-dd9f-49ef-bdd4-213d5465fbbe",
+                      "uuid": "b0316812-b226-4472-97c8-d6ea3c539e8e",
+                      "parentUUID": "bbafd56c-d1db-4e7b-bbe0-c8e62f9ca08a",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "9691bfe6-42d0-4c05-9ea2-36090eb75a4d"
+                    "b0316812-b226-4472-97c8-d6ea3c539e8e"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 12,
+                  "duration": 11,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "cb8520c3-42ba-4266-8d3a-8e1cb68e4f7b",
+                  "uuid": "71a63492-ed53-4dfc-b9bc-9413dfa97998",
                   "title": " get /api/skuitems/:rfid/testResult/:id",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1947,7 +1947,7 @@
                       "title": "Get a specific test result with the rfid and id",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResult/:id Get a specific test result with the rfid and id",
                       "timedOut": false,
-                      "duration": 27,
+                      "duration": 22,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -1956,26 +1956,26 @@
                       "context": null,
                       "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let alltdids = ids.getIdTestDescriptor();\n    console.log(alltdids);\n    agent.get('/api/skuitems/'+rfid+'/testResult/'+alltdids[0])\n    .then(function(res2){\n        console.log(res2.body);\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                       "err": {},
-                      "uuid": "12406f40-6050-4ed3-ae97-af756ef1bc1e",
-                      "parentUUID": "cb8520c3-42ba-4266-8d3a-8e1cb68e4f7b",
+                      "uuid": "63f7b6c5-3531-4ccd-97aa-5767a1792c2f",
+                      "parentUUID": "71a63492-ed53-4dfc-b9bc-9413dfa97998",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "12406f40-6050-4ed3-ae97-af756ef1bc1e"
+                    "63f7b6c5-3531-4ccd-97aa-5767a1792c2f"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 27,
+                  "duration": 22,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "238b7c40-5b65-4f3c-acda-e34d7df2d9ec",
+                  "uuid": "c727dfec-6ea8-43f8-bcc3-b0c512c99fed",
                   "title": " put /api/skuitems/:rfid/testResult/:id",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -1986,35 +1986,74 @@
                       "title": "FR 3.2.2 -> Modify a quality test",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  put /api/skuitems/:rfid/testResult/:id FR 3.2.2 -> Modify a quality test",
                       "timedOut": false,
-                      "duration": 45,
+                      "duration": 36,
                       "state": "passed",
-                      "speed": "medium",
+                      "speed": "fast",
                       "pass": true,
                       "fail": false,
                       "pending": false,
                       "context": null,
                       "code": "agent.get('/api/skuitems/'+validrfid+'/testResults')\n.then(function(res){\n    console.log(\"this is it\", res.body);\n    let trid = res.body[0].id;\n    agent.put('/api/skuitems/'+rfid+'/testResult/'+trid)\n    .send({\"newIdTestDescriptor\":res.body[0].idTestDescriptor,\"newDate\":\"2022/01/01\",\"newResult\":false})\n    .then(function(res2){\n        console.log(\"I'm heeeeereeee\", res2.body);\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                       "err": {},
-                      "uuid": "89306748-39b6-42db-9488-f68bfb1964c5",
-                      "parentUUID": "238b7c40-5b65-4f3c-acda-e34d7df2d9ec",
+                      "uuid": "db26169b-281b-4d87-b800-b698fb544f35",
+                      "parentUUID": "c727dfec-6ea8-43f8-bcc3-b0c512c99fed",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "89306748-39b6-42db-9488-f68bfb1964c5"
+                    "db26169b-281b-4d87-b800-b698fb544f35"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 45,
+                  "duration": 36,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "a2801c94-3994-4e1c-84c8-234547ee8101",
+                  "uuid": "59bfa839-26a9-46a1-bf89-c9bea2774ba4",
+                  "title": " put /api/skuitems/:rfid/testResult/:id",
+                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
+                  "file": "/acceptanceTest/testEzWhAPI.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "Modify a test results given its rfid and id and new fields",
+                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  put /api/skuitems/:rfid/testResult/:id Modify a test results given its rfid and id and new fields",
+                      "timedOut": false,
+                      "duration": 10,
+                      "state": "passed",
+                      "speed": "fast",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "agent.get('/api/skuitems/'+validrfid+'/testResults')\n.then(function(res){\n    let trid = res.body[0].id;\n    agent.put('/api/skuitems/'+rfid+'/testResult/'+trid)\n    .send({\"newIdTestDescriptor\":res.body[0].idTestDescriptor,\"newDate\":\"2022/01/01\",\"newResult\":false})\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
+                      "err": {},
+                      "uuid": "a1346252-c011-4035-a846-c32001fb221b",
+                      "parentUUID": "59bfa839-26a9-46a1-bf89-c9bea2774ba4",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "a1346252-c011-4035-a846-c32001fb221b"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 10,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 10000
+                },
+                {
+                  "uuid": "71190b32-678c-47bc-b620-3ce7ad1d407a",
                   "title": " put /api/skuitems/:rfid/testResult/:id",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -2034,15 +2073,15 @@
                       "context": null,
                       "code": "agent.get('/api/skuitems/'+validrfid+'/testResults')\n.then(function(res){\n    let trid = res.body[0].id;\n    agent.put('/api/skuitems/'+rfid+'/testResult/'+trid)\n    .send({\"newIdTestDescriptor\":res.body[0].idTestDescriptor,\"newDate\":\"2022/01/01\",\"newResult\":false})\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                       "err": {},
-                      "uuid": "59b9681c-5b00-4f6c-965a-8cbd6967d533",
-                      "parentUUID": "a2801c94-3994-4e1c-84c8-234547ee8101",
+                      "uuid": "7ec9a438-dacb-49dd-b669-35536deef87e",
+                      "parentUUID": "71190b32-678c-47bc-b620-3ce7ad1d407a",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "59b9681c-5b00-4f6c-965a-8cbd6967d533"
+                    "7ec9a438-dacb-49dd-b669-35536deef87e"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2053,46 +2092,7 @@
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "a845cb6f-6143-488a-b91c-88fbfb5d9b3f",
-                  "title": " put /api/skuitems/:rfid/testResult/:id",
-                  "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
-                  "file": "/acceptanceTest/testEzWhAPI.js",
-                  "beforeHooks": [],
-                  "afterHooks": [],
-                  "tests": [
-                    {
-                      "title": "Modify a test results given its rfid and id and new fields",
-                      "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  put /api/skuitems/:rfid/testResult/:id Modify a test results given its rfid and id and new fields",
-                      "timedOut": false,
-                      "duration": 7,
-                      "state": "passed",
-                      "speed": "fast",
-                      "pass": true,
-                      "fail": false,
-                      "pending": false,
-                      "context": null,
-                      "code": "agent.get('/api/skuitems/'+validrfid+'/testResults')\n.then(function(res){\n    let trid = res.body[0].id;\n    agent.put('/api/skuitems/'+rfid+'/testResult/'+trid)\n    .send({\"newIdTestDescriptor\":res.body[0].idTestDescriptor,\"newDate\":\"2022/01/01\",\"newResult\":false})\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
-                      "err": {},
-                      "uuid": "37263bc2-7d0b-4b91-8461-13ffa5121a91",
-                      "parentUUID": "a845cb6f-6143-488a-b91c-88fbfb5d9b3f",
-                      "isHook": false,
-                      "skipped": false
-                    }
-                  ],
-                  "suites": [],
-                  "passes": [
-                    "37263bc2-7d0b-4b91-8461-13ffa5121a91"
-                  ],
-                  "failures": [],
-                  "pending": [],
-                  "skipped": [],
-                  "duration": 7,
-                  "root": false,
-                  "rootEmpty": false,
-                  "_timeout": 10000
-                },
-                {
-                  "uuid": "fefbf4b6-fa49-46f5-b3eb-0b8fb82a81e8",
+                  "uuid": "7cca9fa1-672a-4b46-8bee-281c9063f186",
                   "title": " get /api/skuitems/:rfid/testResults",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -2103,7 +2103,7 @@
                       "title": "Get all test results associated to a certain rfid",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  get /api/skuitems/:rfid/testResults Get all test results associated to a certain rfid",
                       "timedOut": false,
-                      "duration": 19,
+                      "duration": 3,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2112,26 +2112,26 @@
                       "context": null,
                       "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let all = [];\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"all tr for rfid\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        all[i] = res.body[i].id;\n    }\n    ids.setIdTRonRFID(all);\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "b553652e-0e13-4ae5-b29b-1f1e4a95bdca",
-                      "parentUUID": "fefbf4b6-fa49-46f5-b3eb-0b8fb82a81e8",
+                      "uuid": "584ff5de-6647-40d7-8bc5-797e152fb252",
+                      "parentUUID": "7cca9fa1-672a-4b46-8bee-281c9063f186",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "b553652e-0e13-4ae5-b29b-1f1e4a95bdca"
+                    "584ff5de-6647-40d7-8bc5-797e152fb252"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 19,
+                  "duration": 3,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "6d179319-71c2-47b2-ac3d-cb6ee3601301",
+                  "uuid": "9897a48d-0742-481e-b849-6dc753b33ee0",
                   "title": " delete /api/skuitems/:rfid/testResult/:id",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -2142,7 +2142,7 @@
                       "title": "FR 3.2.3 -> Delete a quality test",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD  delete /api/skuitems/:rfid/testResult/:id FR 3.2.3 -> Delete a quality test",
                       "timedOut": false,
-                      "duration": 17,
+                      "duration": 14,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2151,26 +2151,26 @@
                       "context": null,
                       "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    let trid = res.body[0].id;\n    //console.log(res.body);\n    agent.delete('/api/skuitems/'+rfid+'/testResult/'+trid)\n    .then(function(res2){\n        res2.should.have.status(expCode);\n        done();\n    }).catch(err=>done(err));\n});",
                       "err": {},
-                      "uuid": "69a96ff4-3a2c-4951-a775-d0436b5736ac",
-                      "parentUUID": "6d179319-71c2-47b2-ac3d-cb6ee3601301",
+                      "uuid": "a3071f1f-17e1-4818-a25a-e2db2cf40fef",
+                      "parentUUID": "9897a48d-0742-481e-b849-6dc753b33ee0",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "69a96ff4-3a2c-4951-a775-d0436b5736ac"
+                    "a3071f1f-17e1-4818-a25a-e2db2cf40fef"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 17,
+                  "duration": 14,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "b4c13015-cc8f-4421-8b5e-ba241924bec5",
+                  "uuid": "9fc23596-c8b9-42e7-b36f-a158f9ab471d",
                   "title": " get /api/skuitems/:rfid/testResults",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -2190,15 +2190,15 @@
                       "context": null,
                       "code": "agent.get('/api/skuitems/'+rfid+'/testResults')\n.then(function(res){\n    res.should.have.status(expCode);\n    res.body.should.be.a('array');\n    console.log(\"delete all\", res.body);\n    for(let i=0; i<res.body.length; i++){\n        agent.delete('/api/skuitems/'+rfid+'/testResult/'+res.body[i].id)\n        .then(function(res2){\n            res2.should.have.status(204);\n        });\n    }\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "6fabc231-1d87-4547-9e43-d901b954b3ec",
-                      "parentUUID": "b4c13015-cc8f-4421-8b5e-ba241924bec5",
+                      "uuid": "f8b028a7-105b-482c-a21f-6a31fe347d4e",
+                      "parentUUID": "9fc23596-c8b9-42e7-b36f-a158f9ab471d",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "6fabc231-1d87-4547-9e43-d901b954b3ec"
+                    "f8b028a7-105b-482c-a21f-6a31fe347d4e"
                   ],
                   "failures": [],
                   "pending": [],
@@ -2209,7 +2209,7 @@
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "e0a216a4-1282-4aec-b1a3-8f3baa49cb9a",
+                  "uuid": "13a0e891-8734-4117-8758-96822b3a0ba0",
                   "title": "removing all skuitems",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -2220,7 +2220,7 @@
                       "title": "Getting SKUitems",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD removing all skuitems Getting SKUitems",
                       "timedOut": false,
-                      "duration": 23,
+                      "duration": 19,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2229,26 +2229,26 @@
                       "context": null,
                       "code": "const res = await agent.get('/api/skuitems');\nconsole.log(res.body);\nres.should.have.status(200);\nif (res.body.length !==0) {\n    let res2;\n    for (let i = 0; i < res.body.length; i++) {\n        res2 = await\n        agent.delete('/api/skuitems/'+res.body[i].RFID);\n        res2.should.have.status(204);\n        console.log(\"Deleted \"+ res.body[i].RFID);\n    }\n}\nconsole.log(\"done!\");",
                       "err": {},
-                      "uuid": "e4c9fb7f-0e8b-4a31-af1a-804ddbc00c42",
-                      "parentUUID": "e0a216a4-1282-4aec-b1a3-8f3baa49cb9a",
+                      "uuid": "c8975ee9-4fec-4c8e-834f-10337bed8601",
+                      "parentUUID": "13a0e891-8734-4117-8758-96822b3a0ba0",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "e4c9fb7f-0e8b-4a31-af1a-804ddbc00c42"
+                    "c8975ee9-4fec-4c8e-834f-10337bed8601"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 23,
+                  "duration": 19,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "7a3778cb-17bb-4d53-ae3c-ff54ec2ef2e0",
+                  "uuid": "3c4fce72-5062-4e42-9a65-9fe5e3f6edce",
                   "title": "removing all skus",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -2259,7 +2259,7 @@
                       "title": "Getting SKUs",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD removing all skus Getting SKUs",
                       "timedOut": false,
-                      "duration": 6,
+                      "duration": 4,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2268,26 +2268,26 @@
                       "context": null,
                       "code": "agent.get('/api/skus')\n.then(function (res) {\n    res.should.have.status(200);\n    if (res.body.length !==0) {\n        for (let i = 0; i < res.body.length; i++) {\n            agent.delete('/api/skus/'+res.body[i].id)\n            .then(function (res2) {\n                res2.should.have.status(204);\n            });\n        }\n    } \n    done();\n}).catch(err => done(err));",
                       "err": {},
-                      "uuid": "08c3f66a-af9d-43a2-9fe5-6242e7edbff0",
-                      "parentUUID": "7a3778cb-17bb-4d53-ae3c-ff54ec2ef2e0",
+                      "uuid": "e3921e7a-f97c-43a3-a75f-04aa405d5afb",
+                      "parentUUID": "3c4fce72-5062-4e42-9a65-9fe5e3f6edce",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "08c3f66a-af9d-43a2-9fe5-6242e7edbff0"
+                    "e3921e7a-f97c-43a3-a75f-04aa405d5afb"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 6,
+                  "duration": 4,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
                 },
                 {
-                  "uuid": "f96e6a9e-b5a3-4489-8ab7-fb825261d17d",
+                  "uuid": "647dff2a-cbfe-4fff-a817-8e48d95a4334",
                   "title": "removing all test descriptors",
                   "fullFile": "/mnt/DATA/Polito/08 Software engineering I/05 Project/EzWh/code/server/acceptanceTest/testEzWhAPI.js",
                   "file": "/acceptanceTest/testEzWhAPI.js",
@@ -2298,7 +2298,7 @@
                       "title": "Getting test descriptors",
                       "fullTitle": "Testing Functional requirements pt2 Test TestResult CRUD removing all test descriptors Getting test descriptors",
                       "timedOut": false,
-                      "duration": 12,
+                      "duration": 8,
                       "state": "passed",
                       "speed": "fast",
                       "pass": true,
@@ -2307,20 +2307,20 @@
                       "context": null,
                       "code": "agent.get('/api/testDescriptors')\n.then(function(res){\n    res.should.have.status(200);\n    if(res.body.length !==0){\n        for (let i=0; i<res.body.length; i++){\n            agent.delete('/api/testDescriptor/'+res.body[i].id)\n            .then(function(res2){\n                res2.should.have.status(204);\n            });\n        }\n    }\n    done();\n}).catch(err=>done(err));",
                       "err": {},
-                      "uuid": "1ead3e10-8896-43c0-a27b-f825390b95dc",
-                      "parentUUID": "f96e6a9e-b5a3-4489-8ab7-fb825261d17d",
+                      "uuid": "24a4e7f8-6723-4673-9118-178bb04fd48f",
+                      "parentUUID": "647dff2a-cbfe-4fff-a817-8e48d95a4334",
                       "isHook": false,
                       "skipped": false
                     }
                   ],
                   "suites": [],
                   "passes": [
-                    "1ead3e10-8896-43c0-a27b-f825390b95dc"
+                    "24a4e7f8-6723-4673-9118-178bb04fd48f"
                   ],
                   "failures": [],
                   "pending": [],
                   "skipped": [],
-                  "duration": 12,
+                  "duration": 8,
                   "root": false,
                   "rootEmpty": false,
                   "_timeout": 10000
