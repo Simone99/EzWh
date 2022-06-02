@@ -41,10 +41,10 @@ router.get('/skuitems/:rfid/testResults/:id', async (req, res) => {
 
 router.post('/skuitems/testResult', async (req, res) => {
 	if (
-		!req.body.hasOwnProperty('rfid') ||
-		!req.body.hasOwnProperty('idTestDescriptor') ||
-		!req.body.hasOwnProperty('Date') ||
-		!req.body.hasOwnProperty('Result') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'rfid') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'idTestDescriptor') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'Date') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'Result') ||
 		String(req.body.rfid).length !== 32
 	) {
 		return res.status(422).end();
@@ -70,9 +70,9 @@ router.put('/skuitems/:rfid/testResult/:id', async (req, res) => {
 	if (
 		isNaN(parseInt(req.params.rfid)) ||
 		isNaN(parseInt(req.params.id)) ||
-		!req.body.hasOwnProperty('newIdTestDescriptor') ||
-		!req.body.hasOwnProperty('newDate') ||
-		!req.body.hasOwnProperty('newResult')
+		!Object.prototype.hasOwnProperty.call(req.body, 'newIdTestDescriptor') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'newDate') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'newResult')
 	) {
 		return res.status(422).end();
 	}

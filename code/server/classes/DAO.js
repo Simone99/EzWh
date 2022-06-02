@@ -379,7 +379,7 @@ class DAO {
 			user.getType(),
 			user.getUsername()
 		);
-		console.log('storedUser is =' + storedUser);
+		console.log(storedUser);
 		if (storedUser === undefined) {
 			await this.UserDAO.insertUser(user);
 			return 201;

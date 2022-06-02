@@ -30,12 +30,12 @@ router.get('/items/:id', async (req, res) => {
 
 router.post('/item', async (req, res) => {
 	if (
-		!req.body.hasOwnProperty('id') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'id') ||
 		isNaN(parseInt(req.body.id)) ||
-		!req.body.hasOwnProperty('description') ||
-		!req.body.hasOwnProperty('price') ||
-		!req.body.hasOwnProperty('SKUId') ||
-		!req.body.hasOwnProperty('supplierId') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'description') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'price') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'SKUId') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'supplierId') ||
 		req.body.price < 0
 	) {
 		return res.status(422).end();
@@ -65,8 +65,8 @@ router.post('/item', async (req, res) => {
 router.put('/item/:id', async (req, res) => {
 	if (
 		isNaN(parseInt(req.params.id)) ||
-		!req.body.hasOwnProperty('newDescription') ||
-		!req.body.hasOwnProperty('newPrice') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'newDescription') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'newPrice') ||
 		req.body.newPrice < 0
 	) {
 		return res.status(422).end();
