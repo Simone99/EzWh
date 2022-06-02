@@ -27,12 +27,13 @@ router.get('/testDescriptors/:id', async (req, res) => {
 });
 
 router.post('/testDescriptor', async (req, res) => {
-    if (!req.body.hasOwnProperty('name') ||
-        !req.body.hasOwnProperty('procedureDescription') ||
-        !req.body.hasOwnProperty('idSKU') ||
+    if (!Object.prototype.hasOwnProperty.call(req.body,'name') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'procedureDescription') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'idSKU') ||
         req.body.name === null ||
         req.body.procedureDescription === null ||
         req.body.idSKU === null) {
+            
         return res.status(422).end();
     }
     try {
@@ -47,10 +48,11 @@ router.post('/testDescriptor', async (req, res) => {
 });
 
 router.put('/testDescriptor/:id', async (req, res) => {
-    if (!req.body.hasOwnProperty('newName') ||
-        !req.body.hasOwnProperty('newProcedureDescription') ||
-        !req.body.hasOwnProperty('newIdSKU') ||
+    if (!Object.prototype.hasOwnProperty.call(req.body,'newName') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'newProcedureDescription') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'newIdSKU') ||
         isNaN(parseInt(req.params.id))) {
+
         return res.status(422).end();
     }
     try {

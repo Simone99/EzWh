@@ -13,13 +13,14 @@ router.get('/positions', async (req, res) => {
 });
 
 router.post('/position', async (req, res) => {
-    if (!req.body.hasOwnProperty('positionID') ||
-        !req.body.hasOwnProperty('aisleID') ||
-        !req.body.hasOwnProperty('row') ||
-        !req.body.hasOwnProperty('col') ||
-        !req.body.hasOwnProperty('maxWeight') ||
-        !req.body.hasOwnProperty('maxVolume') ||
+    if (!Object.prototype.hasOwnProperty.call(req.body,'positionID') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'aisleID') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'row') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'col') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'maxWeight') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'maxVolume') ||
         (parseInt(req.body.aisleID.toString() + req.body.row.toString() + req.body.col.toString()) != req.body.positionID)) {
+            
         return res.status(422).end();
     }
     try {
@@ -31,18 +32,19 @@ router.post('/position', async (req, res) => {
 });
 
 router.put('/position/:positionID', async (req, res) => {
-    if (!req.body.hasOwnProperty('newAisleID') ||
-        !req.body.hasOwnProperty('newRow') ||
-        !req.body.hasOwnProperty('newCol') ||
-        !req.body.hasOwnProperty('newMaxWeight') ||
-        !req.body.hasOwnProperty('newMaxVolume') ||
-        !req.body.hasOwnProperty('newOccupiedWeight') ||
-        !req.body.hasOwnProperty('newOccupiedVolume') ||
+    if (!Object.prototype.hasOwnProperty.call(req.body,'newAisleID') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'newRow') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'newCol') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'newMaxWeight') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'newMaxVolume') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'newOccupiedWeight') ||
+        !Object.prototype.hasOwnProperty.call(req.body,'newOccupiedVolume') ||
         isNaN(parseInt(req.params.positionID)) ||
         req.body.newMaxVolume < 0 ||
         req.body.newMaxWeight < 0 ||
         req.body.newOccupiedVolume < 0 ||
         req.body.newOccupiedWeight < 0) {
+
         return res.status(422).end();
     }
     try {
@@ -58,7 +60,7 @@ router.put('/position/:positionID', async (req, res) => {
 });
 
 router.put('/position/:positionID/changeID', async (req, res) => {
-    if (!req.body.hasOwnProperty('newPositionID') ||
+    if (!Object.prototype.hasOwnProperty.call(req.body, 'newPositionID') ||
         isNaN(parseInt(req.params.positionID))) {
         return res.status(422).end();
     }
