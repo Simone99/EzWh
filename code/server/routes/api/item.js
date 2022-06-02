@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Warehouse = require('../../classes/Warehouse');
 const Item = require('../../classes/Item');
+const { newItem } = require('../../acceptanceTest/utils-items');
 
 router.get('/items', async (req, res) => {
 	try {
@@ -13,8 +14,7 @@ router.get('/items', async (req, res) => {
 });
 
 router.get('/items/:id', async (req, res) => {
-	//TODO ISNAN
-	if (!req.params.hasOwnProperty('id')) {
+	if (isNaN(parseInt(req.params.id)) || !req.params.hasOwnProperty('id')) {
 		return res.status(422).end();
 	}
 	try {
@@ -30,6 +30,8 @@ router.get('/items/:id', async (req, res) => {
 
 router.post('/item', async (req, res) => {
 	if (
+		!req.body.hasOwnProperty('id') ||
+		isNaN(parseInt(req.body.id)) ||
 		!req.body.hasOwnProperty('description') ||
 		!req.body.hasOwnProperty('price') ||
 		!req.body.hasOwnProperty('SKUId') ||
@@ -39,16 +41,20 @@ router.post('/item', async (req, res) => {
 		return res.status(422).end();
 	}
 	try {
-		newItem = await new Warehouse().addItem(
+		const newItem = await new Warehouse().addItem(
 			new Item(
 				req.body.description,
 				req.body.price,
 				req.body.supplierId,
-				req.body.SKUId
+				req.body.SKUId,
+				req.body.id
 			)
 		);
 		if (newItem === 422) {
 			return res.status(422).end();
+		}
+		if (newItem === 404) {
+			return res.status(404).end();
 		}
 		return res.status(201).end();
 	} catch (err) {
@@ -80,7 +86,7 @@ router.put('/item/:id', async (req, res) => {
 	}
 });
 
-router.delete('/item/:id', async (req, res) => {
+router.delete('/items/:id', async (req, res) => {
 	if (isNaN(parseInt(req.params.id))) {
 		return res.status(422).end();
 	}

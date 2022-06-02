@@ -8,7 +8,7 @@ const runQuery = (query, db) => {
 		db.run(query, [], function (err) {
 			if (err) {
 				reject(err);
-			}else{
+			} else {
 				resolve(this.changes);
 			}
 		});
@@ -31,3 +31,5 @@ exports.resetDB = async (dbPath) => {
 
 	return new DAO(dbPath);
 };
+
+this.resetDB('../server/EZWarehouseDB.db');

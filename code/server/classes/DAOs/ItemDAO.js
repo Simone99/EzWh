@@ -9,10 +9,11 @@ class ItemDAO {
 	addItem(item) {
 		return new Promise((resolve, reject) => {
 			const sql =
-				'INSERT INTO ITEM_TABLE(DESCRIPTION, PRICE, USERID, SKUID) VALUES(?,?,?,?)';
+				'INSERT INTO ITEM_TABLE(ID, DESCRIPTION, PRICE, USERID, SKUID) VALUES(?,?,?,?,?)';
 			this.db.run(
 				sql,
 				[
+					item.getItemId(),
 					item.getDescription(),
 					item.getPrice(),
 					item.getSupplierId(),
@@ -40,7 +41,13 @@ class ItemDAO {
 						resolve(undefined);
 					} else {
 						resolve(
-							new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID)
+							new Item(
+								row.DESCRIPTION,
+								row.PRICE,
+								row.USERID,
+								row.SKUID,
+								row.ID
+							)
 						);
 					}
 				}
@@ -59,7 +66,13 @@ class ItemDAO {
 						resolve(undefined);
 					} else {
 						resolve(
-							new Item(row.DESCRIPTION, row.PRICE, row.USERID, row.SKUID, row.ID)
+							new Item(
+								row.DESCRIPTION,
+								row.PRICE,
+								row.USERID,
+								row.SKUID,
+								row.ID
+							)
 						);
 					}
 				}

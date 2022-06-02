@@ -44,7 +44,8 @@ router.post('/skuitems/testResult', async (req, res) => {
 		!req.body.hasOwnProperty('rfid') ||
 		!req.body.hasOwnProperty('idTestDescriptor') ||
 		!req.body.hasOwnProperty('Date') ||
-		!req.body.hasOwnProperty('Result')
+		!req.body.hasOwnProperty('Result') ||
+		String(req.body.rfid).length !== 32
 	) {
 		return res.status(422).end();
 	}
@@ -61,7 +62,7 @@ router.post('/skuitems/testResult', async (req, res) => {
 		return res.status(201).end();
 	} catch (err) {
 		console.log(err);
-		return res.status(500).end();
+		return res.status(503).end();
 	}
 });
 
