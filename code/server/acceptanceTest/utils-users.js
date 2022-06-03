@@ -140,9 +140,7 @@ function testDeleteAllNotManagerUsers(agent) {
 			const res = await agent.get('/api/users');
 			for (let i = 0; i < res.body.length; i++) {
 				//console.log(res.body[i].email);
-				const res2 = await agent.delete(
-						'/api/users/' + res.body[i].email + '/' + res.body[i].type
-					);
+				const res2 = await agent.delete('/api/users/' + res.body[i].email + '/' + res.body[i].type);
 				res2.should.have.status(204);
 			}
 			console.log('done!');
