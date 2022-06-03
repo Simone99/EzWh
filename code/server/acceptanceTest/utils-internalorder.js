@@ -71,20 +71,16 @@ function testPostWrongNewInternalOrders(agent, intord, expCode){
 
 function deleteAllInternalOrders(agent){
     describe('Removing all Internal Orders', function(){
-        it('Getting Interna Orders', function(done){
-            agent.get('/api/internalOrders')
-            .then(function(res){
-                res.should.have.status(200);
-                if(res.body.length !==0) {
-                    for (let i = 0; i< res.body.length; i++){
-                        agent.delete('/api/internalOrders/'+res.body[i].id)
-                        .then(function(res2){
-                            res2.should.have.status(204);
-                        });
-                    }
+        it('Getting Interna Orders', async function(){
+            const res = await agent.get('/api/internalOrders');
+            res.should.have.status(200);
+            if(res.body.length !==0) {
+                for (let i = 0; i< res.body.length; i++){
+                    const res2 = await agent.delete('/api/internalOrders/'+res.body[i].id);
+                    res2.should.have.status(204);
                 }
-                done();
-            }).catch(err => done(err));
+            }
+            console.log('done!');
         });
     });
 }

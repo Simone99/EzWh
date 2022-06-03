@@ -53,19 +53,19 @@ class TestDescriptorDAO {
 				if (err) {
 					reject(err);
 				} else {
-				if (row === undefined) {
-					resolve(undefined);
-				} else {
-					resolve(
-						new TestDescriptor(
-							row.ID,
-							row.NAME,
-							row.PROCEDURE_DESCRIPTION,
-							row.SKUID
-						)
-					);
+					if (row === undefined) {
+						resolve(404);
+					} else {
+						resolve(
+							new TestDescriptor(
+								row.ID,
+								row.NAME,
+								row.PROCEDURE_DESCRIPTION,
+								row.SKUID
+							)
+						);
+					}
 				}
-			}
 			});
 		});
 	}

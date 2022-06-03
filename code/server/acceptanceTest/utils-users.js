@@ -136,23 +136,16 @@ function testGetAllUsers(agent, expCode) {
 
 function testDeleteAllNotManagerUsers(agent) {
 	describe(' Delete all not manager', function () {
-		it('Cleaning db user util', function (done) {
-			agent
-				.get('/api/users')
-				.then(function (res) {
-					for (let i = 0; i < res.body.length; i++) {
-						//console.log(res.body[i].email);
-						agent
-							.delete(
-								'/api/users/' + res.body[i].email + '/' + res.body[i].type
-							)
-							.then(function (res2) {
-								res2.should.have.status(204);
-							});
-					}
-					done();
-				})
-				.catch((err) => done(err));
+		it('Cleaning db user util', async function () {
+			const res = await agent.get('/api/users');
+			for (let i = 0; i < res.body.length; i++) {
+				//console.log(res.body[i].email);
+				const res2 = await agent.delete(
+						'/api/users/' + res.body[i].email + '/' + res.body[i].type
+					);
+				res2.should.have.status(204);
+			}
+			console.log('done!');
 		});
 	});
 }

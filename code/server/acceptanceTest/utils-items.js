@@ -96,23 +96,16 @@ function testGetItemnotfound(agent, id, expCode) {
 
 function deleteAllItems(agent) {
 	describe('Removing all Items', function () {
-		it('Getting Items', function (done) {
-			agent
-				.get('/api/items')
-				.then(function (res) {
-					res.should.have.status(200);
-					if (res.body.length !== 0) {
-						for (let i = 0; i < res.body.length; i++) {
-							agent
-								.delete('/api/items/' + res.body[i].id)
-								.then(function (res2) {
-									res2.should.have.status(204);
-								});
-						}
-					}
-					done();
-				})
-				.catch((err) => done(err));
+		it('Getting Items', async function () {
+			const res = await agent.get('/api/items');
+			res.should.have.status(200);
+			if (res.body.length !== 0) {
+				for (let i = 0; i < res.body.length; i++) {
+					const res2 = await agent.delete('/api/items/' + res.body[i].id);
+					res2.should.have.status(204);
+				}
+			}
+			console.log('done!');
 		});
 	});
 }

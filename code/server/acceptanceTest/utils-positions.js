@@ -37,20 +37,16 @@ function testPostNewPosition(agent, position, expCode){
 
 function deleteAllPositions(agent){
     describe('Removing all Positions', function(){
-        it('Getting Positions', function(done){
-            agent.get('/api/positions')
-            .then(function(res){
-                res.should.have.status(200);
-                if(res.body.length !==0) {
-                    for (let i = 0; i< res.body.length; i++){
-                        agent.delete('/api/position/'+res.body[i].positionID)
-                        .then(function(res2){
-                            res2.should.have.status(204);
-                        });
-                    }
+        it('Getting Positions', async function(){
+            const res = await agent.get('/api/positions');
+            res.should.have.status(200);
+            if(res.body.length !==0) {
+                for (let i = 0; i< res.body.length; i++){
+                    const res2 = await agent.delete('/api/position/'+res.body[i].positionID);
+                    res2.should.have.status(204);
                 }
-                done();
-            }).catch(err => done(err));
+            }
+            console.log('done!');
         });
     });
 }

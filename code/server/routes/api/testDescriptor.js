@@ -17,7 +17,7 @@ router.get('/testDescriptors/:id', async (req, res) => {
     }
     try {
         const result = await new Warehouse().searchTestDescriptor(req.params.id);
-        if (result === undefined) {
+        if (result === 404) {
             return res.status(404).end();
         }
         return res.status(200).json(result);

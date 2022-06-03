@@ -135,7 +135,7 @@ class DAO {
 				return 422;
 			}
 		} else {
-			return 404;
+			return 422;
 		}
 	}
 
@@ -382,11 +382,9 @@ class DAO {
 		console.log(storedUser);
 		if (storedUser === undefined) {
 			await this.UserDAO.insertUser(user);
-			return 201;
-		} else {
-			console.log('get 409 from here');
+		}/* else {
 			return 409;
-		}
+		}*/
 	}
 
 	async getAllSuppliers() {

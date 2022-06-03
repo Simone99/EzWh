@@ -62,6 +62,7 @@ router.get('/restockOrders/:id/returnItems', async (req, res) => {
 })
 
 router.post('/restockOrder', async (req, res) => {
+    console.log(req.body);
     if (!req.body.hasOwnProperty('issueDate') ||
         !req.body.hasOwnProperty('products') ||
         !req.body.hasOwnProperty('supplierId')) {
