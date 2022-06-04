@@ -50,6 +50,6 @@ describe('Test on Test Descriptor', () => {
     test('delete test descriptor', async() => {
         await DAO_test.deleteTestDescriptor(1);
         let res = await DAO_test.getTestDescriporByID(1);
-        expect(res).toEqual();
+        expect(res).toEqual(404);
     });
 })

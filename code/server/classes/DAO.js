@@ -327,9 +327,6 @@ class DAO {
 			return 422;
 		}
 		for (let skuItem of SKUItemsList) {
-			/*await this.SKUItemDAO.addSKUItem(
-				new SKUItem(skuItem.SKUId, 1, dayjs().format(), skuItem.rfid)
-			);*/
 			await this.RestockOrderDAO.editRestockOrderSkuItems(
 				restockOrderID,
 				skuItem.rfid
@@ -379,7 +376,6 @@ class DAO {
 			user.getType(),
 			user.getUsername()
 		);
-		console.log(storedUser);
 		if (storedUser === undefined) {
 			await this.UserDAO.insertUser(user);
 		}/* else {
@@ -606,7 +602,6 @@ class DAO {
 
 	async getInternalOrdersList() {
 		const orders = await this.InternalOrderDAO.getInternalOrdersList();
-		console.log(orders);
 		if (orders === undefined) {
 			return undefined;
 		}

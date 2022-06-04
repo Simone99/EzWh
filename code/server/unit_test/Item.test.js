@@ -1,14 +1,25 @@
 const DAO = require('../classes/DAO');
+const SKU = require('../classes/SKU');
+const User = require('../classes/User');
 const Item = require('../classes/Item');
 const { resetDB } = require('../test_modules/init_test_module');
 let DAO_test;
 
 describe('Tests on ItemDAO.js', () => {
-	beforeEach(async () => {
+	beforeAll(async () => {
 		DAO_test = await resetDB('./EZWarehouseDB_test.db');
-		await DAO_test.addItem(new Item('Item description 1', 150, 1, 2));
-		await DAO_test.addItem(new Item('Item description 2', 200, 2, 4));
-		await DAO_test.addItem(new Item('Item description 3', 250, 3, 5));
+		await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+		await DAO_test.insertSKU(new SKU("a new sku", 100, 50, 10.99, "second SKU", null, null, 50));
+		await DAO_test.addUser(
+			new User(
+				'Simone',
+				'Zanella',
+				'supplier',
+				's295316@studenti.polito.it',
+				'TestPassword'
+			)
+		);
+		await DAO_test.addItem(new Item('Item description 2', 100, 1, 2));
 	});
 
 	test('add item', async () => {
@@ -18,19 +29,19 @@ describe('Tests on ItemDAO.js', () => {
 	});
 
 	test('add duplicate item', async () => {
-		let item = new Item('Item description 1', 150, 1, 2);
+		let item = new Item('Item description 1', 150, 1, 1);
 		let res = await DAO_test.addItem(item);
 		expect(res).toEqual(422);
 	});
 
 	test('get an item by id', async () => {
-		let res = await DAO_test.getItemById(1);
+		let res = await DAO_test.getItemById(2);
 		expect(res).toEqual({
-			id: 1,
-			price: 150,
-			SKUId: 2,
+			id: 2,
+			price: 100,
+			SKUId: 1,
 			supplierId: 1,
-			description: 'Item description 1',
+			description: 'Item description',
 		});
 	});
 
@@ -44,25 +55,18 @@ describe('Tests on ItemDAO.js', () => {
 		expect(res).toEqual([
 			{
 				id: 1,
-				price: 150,
+				price: 100,
 				SKUId: 2,
 				supplierId: 1,
-				description: 'Item description 1',
-			},
-			{
-				id: 2,
-				price: 200,
-				SKUId: 4,
-				supplierId: 2,
 				description: 'Item description 2',
 			},
 			{
-				id: 3,
-				price: 250,
-				SKUId: 5,
-				supplierId: 3,
-				description: 'Item description 3',
-			},
+				id: 2,
+				price: 100,
+				SKUId: 1,
+				supplierId: 1,
+				description: 'Item description',
+			}
 		]);
 	});
 
@@ -82,9 +86,9 @@ describe('Tests on ItemDAO.js', () => {
 		expect(res).toEqual({
 			id: 2,
 			price: 90,
-			SKUId: 4,
-			supplierId: 2,
-			description: 'Item description 7',
+			SKUId: 1,
+			supplierId: 1,
+			description: 'Item description 7'
 		});
 	});
 
@@ -104,18 +108,11 @@ describe('Tests on ItemDAO.js', () => {
 		expect(res).toEqual([
 			{
 				id: 1,
-				price: 150,
+				price: 100,
 				SKUId: 2,
 				supplierId: 1,
-				description: 'Item description 1',
-			},
-			{
-				id: 3,
-				price: 250,
-				SKUId: 5,
-				supplierId: 3,
-				description: 'Item description 3',
-			},
+				description: 'Item description 2'
+			}
 		]);
 	});
 });
