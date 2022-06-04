@@ -79,7 +79,8 @@ router.put('/sku/:id', async (req, res) => {
 router.put('/sku/:id/position', async (req, res) => {
   if(!Object.prototype.hasOwnProperty.call(req.body, 'position') ||
      req.body.position === null ||
-     req.params.id === null)
+     req.params.id === null  ||
+     req.body.position.length != 12)
     return res.status(422).end();
   try{
     const tmp = await new Warehouse().getInventory().editSKUPosition(req.params.id, req.body.position);
