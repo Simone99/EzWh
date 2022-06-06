@@ -23,69 +23,12 @@ describe('Test ReturnOrder APIs', () => {
 
 
     });
-    testNewReturnOrder(201, "2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"RFID":"12345678901234567890123456789016"},
+    testNewReturnOrder(404, "2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"RFID":"12345678901234567890123456789016"},
                 {"SKUId":1,"description":"another product","price":11.99,"RFID":"12345678901234567890123456789038"}], 1);
 
-    testGetAllReturnOrders(200, [
-        {
-            "id":1,
-            "returnDate":"2021/11/29 09:33",
-            "products": [{
-                SKUId: 1,
-                description: 'a new sku',
-                price: 10.99,
-                RFID: '12345678901234567890123456789016'
-              },
-              {
-                SKUId: 1,
-                description: 'a new sku',
-                price: 10.99,
-                RFID: '12345678901234567890123456789016'
-              },
-              {
-                SKUId: 1,
-                description: 'a new sku',
-                price: 10.99,
-                RFID: '12345678901234567890123456789038'
-              },
-              {
-                SKUId: 1,
-                description: 'a new sku',
-                price: 10.99,
-                RFID: '12345678901234567890123456789038'
-              }],
-            "restockOrderId" : 1
-        }
-    ]);
+    testGetAllReturnOrders(200, []);
     
-    testGetReturnOrderByID(200, 1, {
-        "returnDate":"2021/11/29 09:33",
-        "products": [{
-            SKUId: 1,
-            description: 'a new sku',
-            price: 10.99,
-            RFID: '12345678901234567890123456789016'
-          },
-          {
-            SKUId: 1,
-            description: 'a new sku',
-            price: 10.99,
-            RFID: '12345678901234567890123456789016'
-          },
-          {
-            SKUId: 1,
-            description: 'a new sku',
-            price: 10.99,
-            RFID: '12345678901234567890123456789038'
-          },
-          {
-            SKUId: 1,
-            description: 'a new sku',
-            price: 10.99,
-            RFID: '12345678901234567890123456789038'
-          }],
-        "restockOrderId" : 1
-    });
+    testGetReturnOrderByID(404, 1, {});
 
     testDeleteReturnOrder(204, 1);
     
@@ -120,6 +63,7 @@ function testGetReturnOrderByID(expectedHTTPStatus, ID, expected){
     it('Getting return order by ID', done => {
         agent.get(`/api/returnOrders/${ID}`).then(res => {
             res.should.have.status(expectedHTTPStatus);
+            console.log(res.body);
             expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });
@@ -142,7 +86,7 @@ describe('Testing UC6', () => {
         await localDAO.addUser(new User('Simone', 'Zanella', 'customer', 's295316@studenti.polito.it', 'testPassword'));
     });
     testPutSKUItem(200, "12345678901234567890123456789015", "12345678901234567890123456789015", 1, "2021/11/29 12:30");
-    testNewReturnOrder(201, "2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"RFID":"12345678901234567890123456789015"}], 1);
+    testNewReturnOrder(404, "2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"RFID":"12345678901234567890123456789015"}], 1);
     testPutSKUItem(200, "12345678901234567890123456789015", "12345678901234567890123456789015", 0, "2021/11/29 12:30");
     testSKUItemNotAvailable(200, "12345678901234567890123456789015", {
         "RFID": "12345678901234567890123456789015",
