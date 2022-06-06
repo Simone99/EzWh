@@ -11,7 +11,7 @@ const app = require('../server');
 const { expect } = require('chai');
 var agent = chai.request.agent(app);
 
-describe('Test user APIs', function () {
+describe.only('Test user APIs', function () {
 	this.timeout(10000);
 	beforeEach(async () => {
 		const dao = await resetDB('./EZWarehouseDB.db');
@@ -19,7 +19,7 @@ describe('Test user APIs', function () {
 			new User('Ahmed', 'Khater', 'supplier', 's123456@mail.com', '12345678')
 		);
 		await dao.addUser(
-			new User('Mohamed', 'Khater', 'user', '127812@mail.com', '12345678')
+			new User('Mohamed', 'Khater', 'customer', '127812@mail.com', '12345678')
 		);
 		await dao.addUser(
 			new User('Eslam', 'Khater', 'manager', '987654321@mail.com', '12345678')
@@ -40,7 +40,7 @@ describe('Test user APIs', function () {
 		'Simone',
 		'Zanella',
 		'DioMattone',
-		'user'
+		'clerk'
 	); //add user successfully
 
 	addUser(409, 's123456@mail.com', 'Ahmed', 'Khater', '12345678', 'supplier'); //add duplicate user
@@ -56,7 +56,7 @@ describe('Test user APIs', function () {
 			id: 2,
 			name: 'Mohamed',
 			surname: 'Khater',
-			type: 'user',
+			type: 'customer',
 			email: '127812@mail.com',
 		},
 	]); //get users list except managers
@@ -68,13 +68,13 @@ describe('Test user APIs', function () {
 			email: 's123456@mail.com',
 		},
 	]); // get suppliers list
-	editUser(200, '127812@mail.com', 'user', 'supplier'); // change user type
-	editUser(404, '234019@mail.com', 'user', 'supplier'); // wrong user name or user doesn't exist
-	editUser(404, '127812@mail.com', 'supplier', 'user'); // wrong old type
-	deleteUser(204, '127812@mail.com', 'user'); //delete user successfully
+	editUser(200, '127812@mail.com', 'customer', 'supplier'); // change user type
+	editUser(404, '234019@mail.com', 'clerk', 'supplier'); // wrong user name or user doesn't exist
+	editUser(404, '127812@mail.com', 'supplier', 'customer'); // wrong old type
+	deleteUser(204, '127812@mail.com', 'supplier'); //delete user successfully
 	deleteUser(422, '987654321@mail.com', 'manager'); //attempt to delete a manager account
-	deleteUser(422, '127812@mail.com', 'supplier'); //account type not correct
-	deleteUser(422, '127512@mail.com', 'user'); //usename not correct
+	deleteUser(204, '127812@mail.com', 'supplier'); //account type not correct but valid as format
+	deleteUser(204, '127512@mail.com', 'clerk'); //usename not correct but valid as format
 });
 
 function GetSuppliers(expectedHTTPStatus, expected) {
@@ -86,7 +86,7 @@ function GetSuppliers(expectedHTTPStatus, expected) {
 				expect(res.body).to.deep.equalInAnyOrder(expected);
 				done();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => done(err));
 	});
 }
 
@@ -106,7 +106,7 @@ function addUser(expectedHTTPStatus, username, name, surname, password, type) {
 				res.should.have.status(expectedHTTPStatus);
 				done();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => done(err));
 	});
 }
 
@@ -119,7 +119,7 @@ function getUsers(expectedHTTPStatus, expected) {
 				expect(res.body).to.deep.equalInAnyOrder(expected);
 				done();
 			})
-			.catch((e) => console.log(e));
+			.catch((err) => done(err));
 	});
 }
 
@@ -136,7 +136,7 @@ function editUser(expectedHTTPStatus, username, oldType, newType) {
 				res.should.have.status(expectedHTTPStatus);
 				done();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => done(err));
 	});
 }
 
@@ -148,6 +148,6 @@ function deleteUser(expectedHTTPStatus, username, type) {
 				res.should.have.status(expectedHTTPStatus);
 				done();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => done(err));
 	});
 }

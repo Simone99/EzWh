@@ -100,8 +100,8 @@ router.delete('/users/:username/:type', async (req, res) => {
 	if (
 		!req.params.hasOwnProperty('type') ||
 		!req.params.hasOwnProperty('username') ||
-		req.params.type == 'manager' ||
-		req.params.type == 'administrator'
+		req.params.type === 'manager' ||
+		req.params.type === 'administrator'
 	) {
 		return res.status(422).end();
 	}

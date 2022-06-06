@@ -378,9 +378,9 @@ class DAO {
 		);
 		if (storedUser === undefined) {
 			await this.UserDAO.insertUser(user);
-		}/* else {
+		} else {
 			return 409;
-		}*/
+		}
 	}
 
 	async getAllSuppliers() {
