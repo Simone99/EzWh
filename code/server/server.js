@@ -82,8 +82,8 @@ const db = new sqlite.Database('./EZWarehouseDB.db', (err) => {
 const queries = allFileContents.split(';');
 for (let query of queries) {
 	runQuery(query, db);
-}*/
-
+}
+*/
 app.listen(port, () => {
 	console.log(`Server listening at http://localhost:${port}`);
 });
