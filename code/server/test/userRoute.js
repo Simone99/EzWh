@@ -11,7 +11,7 @@ const app = require('../server');
 const { expect } = require('chai');
 var agent = chai.request.agent(app);
 
-describe.only('Test user APIs', function () {
+describe('Test user APIs', function () {
 	this.timeout(10000);
 	beforeEach(async () => {
 		const dao = await resetDB('./EZWarehouseDB.db');
