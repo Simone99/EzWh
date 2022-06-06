@@ -21,7 +21,7 @@ describe('Test SKU APIs', () => {
     });
 
     testPostSKU(422, "a new sku",1, 1, "first SKU", 50); //price is missing -> validation body fails
-    testPostSKU(201, "a new sku",1, 1, "first SKU", 10.99, 50);
+    testPostSKU(201, "a new sku",1, 1, "first SKU", 10, 50);
     testGetSKUs(200, [
         {
             "id":1,
@@ -47,9 +47,9 @@ describe('Test SKU APIs', () => {
         }    
     ]);
     
-    testPutSKU(422, 1, "a new sku", 1, 1, "first SKU", 10.99);
-    testPutSKU(404, 400, "a new sku", 1, 1, "first SKU", 10.99, 48);
-    testPutSKU(200, 1, "a new sku", 1, 1, "first SKU", 10.99, 44);
+    testPutSKU(422, 1, "a new sku", 1, 1, "first SKU", 10);
+    testPutSKU(422, 400, "a new sku", 1, 1, "first SKU", 10, 48);
+    testPutSKU(200, 1, "a new sku", 1, 1, "first SKU", 10, 44);
 
     testPutSKUPosition(201, 1, "800234543412");
 
@@ -138,13 +138,13 @@ describe('Testing UC 1.1', () => {
     before( async() => {
         const localDAO = await resetDB('./EZWarehouseDB.db');
     });
-    testPostSKU(201, "a new sku",1, 1, "first SKU", 10.99, 50)
+    testPostSKU(201, "a new sku",1, 1, "first SKU", 10, 50)
 })
 
 describe('Testing UC 1.2', () => {
     before( async() => {
         const localDAO = await resetDB('./EZWarehouseDB.db');
-        await localDAO.insertSKU(new SKU("a new sku", 1, 1, 10.99, "first SKU", null, null, 50));
+        await localDAO.insertSKU(new SKU("a new sku", 1, 1, 10, "first SKU", null, null, 50));
         await localDAO.addPosition("800234543413", "8002", "3454", "3413", 1000, 1000);
 
     });
@@ -158,7 +158,7 @@ describe('Testing UC 1.2', () => {
             "notes" : "first SKU",
             "position" : "800234543413",
             "availableQuantity" : 50,
-            "price" : 10.99
+            "price" : 10
         }    
     );
 
@@ -168,10 +168,10 @@ describe('Testing UC 1.2', () => {
 describe('Testing UC 1.3', () => {
     before( async() => {
         const localDAO = await resetDB('./EZWarehouseDB.db');
-        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10, "first SKU", null, null, 50));
 
     });
-    testPutSKU(200, 1, "a new sku", 1, 1, "first SKU", 10.99, 44);
+    testPutSKU(200, 1, "a new sku", 1, 1, "first SKU", 10, 44);
     testGetSKU(200, 1,
         {
             "description" : "a new sku",
@@ -180,7 +180,7 @@ describe('Testing UC 1.3', () => {
             "notes" : "first SKU",
             "position" : null,
             "availableQuantity" : 44,
-            "price" : 10.99
+            "price" : 10
         }    
     );
 
