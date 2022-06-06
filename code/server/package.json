@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "apiTest": "npx mocha --runInBand --spec test --reporter mochawesome --timeout 30000 --exit",
+    "apiTest": "npx mocha --runInBand --spec test/userRoute.js --reporter mochawesome --timeout 30000 --exit",
     "test": "jest --runInBand --coverage > ./unitTestResult.txt",
     "acceptanceTest": "npx mocha --runInBand --spec acceptanceTest/testEzWhAPI.js --reporter mochawesome --timeout 30000 --exit",
     "acceptanceTest_mod": "npx mocha --runInBand --spec acceptanceTest/crud/test-CRUD-RestockOrder.js --reporter mochawesome --timeout 30000 --exit",

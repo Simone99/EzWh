@@ -31,5 +31,3 @@ exports.resetDB = async (dbPath) => {
 
 	return new DAO(dbPath);
 };
-
-this.resetDB('../server/EZWarehouseDB.db');

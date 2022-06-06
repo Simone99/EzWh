@@ -19,6 +19,7 @@ router.get('/restockOrdersIssued', async (req, res) => {
         const restockordersissued = await new Warehouse().getAllRestockOrdersIssued();
         return res.status(200).json(restockordersissued);
     } catch (err) {
+        console.log(err);
         return res.status(500).end();
     }
 })
@@ -38,6 +39,7 @@ router.get('/restockOrders/:id', async (req, res) => {
         }
         return res.status(200).json(restockorderAvailable);
     } catch (err) {
+        console.log(err);
         return res.status(500).end();
     }
 })
@@ -56,6 +58,7 @@ router.get('/restockOrders/:id/returnItems', async (req, res) => {
         }
         return res.status(200).json(restockorderSKUItemsList);
     } catch (err) {
+        console.log(err);
         return res.status(500).end();
     }
 
@@ -129,6 +132,7 @@ router.put('/restockOrder/:id/transportNote', async (req, res) => {
 
         return res.status(200).end();
     } catch (err) {
+        console.log(err);
         return res.status(503).end();
     }
 })
@@ -141,6 +145,7 @@ router.delete('/restockOrder/:id', async (req, res) => {
         await new Warehouse().deleteRestockOrder(req.params.id);
         return res.status(204).end();
     }catch(err){
+        console.log(err);
         return res.status(503).end();
     }
 })
