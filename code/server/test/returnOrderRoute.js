@@ -17,18 +17,38 @@ var agent = chai.request.agent(app);
 describe('Test ReturnOrder APIs', () => {
     before(async() => {
         const localDAO = await resetDB('./EZWarehouseDB.db');
-        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10, "first SKU", null, null, 50));
         await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789016'));
         await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789038'));
-
+        await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
+        await localDAO.addItem(new Item("a new item", 10, 1, 1, 1));
+        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
+        
 
     });
-    testNewReturnOrder(404, "2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"RFID":"12345678901234567890123456789016"},
-                {"SKUId":1,"description":"another product","price":11.99,"RFID":"12345678901234567890123456789038"}], 1);
+    testNewReturnOrder(201, "2021/11/29 09:33", [{"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
+                {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}], 1);
 
-    testGetAllReturnOrders(200, []);
+    testGetAllReturnOrders(200, [
+        {
+            "id":1,
+            "returnDate":"2021/11/29 09:33",
+            "products": [{"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
+            {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"},
+            {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
+            {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}],
+            "restockOrderId" : 1
+        }
+    ]);
     
-    testGetReturnOrderByID(404, 1, {});
+    testGetReturnOrderByID(200, 1, {
+        "returnDate":"2021/11/29 09:33",
+        "products": [{"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
+        {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"},
+        {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
+        {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}],
+        "restockOrderId" : 1
+    });
 
     testDeleteReturnOrder(204, 1);
     
@@ -52,6 +72,7 @@ function testGetAllReturnOrders(expectedHTTPStatus, expected){
     it('Getting all return orders', done => {
         agent.get('/api/returnOrders').then(res => {
             res.should.have.status(expectedHTTPStatus);
+            console.log(res.body);
             expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });
@@ -81,15 +102,19 @@ function testDeleteReturnOrder(expectedHTTPStatus, ID){
 describe('Testing UC6', () => {
     before(async() => {
         const localDAO = await resetDB('./EZWarehouseDB.db');
-        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
-        await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789015'));
-        await localDAO.addUser(new User('Simone', 'Zanella', 'customer', 's295316@studenti.polito.it', 'testPassword'));
+        await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10, "first SKU", null, null, 50));
+        await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789016'));
+        await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789038'));
+        await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
+        await localDAO.addItem(new Item("a new item", 10, 1, 1, 1));
+        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
     });
-    testPutSKUItem(200, "12345678901234567890123456789015", "12345678901234567890123456789015", 1, "2021/11/29 12:30");
-    testNewReturnOrder(404, "2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"RFID":"12345678901234567890123456789015"}], 1);
-    testPutSKUItem(200, "12345678901234567890123456789015", "12345678901234567890123456789015", 0, "2021/11/29 12:30");
-    testSKUItemNotAvailable(200, "12345678901234567890123456789015", {
-        "RFID": "12345678901234567890123456789015",
+    testPutSKUItem(200, "12345678901234567890123456789016", "12345678901234567890123456789016", 1, "2021/11/29 12:30");
+    testNewReturnOrder(201, "2021/11/29 09:33", [{"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
+    {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}], 1);
+    testPutSKUItem(200, "12345678901234567890123456789016", "12345678901234567890123456789016", 0, "2021/11/29 12:30");
+    testSKUItemNotAvailable(200, "12345678901234567890123456789016", {
+        "RFID": "12345678901234567890123456789016",
         "Available": 0,
         "SKUId": 1,
         "DateOfStock": "2021/11/29 12:30"
