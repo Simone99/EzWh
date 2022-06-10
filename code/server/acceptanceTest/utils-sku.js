@@ -55,16 +55,20 @@ function testPostNewSku(agent, thesku, expCode) {
 
 function deleteAllSkus(agent) {
     describe('removing all skus', function() {
-        it('Getting SKUs', async function () {
-            const res = await agent.get('/api/skus');
-            res.should.have.status(200);
-            if (res.body.length !==0) {
-                for (let i = 0; i < res.body.length; i++) {
-                    const res2 = await agent.delete('/api/skus/'+res.body[i].id);
-                    res2.should.have.status(204);
-                }
-            }
-            console.log("done!");
+        it('Getting SKUs', function (done) {
+            agent.get('/api/skus')
+            .then(function (res) {
+                res.should.have.status(200);
+                if (res.body.length !==0) {
+                    for (let i = 0; i < res.body.length; i++) {
+                        agent.delete('/api/skus/'+res.body[i].id)
+                        .then(function (res2) {
+                            res2.should.have.status(204);
+                        });
+                    }
+                } 
+                done();
+            }).catch(err => done(err));
         });
     });
 }
@@ -73,7 +77,7 @@ function testGetAllSkus(agent, sku, size, expCode) {
     describe('get /api/skus', function() {
         it('FR 2.3 -> List all SKUs', function (done) {
             agent.get('/api/skus')
-            .then(function (res) {                
+            .then(function (res) {
                 res.should.have.status(expCode);
                 res.body.should.be.a('array');
                 res.body.length.should.be.eql(size);

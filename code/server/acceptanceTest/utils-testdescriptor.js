@@ -30,16 +30,20 @@ function newTestDescriptorEdit(newName, newProcedureDescription, newIdSKU){
 
 function deleteAllTestDescriptors(agent){
     describe('removing all test descriptors', function(){
-        it('Getting test descriptors', async function(){
-            const res = await agent.get('/api/testDescriptors');
-            res.should.have.status(200);
-            if(res.body.length !==0){
-                for (let i=0; i<res.body.length; i++){
-                    const res2 = await agent.delete('/api/testDescriptor/'+res.body[i].id);
-                    res2.should.have.status(204);
+        it('Getting test descriptors', function(done){
+            agent.get('/api/testDescriptors')
+            .then(function(res){
+                res.should.have.status(200);
+                if(res.body.length !==0){
+                    for (let i=0; i<res.body.length; i++){
+                        agent.delete('/api/testDescriptor/'+res.body[i].id)
+                        .then(function(res2){
+                            res2.should.have.status(204);
+                        });
+                    }
                 }
-            }
-            console.log('done!');
+                done();
+            }).catch(err=>done(err));
         });
     });
 }
