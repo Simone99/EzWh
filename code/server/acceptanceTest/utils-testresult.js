@@ -179,20 +179,16 @@ function testDeleteTestResultByRFIDandID(agent, expCode, rfid){
 
 function testDeleteAllTestResultByRFID(agent, expCode, rfid){
     describe(' get /api/skuitems/:rfid/testResults', function(){
-        it('Delete all test results associated to a certain rfid', function(done){
-            agent.get('/api/skuitems/'+rfid+'/testResults')
-            .then(function(res){
-                res.should.have.status(expCode);
-                res.body.should.be.a('array');
-                console.log("delete all", res.body);
-                for(let i=0; i<res.body.length; i++){
-                    agent.delete('/api/skuitems/'+rfid+'/testResult/'+res.body[i].id)
-                    .then(function(res2){
-                        res2.should.have.status(204);
-                    });
-                }
-                done();
-            }).catch(err=>done(err));
+        it('Delete all test results associated to a certain rfid', async function(){
+            const res = await agent.get('/api/skuitems/'+rfid+'/testResults');
+            res.should.have.status(expCode);
+            res.body.should.be.a('array');
+            console.log("delete all", res.body);
+            for(let i=0; i<res.body.length; i++){
+                const res2 = await agent.delete('/api/skuitems/'+rfid+'/testResult/'+res.body[i].id);
+                res2.should.have.status(204);
+            }
+            console.log('done!');
         });
     });
 }

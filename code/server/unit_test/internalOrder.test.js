@@ -11,7 +11,7 @@ describe('get internal orders', () => {
         await DAO_test.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789015'));
         await DAO_test.addUser(new User('Simone', 'Zanella', 'customer', 's295316@studenti.polito.it', 'testPassword'));
         await DAO_test.addInternalOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"qty":3}], 1);
-        await DAO_test.addInternalOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"qty":51}], 1);
+        await DAO_test.addInternalOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a product","price":10.99,"qty":4}], 2);
 
     });
 
@@ -24,6 +24,13 @@ describe('get internal orders', () => {
                     "state": "ISSUED",
                     "products": [{"SKUId":1,"description":"a product","price":10.99,"qty":3}],
                     "customerId" : 1
+                },
+                {
+                    "id":2,
+                    "issueDate":"2021/11/29 09:33",
+                    "state": "ISSUED",
+                    "products": [{"SKUId":1,"description":"a product","price":10.99,"qty":4}],
+                    "customerId" : 2
                 }
             ]
         );
@@ -38,6 +45,13 @@ describe('get internal orders', () => {
                     "state": "ISSUED",
                     "products": [{"SKUId":1,"description":"a product","price":10.99,"qty":3}],
                     "customerId" : 1
+                },
+                {
+                    "id":2,
+                    "issueDate":"2021/11/29 09:33",
+                    "state": "ISSUED",
+                    "products": [{"SKUId":1,"description":"a product","price":10.99,"qty":4}],
+                    "customerId" : 2
                 }
             ]
         );

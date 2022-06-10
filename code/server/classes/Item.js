@@ -7,6 +7,10 @@ class Item {
 		this.SKUId = SKUId;
 	}
 
+	getItemId() {
+		return this.id;
+	}
+
 	getDescription() {
 		return this.description;
 	}

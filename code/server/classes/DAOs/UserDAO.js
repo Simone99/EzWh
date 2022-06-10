@@ -114,9 +114,7 @@ class UserDAO {
 	editUser(username, oldType, newType) {
 		return new Promise((resolve, reject) => {
 			const sql =
-				'UPDATE USER_TABLE SET ' +
-				'TYPE = ? ' +
-				'WHERE USERNAME = ? AND TYPE = ?';
+				'UPDATE USER_TABLE SET TYPE = ? WHERE USERNAME = ? AND TYPE = ?';
 			this.db.run(sql, [newType, username, oldType], (err) => {
 				if (err) {
 					reject(err);

@@ -8,6 +8,7 @@ chai.use(deepEqualInAnyOrder);
 chai.should();
 
 const app = require('../server');
+const SKU = require('../classes/SKU');
 const { expect } = chai;
 var agent = chai.request.agent(app);
 
@@ -15,11 +16,13 @@ describe('Test item APIs', function () {
 	this.timeout(10000);
 	this.beforeEach(async () => {
 		const dao = await resetDB('./EZWarehouseDB.db');
-		await dao.addItem(new Item('a new item', 10.99, 2, 1));
-		await dao.addItem(new Item('another item', 12.99, 1, 2));
+		await dao.insertSKU(new SKU('sku 1', 10, 10, 100, null, null, 1, 20));
+		await dao.insertSKU(new SKU('sku 2', 10, 10, 100, null, null, 2, 20));
+		await dao.addItem(new Item('a new item', 10.99, 2, 1, 1));
+		await dao.addItem(new Item('another item', 12.99, 1, 2, 2));
 	});
 
-	addItem(201, 'Item1', 100, 1, 1); //add item successfully
+	addItem(201, 3, 'Item1', 100, 2, 2); //add item successfully
 	getItems(200, [
 		{
 			id: 1,
@@ -48,9 +51,17 @@ describe('Test item APIs', function () {
 	deleteItemById(204, 1);
 });
 
-function addItem(expectedHTTPStatus, description, price, supplierId, SKUId) {
+function addItem(
+	expectedHTTPStatus,
+	id,
+	description,
+	price,
+	supplierId,
+	SKUId
+) {
 	it('add item : POST /api/item', (done) => {
 		const reqBody = {
+			id: id,
 			description: description,
 			price: price,
 			supplierId: supplierId,
@@ -63,7 +74,7 @@ function addItem(expectedHTTPStatus, description, price, supplierId, SKUId) {
 				res.should.have.status(expectedHTTPStatus);
 				done();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => done(err));
 	});
 }
 
@@ -76,7 +87,7 @@ function getItems(expectedHTTPStatus, expected) {
 				expect(res.body).to.deep.equalInAnyOrder(expected);
 				done();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => done(err));
 	});
 }
 
@@ -89,7 +100,7 @@ function getItembyId(expectedHTTPStatus, id, expected) {
 				expect(res.body).to.deep.equalInAnyOrder(expected);
 				done();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => done(err));
 	});
 }
 
@@ -105,18 +116,18 @@ function editItem(expectedHTTPStatus, id, newDescription, newPrice) {
 				res.should.have.status(200);
 				done();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => done(err));
 	});
 }
 
 function deleteItemById(expectedHTTPStatus, id) {
 	it('deleteItemById : DELETE /api/items/:id', (done) => {
 		agent
-			.delete(`/api/item/${id}`)
+			.delete(`/api/items/${id}`)
 			.then((res) => {
 				res.should.have.status(expectedHTTPStatus);
 				done();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => done(err));
 	});
 }

@@ -32,11 +32,11 @@ router.get('/users', async (req, res) => {
 
 router.post('/newUser', async (req, res) => {
 	if (
-		!req.body.hasOwnProperty('name') ||
-		!req.body.hasOwnProperty('surname') ||
-		!req.body.hasOwnProperty('type') ||
-		!req.body.hasOwnProperty('username') ||
-		!req.body.hasOwnProperty('password') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'name') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'surname') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'type') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'username') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'password') ||
 		req.body.password.length < 8 ||
 		req.body.type == 'manager' ||
 		req.body.type == 'administrator'
@@ -73,8 +73,8 @@ router.get('/suppliers', async (req, res) => {
 
 router.put('/users/:username', async (req, res) => {
 	if (
-		!req.body.hasOwnProperty('oldType') ||
-		!req.body.hasOwnProperty('newType') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'oldType') ||
+		!Object.prototype.hasOwnProperty.call(req.body, 'newType') ||
 		!req.params.hasOwnProperty('username') ||
 		req.body.newType == 'manager' ||
 		req.body.newType == 'administrator'
@@ -100,9 +100,30 @@ router.delete('/users/:username/:type', async (req, res) => {
 	if (
 		!req.params.hasOwnProperty('type') ||
 		!req.params.hasOwnProperty('username') ||
-		req.params.type == 'manager' ||
-		req.params.type == 'administrator'
+		req.params.type === 'manager' ||
+		req.params.type === 'administrator'
 	) {
+		return res.status(422).end();
+	}
+	const validTypes = [
+		'customer',
+		'qualityEmployee',
+		'clerk',
+		'deliveryEmployee',
+		'supplier',
+	];
+	//check for a avalid type
+	let validType = validTypes.includes(req.params.type);
+	if (!validType) {
+		return res.status(422).end();
+	}
+	//check for a valid username
+	const regex =
+		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	const validateEmail = (email) => {
+		return String(email).toLowerCase().match(regex);
+	};
+	if (!validateEmail(req.params.username)) {
 		return res.status(422).end();
 	}
 	let account = await new Warehouse().getUser(
@@ -110,7 +131,7 @@ router.delete('/users/:username/:type', async (req, res) => {
 		req.params.type
 	);
 	if (account === undefined) {
-		return res.status(422).end();
+		return res.status(204).end();
 	}
 	try {
 		await new Warehouse().deleteUser(req.params.username, req.params.type);

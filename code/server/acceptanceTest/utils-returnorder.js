@@ -28,20 +28,16 @@ function newProductwithRFID(product, rfid){
 
 function deleteAllReturnOrders(agent){
     describe('Removing all return orders', function(){
-        it('Getting and removing', function(done){
-            agent.get('/api/returnOrders')
-            .then(function(res){
-                res.should.have.status(200);
-                if(res.body.length !==0){
-                    for( let i=0; i< res.body.length; i++){
-                        agent.delete('/api/returnOrder/'+res.body[i].id)
-                        .then(function(res2){
-                            res2.should.have.status(204);
-                        });
-                    }
+        it('Getting and removing', async function(){
+            const res = await agent.get('/api/returnOrders');
+            res.should.have.status(200);
+            if(res.body.length !==0){
+                for( let i=0; i< res.body.length; i++){
+                    const res2 = await agent.delete('/api/returnOrder/'+res.body[i].id);
+                    res2.should.have.status(204);
                 }
-                done();
-            }).catch(err=>done(err));
+            }
+            console.log('done!');
         });
     });
 }
