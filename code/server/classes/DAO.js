@@ -194,7 +194,7 @@ class DAO {
 					delete ro.transportNote;
 				}
 				if (currentState !== 'DELIVERY' && currentState !== 'ISSUED') {
-					const skuItems = await this.SKUItemDAO.getSKUItemByRestockOrder(
+					const skuItems = await this.RestockOrderDAO.getRestockOrderItems(
 						ro.getID()
 					);
 					ro.addSKUItems(skuItems);
@@ -211,11 +211,11 @@ class DAO {
 	async getAllRestockOrdersIssued() {
 		const restockOrderList =
 			await this.RestockOrderDAO.getAllRestockOrdersIssued();
+
 		if (restockOrderList.length > 0) {
 			for (let ro of restockOrderList) {
-				const products = await this.RestockOrderDAO.getRestockOrderProducts(
-					ro.getID()
-				);
+
+				const products = await this.RestockOrderDAO.getRestockOrderProducts(ro.getID());
 				ro.addProducts(products);
 				delete ro.transportNote;
 			}
@@ -238,7 +238,7 @@ class DAO {
 			delete ro.transportNote;
 		}
 		if (currentState !== 'DELIVERY' && currentState !== 'ISSUED') {
-			const skuItems = await this.SKUItemDAO.getSKUItemByRestockOrder(
+			const skuItems = await this.RestockOrderDAO.getRestockOrderItems(
 				ro.getID()
 			);
 			ro.addSKUItems(skuItems);
@@ -259,7 +259,7 @@ class DAO {
 		if (restockOrder.getState() !== 'COMPLETEDRETURN') {
 			return 422;
 		}
-		const skuItemList = restockOrder.getAllSKUItems();
+		const skuItemList = await this.RestockOrderDAO.getRestockOrderItems(ResOrderID);
 		const returnValue = [];
 		if (skuItemList.length > 0) {
 			for (let skuItem of skuItemList) {
@@ -275,13 +275,6 @@ class DAO {
 	}
 
 	async addRestockOrder(issueDate, products, supplierId) {
-		if (
-			issueDate === undefined ||
-			products === undefined ||
-			supplierId === undefined
-		) {
-			return;
-		}
 		const ID = await this.RestockOrderDAO.addRestockOrder(
 			issueDate,
 			'ISSUED',
@@ -289,31 +282,19 @@ class DAO {
 		);
 		if (products.length > 0) {
 			for (let prod of products) {
-				const itemID = await this.ItemDAO.getItemIDByProperties(
-					prod.description,
-					prod.price,
-					supplierId,
-					prod.SKUId
-				);
-				if (itemID !== undefined) {
-					const restockOrderItemID =
-						await this.RestockOrderDAO.addRestockOrderItem(itemID, prod.qty);
-					if (restockOrderItemID !== undefined) {
-						await this.RestockOrderDAO.addRestockOrderItemToList(
-							ID,
-							restockOrderItemID
-						);
-					}
+				const item = await this.ItemDAO.getItemById(prod.itemId);
+				if (item.getSupplierId() === supplierId && item.getSKUId() === prod.SKUId) {
+					await this.RestockOrderDAO.addRestockOrderItem(ID, prod);
+				}
+				else {
+					return 422;
 				}
 			}
 		}
 	}
 
 	async editRestockOrderState(ResOrderID, newState) {
-		return await this.RestockOrderDAO.editRestockOrderState(
-			ResOrderID,
-			newState
-		);
+		return await this.RestockOrderDAO.editRestockOrderState(ResOrderID,newState);
 	}
 
 	async editRestockOrderSkuItems(restockOrderID, SKUItemsList) {
@@ -329,7 +310,9 @@ class DAO {
 		for (let skuItem of SKUItemsList) {
 			await this.RestockOrderDAO.editRestockOrderSkuItems(
 				restockOrderID,
-				skuItem.rfid
+				skuItem.rfid,
+				skuItem.itemId,
+				skuItem.SKUId
 			);
 		}
 	}
@@ -361,7 +344,9 @@ class DAO {
 		if (ResOrderID < 0) {
 			return 422;
 		}
-		return await this.RestockOrderDAO.deleteRestockOrder(ResOrderID);
+		await this.RestockOrderDAO.deleteRestockOrder(ResOrderID);
+		await this.RestockOrderDAO.deleteRestockOrderItems(ResOrderID);
+		return;
 	}
 	async getAllUsers() {
 		return await this.UserDAO.getAllUsers();

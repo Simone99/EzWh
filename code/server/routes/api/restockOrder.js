@@ -72,7 +72,10 @@ router.post('/restockOrder', async (req, res) => {
         return res.status(422).end();
     }
     try {
-        await new Warehouse().addRestockOrder(req.body.issueDate, req.body.products, req.body.supplierId);
+        const tmp = await new Warehouse().addRestockOrder(req.body.issueDate, req.body.products, req.body.supplierId);
+        if (tmp === 422) {
+            return res.status(422).end();
+        }
         return res.status(201).end();
     } catch (err) {
         console.log(err);
@@ -129,7 +132,6 @@ router.put('/restockOrder/:id/transportNote', async (req, res) => {
         } else if (tmp === 404) {
             return res.status(404).end();
         }
-
         return res.status(200).end();
     } catch (err) {
         console.log(err);
