@@ -19,11 +19,11 @@ class ItemDAO {
 					item.getSupplierId(),
 					item.getSKUId(),
 				],
-				(err) => {
+				function (err) {
 					if (err) {
 						reject(err);
 					} else {
-						resolve(201);
+						resolve(this.lastID);
 					}
 				}
 			);

@@ -283,7 +283,7 @@ class DAO {
 		if (products.length > 0) {
 			for (let prod of products) {
 				const item = await this.ItemDAO.getItemById(prod.itemId);
-				if (item.getSupplierId() === supplierId && item.getSKUId() === prod.SKUId) {
+				if (item && item.getSupplierId() === supplierId && item.getSKUId() === prod.SKUId) {
 					await this.RestockOrderDAO.addRestockOrderItem(ID, prod);
 				}
 				else {
@@ -565,7 +565,8 @@ class DAO {
 		if (storedItem === undefined) {
 			const sku = await this.SKUDAO.getSKUByID(item.getSKUId());
 			if (sku !== undefined) {
-				return await this.ItemDAO.addItem(item);
+				const tmp = await this.ItemDAO.addItem(item);
+				return tmp;
 			}
 			return 404;
 		}

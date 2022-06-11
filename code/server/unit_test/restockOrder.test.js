@@ -12,7 +12,7 @@ describe("get restock orders", () => {
         await DAO_test.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
         await DAO_test.addItem(new Item("a new item", 10.99, 1, 1, 12));
         await DAO_test.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", "12345678901234567890123456789015"));
-        await DAO_test.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
+        await DAO_test.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"itemId":12,"description":"a new item","price":10.99,"qty":30}], 1);
     });
     test('get restock order', async () => {
         let res = await DAO_test.getAllRestockOrders();
@@ -21,7 +21,7 @@ describe("get restock orders", () => {
                     "id":1,
                     "issueDate":"2021/11/29 09:33",
                     "state": "ISSUED",
-                    "products": [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}],
+                    "products": [{"SKUId":1,"itemId":12,"description":"a new item","price":10.99,"qty":30}],
                     "supplierId" : 1,
                     "skuItems" : []
                 }
@@ -35,7 +35,7 @@ describe("get restock orders", () => {
                 "id":1,
                 "issueDate":"2021/11/29 09:33",
                 "state": "ISSUED",
-                "products": [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}],
+                "products": [{"SKUId":1,"itemId":12,"description":"a new item","price":10.99,"qty":30}],
                 "supplierId" : 1,
                 "skuItems" : []
             }
@@ -50,15 +50,15 @@ describe("get restock orders", () => {
         await DAO_test.editRestockOrderState(1, "DELIVERY");
         await DAO_test.editRestockOrderTransportNote(1, {deliveryDate : "2021/12/29"});
         await DAO_test.editRestockOrderState(1, "DELIVERED");
-        await DAO_test.editRestockOrderSkuItems(1, [{rfid : '12345678901234567890123456789015', SKUId : 1}]);
+        await DAO_test.editRestockOrderSkuItems(1, [{rfid : '12345678901234567890123456789015', SKUId : 1,"itemId":12}]);
         const res = await DAO_test.getRestockOrderByID(1);
         expect(res).toEqual({
             "id":1,
             "issueDate":"2021/11/29 09:33",
             "state": "DELIVERED",
-            "products": [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}],
+            "products": [{"SKUId":1,"itemId":12,"description":"a new item","price":10.99,"qty":30}],
             "supplierId" : 1,
-            "skuItems" : [{rfid : '12345678901234567890123456789015', SKUId : 1}],
+            "skuItems" : [{rfid : '12345678901234567890123456789015', SKUId : 1,"itemId":12}],
             "transportNote" : {"deliveryDate":"2021/12/29"}
         });
     });
@@ -68,19 +68,14 @@ describe("get restock orders", () => {
         await DAO_test.editRestockOrderState(1, "DELIVERED");
         await DAO_test.addTestDescriptor("test descriptor 3", "This test is described by...", 1);
         await DAO_test.addTestResult("12345678901234567890123456789015", 1, "2021/11/28", false);
-        await DAO_test.editRestockOrderSkuItems(1, [{rfid : '12345678901234567890123456789015', SKUId : 1}]);
+        await DAO_test.editRestockOrderSkuItems(1, [{rfid : '12345678901234567890123456789015', SKUId : 1,"itemId":12}]);
         await DAO_test.editRestockOrderState(1, "COMPLETEDRETURN");    
         const res = await DAO_test.getSKUItemsWithNegTest(1);
-        expect(res).toEqual([{"SKUId": 1, "rfid": "12345678901234567890123456789015"}]);
+        expect(res).toEqual([{"SKUId": 1, "rfid": "12345678901234567890123456789015","itemId":12}]);
     });
     test('delete restock order', async() => {
         await DAO_test.deleteRestockOrder(1);
         const res = await DAO_test.getRestockOrderByID(1);
-        expect(res).toEqual(404);
-    });
-    test('add restock order', async() => {
-        await DAO_test.addRestockOrder("2021/11/29 09:33", undefined, 1);
-        const res = await DAO_test.getRestockOrderByID(2);
         expect(res).toEqual(404);
     });
 });

@@ -25,7 +25,7 @@ describe('Tests on ItemDAO.js', () => {
 	test('add item', async () => {
 		let item = new Item('Item description', 100, 1, 1);
 		let res = await DAO_test.addItem(item);
-		expect(res).toEqual(201);
+		expect(res).toEqual(2);
 	});
 
 	test('add duplicate item', async () => {
