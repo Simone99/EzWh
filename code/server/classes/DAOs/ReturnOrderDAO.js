@@ -23,7 +23,7 @@ class ReturnOrderDAO{
     
     getReturnOrderProducts(id){
         return new Promise((resolve, reject) => {
-            const sql = "SELECT SKU_TABLE.ID, SKU_TABLE.DESCRIPTION, SKU_TABLE.PRICE, SKUITEM_TABLE.RFID "
+            const sql = "SELECT SKU_TABLE.ID, SKU_TABLE.DESCRIPTION, SKU_TABLE.PRICE, SKUITEM_TABLE.RFID, SKUITEMSRETURNORDER_LIST.ITEM_ID "
                         +
                         "FROM SKU_TABLE, SKUITEMSRETURNORDER_LIST, RETURNORDER_TABLE, SKUITEM_TABLE "
                         +
@@ -31,13 +31,15 @@ class ReturnOrderDAO{
                         +
                         "AND SKUITEM_TABLE.SKUID = SKU_TABLE.ID "
                         +
+                        "AND SKUITEMSRETURNORDER_LIST.ID_SKUITEM = SKUITEM_TABLE.RFID "
+                        +
                         "AND RETURNORDER_TABLE.ID = ?";
             this.db.all(sql, [id], (err, rows) => {
                 if(err){
                     reject(err);
                 } else {
                     const items = rows.map(row => {
-                        return {SKUId : row.ID, description : row.DESCRIPTION, price : row.PRICE, RFID : row.RFID};
+                        return {SKUId : row.ID, itemId : row.ITEM_ID, description : row.DESCRIPTION, price : row.PRICE, RFID : row.RFID};
                     });
                     resolve(items);
                 }
@@ -62,10 +64,10 @@ class ReturnOrderDAO{
         });
     }
 
-    addProductxReturnOrder(insertedID, RFID) {
+    addProductxReturnOrder(insertedID, RFID, itemID) {
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO SKUITEMSRETURNORDER_LIST(ID_RETURNORDER, ID_SKUITEM) VALUES (?,?)";
-            this.db.run(sql, [insertedID, RFID], function(err) {
+            const sql = "INSERT INTO SKUITEMSRETURNORDER_LIST(ID_RETURNORDER, ID_SKUITEM, ITEM_ID) VALUES (?,?,?)";
+            this.db.run(sql, [insertedID, RFID, itemID], function(err) {
                 if(err){
                     reject(err);
                 }else{

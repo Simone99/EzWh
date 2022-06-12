@@ -457,7 +457,8 @@ class DAO {
 		for (let product of products) {
 			await this.ReturnOrderDAO.addProductxReturnOrder(
 				idReturned,
-				product.RFID
+				product.RFID,
+				product.itemId
 			);
 		}
 	}

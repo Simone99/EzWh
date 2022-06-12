@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "apiTest": "npx mocha --runInBand --spec test --reporter mochawesome --timeout 5000 --exit",
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --coverage",
     "acceptanceTest": "npx mocha --runInBand --spec acceptanceTest/testEzWhAPI.js --reporter mochawesome --timeout 30000 --exit",
     "acceptanceTest_mod": "npx mocha --runInBand --spec acceptanceTest/crud/test-CRUD-RestockOrder.js --reporter mochawesome --timeout 30000 --exit",
     "totalcoverage": "./node_modules/.bin/nyc ./node_modules/.bin/mocha test --runInBand --timeout 10000 --exit"
