@@ -282,7 +282,7 @@ class DAO {
 		);
 		if (products.length > 0) {
 			for (let prod of products) {
-				const item = await this.ItemDAO.getItemById(prod.itemId);
+				const item = await this.ItemDAO.getItemById(prod.itemId, supplierId);
 				if (item && item.getSupplierId() === supplierId && item.getSKUId() === prod.SKUId) {
 					await this.RestockOrderDAO.addRestockOrderItem(ID, prod);
 				}
@@ -549,8 +549,8 @@ class DAO {
 		return await this.ItemDAO.getAllItems();
 	}
 
-	async getItemById(id) {
-		return await this.ItemDAO.getItemById(id);
+	async getItemById(id, supplierId) {
+		return await this.ItemDAO.getItemById(id, supplierId);
 	}
 
 	async addItem(item) {
@@ -575,16 +575,16 @@ class DAO {
 		return storedItem;
 	}
 
-	async editItem(id, newDescription, newPrice) {
-		const storedItem = await this.ItemDAO.getItemById(id);
+	async editItem(id, supplierId, newDescription, newPrice) {
+		const storedItem = await this.ItemDAO.getItemById(id, supplierId);
 		if (storedItem === undefined) {
 			return 404;
 		}
-		return await this.ItemDAO.editItem(id, newDescription, newPrice);
+		return await this.ItemDAO.editItem(id, supplierId, newDescription, newPrice);
 	}
 
-	async deleteItem(id) {
-		return await this.ItemDAO.deleteItem(id);
+	async deleteItem(id, supplierId) {
+		return await this.ItemDAO.deleteItem(id, supplierId);
 	}
 
 	async getInternalOrdersList() {

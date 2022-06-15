@@ -1,5 +1,6 @@
 const { resetDB } = require('../test_modules/init_test_module');
 const Item = require('../classes/Item');
+const User = require('../classes/User');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const deepEqualInAnyOrder = require('deep-equal-in-any-order');
@@ -18,6 +19,15 @@ describe('Test item APIs', function () {
 		const dao = await resetDB('./EZWarehouseDB.db');
 		await dao.insertSKU(new SKU('sku 1', 10, 10, 100, null, null, 1, 20));
 		await dao.insertSKU(new SKU('sku 2', 10, 10, 100, null, null, 2, 20));
+		await dao.addUser(
+			new User(
+				'Simone',
+				'Zanella',
+				'supplier',
+				's295316@studenti.polito.it',
+				'TestPassword'
+			)
+		);
 		await dao.addItem(new Item('a new item', 10.99, 2, 1, 1));
 		await dao.addItem(new Item('another item', 12.99, 1, 2, 2));
 	});
@@ -39,16 +49,16 @@ describe('Test item APIs', function () {
 			supplierId: 1,
 		},
 	]);
-	getItembyId(200, 1, {
+	getItembyId(200, 1, 2, {
 		id: 1,
 		description: 'a new item',
 		price: 10.99,
 		SKUId: 1,
 		supplierId: 2,
 	});
-	getItembyId(404, 4, {}); //worng item id
-	editItem(200, '1', 'modified item', 15.99);
-	deleteItemById(204, 1);
+	getItembyId(404, 4, 1, {}); //worng item id
+	editItem(200, 1, 2, 'modified item', 15.99);
+	deleteItemById(204, 1, 1);
 });
 
 function addItem(
@@ -91,10 +101,10 @@ function getItems(expectedHTTPStatus, expected) {
 	});
 }
 
-function getItembyId(expectedHTTPStatus, id, expected) {
+function getItembyId(expectedHTTPStatus, id, supplierId, expected) {
 	it('getItembyId : GET /api/items/:id', (done) => {
 		agent
-			.get(`/api/items/${id}`)
+			.get(`/api/items/${id}/${supplierId}`)
 			.then((res) => {
 				res.should.have.status(expectedHTTPStatus);
 				expect(res.body).to.deep.equalInAnyOrder(expected);
@@ -104,10 +114,10 @@ function getItembyId(expectedHTTPStatus, id, expected) {
 	});
 }
 
-function editItem(expectedHTTPStatus, id, newDescription, newPrice) {
+function editItem(expectedHTTPStatus, id, supplierId, newDescription, newPrice) {
 	it('editItem : PUT /api/item/:id', (done) => {
 		agent
-			.put(`/api/item/${id}`)
+			.put(`/api/item/${id}/${supplierId}`)
 			.send({
 				newDescription: newDescription,
 				newPrice: newPrice,
@@ -120,10 +130,10 @@ function editItem(expectedHTTPStatus, id, newDescription, newPrice) {
 	});
 }
 
-function deleteItemById(expectedHTTPStatus, id) {
+function deleteItemById(expectedHTTPStatus, id, supplierId) {
 	it('deleteItemById : DELETE /api/items/:id', (done) => {
 		agent
-			.delete(`/api/items/${id}`)
+			.delete(`/api/items/${id}/${supplierId}`)
 			.then((res) => {
 				res.should.have.status(expectedHTTPStatus);
 				done();

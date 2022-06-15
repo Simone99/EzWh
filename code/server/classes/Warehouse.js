@@ -173,20 +173,20 @@ class Warehouse {
 		return await this.DAO.getAllItems();
 	}
 
-	async getItemById(id) {
-		return await this.DAO.getItemById(id);
+	async getItemById(id, supplierId) {
+		return await this.DAO.getItemById(id, supplierId);
 	}
 
 	async addItem(item) {
 		return await this.DAO.addItem(item);
 	}
 
-	async editItem(id, newDescription, newPrice) {
-		return await this.DAO.editItem(id, newDescription, newPrice);
+	async editItem(id, supplierId, newDescription, newPrice) {
+		return await this.DAO.editItem(id, supplierId, newDescription, newPrice);
 	}
 
-	async deleteItem(id) {
-		await this.DAO.deleteItem(id);
+	async deleteItem(id, supplierId) {
+		await this.DAO.deleteItem(id, supplierId);
 	}
 
 	async addRestockOrder(issueDate, products, supplierId) {

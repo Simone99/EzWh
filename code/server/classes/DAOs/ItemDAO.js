@@ -30,10 +30,10 @@ class ItemDAO {
 		});
 	}
 
-	getItemById(id) {
+	getItemById(id, supplierId) {
 		return new Promise((resolve, reject) => {
-			const sql = 'SELECT * FROM ITEM_TABLE WHERE ID = ?';
-			this.db.get(sql, [id], (err, row) => {
+			const sql = 'SELECT * FROM ITEM_TABLE WHERE ID = ? AND USERID = ?';
+			this.db.get(sql, [id, supplierId], (err, row) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -121,11 +121,11 @@ class ItemDAO {
 		});
 	}
 
-	editItem(id, newDescription, newPrice) {
+	editItem(id, supplierId, newDescription, newPrice) {
 		return new Promise((resolve, reject) => {
 			const sql =
-				'UPDATE ITEM_TABLE SET DESCRIPTION = ?, PRICE = ? WHERE ID = ?';
-			this.db.run(sql, [newDescription, newPrice, id], (err) => {
+				'UPDATE ITEM_TABLE SET DESCRIPTION = ?, PRICE = ? WHERE ID = ? AND USERID = ?';
+			this.db.run(sql, [newDescription, newPrice, id, supplierId], (err) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -135,10 +135,10 @@ class ItemDAO {
 		});
 	}
 
-	deleteItem(id) {
+	deleteItem(id, supplierId) {
 		return new Promise((resolve, reject) => {
-			const sql = 'DELETE FROM ITEM_TABLE WHERE ID = ?';
-			this.db.run(sql, [id], (err) => {
+			const sql = 'DELETE FROM ITEM_TABLE WHERE ID = ? AND USERID = ?';
+			this.db.run(sql, [id, supplierId], (err) => {
 				if (err) {
 					reject(err);
 				} else {

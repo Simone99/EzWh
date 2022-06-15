@@ -13,12 +13,13 @@ router.get('/items', async (req, res) => {
 	}
 });
 
-router.get('/items/:id', async (req, res) => {
-	if (isNaN(parseInt(req.params.id)) || !req.params.hasOwnProperty('id')) {
+router.get('/items/:id/:supplierId', async (req, res) => {
+	if (isNaN(parseInt(req.params.id)) ||
+		isNaN(parseInt(req.params.supplierId)) ) {
 		return res.status(422).end();
 	}
 	try {
-		const item = await new Warehouse().getItemById(req.params.id);
+		const item = await new Warehouse().getItemById(req.params.id, req.params.supplierId);
 		if (item === undefined) {
 			return res.status(404).end();
 		}
@@ -63,11 +64,12 @@ router.post('/item', async (req, res) => {
 	}
 });
 
-router.put('/item/:id', async (req, res) => {
+router.put('/item/:id/:supplierId', async (req, res) => {
 	if (
 		isNaN(parseInt(req.params.id)) ||
 		!Object.prototype.hasOwnProperty.call(req.body, 'newDescription') ||
 		!Object.prototype.hasOwnProperty.call(req.body, 'newPrice') ||
+		isNaN(parseInt(req.params.supplierId)) ||
 		req.body.newPrice < 0
 	) {
 		return res.status(422).end();
@@ -75,6 +77,7 @@ router.put('/item/:id', async (req, res) => {
 	try {
 		updatedItem = await new Warehouse().editItem(
 			req.params.id,
+			req.params.supplierId,
 			req.body.newDescription,
 			req.body.newPrice
 		);
@@ -87,12 +90,13 @@ router.put('/item/:id', async (req, res) => {
 	}
 });
 
-router.delete('/items/:id', async (req, res) => {
-	if (isNaN(parseInt(req.params.id))) {
+router.delete('/items/:id/:supplierId', async (req, res) => {
+	if (isNaN(parseInt(req.params.id)) ||
+		isNaN(parseInt(req.params.supplierId))) {
 		return res.status(422).end();
 	}
 	try {
-		new Warehouse().deleteItem(req.params.id);
+		new Warehouse().deleteItem(req.params.id, req.params.supplierId);
 		return res.status(204).end();
 	} catch (err) {
 		return res.status(503).end();
