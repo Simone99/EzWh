@@ -20,17 +20,17 @@ describe('Test RestockOrder APIs', () => {
         await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10, "first SKU", null, null, 50));
         await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789015'));
         await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
-        await localDAO.addItem(new Item("a new item", 10, 1, 1));
+        await localDAO.addItem(new Item("a new item", 10, 1, 1, 1));
         await localDAO.addTestDescriptor("test descriptor 3", "This test is described by...", 1);
         await localDAO.addTestResult("12345678901234567890123456789015", 1, "2021/11/28", false);
     });
-    testNewRestockOrder(201, "2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10,"qty":30}], 1);
+    testNewRestockOrder(201, "2021/11/29 09:33", [{"SKUId":1,"itemId":1,"description":"a new item","price":10,"qty":30}], 1);
     testGetAllRestockOrders(200,[
             {
                 "id":1,
                 "issueDate":"2021/11/29 09:33",
                 "state": "ISSUED",
-                "products": [{"SKUId":1,"description":"a new item","price":10,"qty":30}],
+                "products": [{"SKUId":1,"itemId":1,"description":"a new item","price":10,"qty":30}],
                 "supplierId" : 1,
                 "skuItems" : []
             }
@@ -42,7 +42,7 @@ describe('Test RestockOrder APIs', () => {
             "issueDate":"2021/11/29 09:33",
             "state": "ISSUED",
             "supplierId" : 1,
-            "products": [{"SKUId":1,"description":"a new item","price":10,"qty":30}],
+            "products": [{"SKUId":1,"itemId":1,"description":"a new item","price":10,"qty":30}],
             "skuItems" : []
         }
     ]);
@@ -51,7 +51,7 @@ describe('Test RestockOrder APIs', () => {
         "issueDate":"2021/11/29 09:33",
         "state": "ISSUED",
         "supplierId" : 1,
-        "products": [{"SKUId":1,"description":"a new item","price":10,"qty":30}],
+        "products": [{"SKUId":1,"itemId":1,"description":"a new item","price":10,"qty":30}],
         "skuItems" : []
     });
     testEditRestockOrderState(200, 1, "DELIVERY");
@@ -60,7 +60,7 @@ describe('Test RestockOrder APIs', () => {
         "issueDate":"2021/11/29 09:33",
         "state": "DELIVERY",
         "supplierId" : 1,
-        "products": [{"SKUId":1,"description":"a new item","price":10,"qty":30}],
+        "products": [{"SKUId":1,"itemId":1,"description":"a new item","price":10,"qty":30}],
         "skuItems" : []
     });
     testEditRestockOrderTransportNote(200, 1, {"transportNote":{"deliveryDate":"2021/12/29"}});
@@ -70,13 +70,13 @@ describe('Test RestockOrder APIs', () => {
         "issueDate":"2021/11/29 09:33",
         "state": "DELIVERED",
         "supplierId" : 1,
-        "products": [{"SKUId":1,"description":"a new item","price":10,"qty":30}],
+        "products": [{"SKUId":1,"itemId":1,"description":"a new item","price":10,"qty":30}],
         "transportNote": { "deliveryDate": '2021/12/29' },
         "skuItems" : []
     });
-    testEditRestockOrderSkuItems(200, 1, [{rfid : '12345678901234567890123456789015', SKUId : 1}]);
+    testEditRestockOrderSkuItems(200, 1, [{rfid : '12345678901234567890123456789015', SKUId : 1,"itemId":1}]);
     testEditRestockOrderState(200, 1, "COMPLETEDRETURN");
-    testReturnItems(200, 1, [{"SKUId":1,"rfid":"12345678901234567890123456789015"}]);
+    testReturnItems(200, 1, [{"SKUId":1,"rfid":"12345678901234567890123456789015","itemId":1}]);
     testDeleteRestockOrder(204, 1);
 });
 
@@ -86,12 +86,12 @@ describe('Testing UC5.1', () => {
         await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789015'));
         await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
-        await localDAO.addItem(new Item("a new item", 10.99, 1, 1, 12));
-        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
+        await localDAO.addItem(new Item("a new item", 10.99, 1, 1, 1));
+        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"itemId":1,"description":"a new item","price":10.99,"qty":30}], 1);
         await localDAO.editRestockOrderState(1, "DELIVERY");
     });
     testEditRestockOrderState(200, 1, "DELIVERED");
-    testEditRestockOrderSkuItems(200, 1, [{rfid : '12345678901234567890123456789015', SKUId : 1}]);
+    testEditRestockOrderSkuItems(200, 1, [{rfid : '12345678901234567890123456789015', SKUId : 1,"itemId":1}]);
 
 });
 
@@ -101,10 +101,10 @@ describe('Testing UC5.2', () => {
         await localDAO.insertSKU(new SKU("a new sku", 100, 50, 10.99, "first SKU", null, null, 50));
         await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789015'));
         await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
-        await localDAO.addItem(new Item("a new item", 10.99, 1, 1, 12));
-        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
+        await localDAO.addItem(new Item("a new item", 10.99, 1, 1, 1));
+        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"itemId":1,"description":"a new item","price":10.99,"qty":30}], 1);
         await localDAO.editRestockOrderState(1, "DELIVERED");
-        await localDAO.editRestockOrderSkuItems(1, [{rfid : '12345678901234567890123456789015', SKUId : 1}]);
+        await localDAO.editRestockOrderSkuItems(1, [{rfid : '12345678901234567890123456789015', SKUId : 1,"itemId":1}]);
         await localDAO.addTestDescriptor("test descriptor 3", "This test is described by...", 1);
     });
     testAddTestResult(201, '12345678901234567890123456789015', 1, "2021/11/28", false);

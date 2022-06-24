@@ -147,6 +147,6 @@ Report also for each of the scenarios the (one or more) API Mocha tests that cov
 | -           | FR3.2.2                         | edit test result : PUT /api/skuitems/:rfid/testResult/:id      |
 | -           | FR3.2.3                         | delete test result : DELETE /api/skuitems/:rfid/testResult/:id |
 | UC11.1      | FR7                             | add item : POST /api/item                                      |
-| -           | FR7                             | getItembyId : GET /api/items/:id                               |
-| UC11.2      | FR7                             | editItem : PUT /api/item/:id                                   |
-| -           | FR7                             | deleteItemById : DELETE /api/items/:id                         |
+| -           | FR7                             | getItembyId : GET /api/items/:id/:supplierId                               |
+| UC11.2      | FR7                             | editItem : PUT /api/item/:id/:supplierId                                   |
+| -           | FR7                             | deleteItemById : DELETE /api/items/:id/:supplierId                         |

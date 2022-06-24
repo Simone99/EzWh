@@ -22,31 +22,29 @@ describe('Test ReturnOrder APIs', () => {
         await localDAO.addSKUItem(new SKUItem(1, 1, "2021/11/29 12:30", '12345678901234567890123456789038'));
         await localDAO.addUser(new User('Simone', 'Zanella', 'supplier', 's295316@studenti.polito.it', 'testPassword'));
         await localDAO.addItem(new Item("a new item", 10, 1, 1, 1));
-        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"description":"a new item","price":10.99,"qty":30}], 1);
+        await localDAO.addRestockOrder("2021/11/29 09:33", [{"SKUId":1,"itemId":1,"description":"a new item","price":10.99,"qty":30}], 1);
         
 
     });
-    testNewReturnOrder(201, "2021/11/29 09:33", [{"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
-                {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}], 1);
+    testNewReturnOrder(201, "2021/11/29 09:33", [{"SKUId":1,"itemId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
+                {"SKUId":1,"itemId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}], 1);
 
     testGetAllReturnOrders(200, [
         {
             "id":1,
             "returnDate":"2021/11/29 09:33",
-            "products": [{"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
-            {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"},
-            {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
-            {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}],
+            "products": [{"SKUId":1,"itemId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
+            {"SKUId":1,"itemId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}
+            ],
             "restockOrderId" : 1
         }
     ]);
     
     testGetReturnOrderByID(200, 1, {
         "returnDate":"2021/11/29 09:33",
-        "products": [{"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
-        {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"},
-        {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
-        {"SKUId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}],
+        "products": [{"SKUId":1,"itemId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789016"},
+        {"SKUId":1,"itemId":1,"description":"a new sku","price":10,"RFID":"12345678901234567890123456789038"}
+        ],
         "restockOrderId" : 1
     });
 
@@ -72,7 +70,6 @@ function testGetAllReturnOrders(expectedHTTPStatus, expected){
     it('Getting all return orders', done => {
         agent.get('/api/returnOrders').then(res => {
             res.should.have.status(expectedHTTPStatus);
-            console.log(res.body);
             expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });
@@ -84,7 +81,6 @@ function testGetReturnOrderByID(expectedHTTPStatus, ID, expected){
     it('Getting return order by ID', done => {
         agent.get(`/api/returnOrders/${ID}`).then(res => {
             res.should.have.status(expectedHTTPStatus);
-            console.log(res.body);
             expect(res.body).to.deep.equalInAnyOrder(expected);
             done();
         });

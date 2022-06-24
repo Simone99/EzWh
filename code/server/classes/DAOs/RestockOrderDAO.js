@@ -105,6 +105,19 @@ class RestockOrderDAO {
             });
         });
     }
+    
+    deleteRestockOrderItems(ResOrderID) {
+        return new Promise((resolve, reject) => {
+            const sql = "DELETE FROM RESTOCKORDERITEM_TABLE WHERE ID_RESTOCKORDER = ?";
+            this.db.run(sql, [ResOrderID], err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve('OK');
+                }
+            });
+        });
+    }
 
     getTransportNoteByID(ID){
         return new Promise((resolve, reject) => {
@@ -125,9 +138,9 @@ class RestockOrderDAO {
 
     getRestockOrderProducts(ID){
         return new Promise((resolve, reject) => {
-            const sql = "SELECT IT.SKUID, IT.DESCRIPTION, IT.PRICE, ROIT.QUANTITY " +
-                        "FROM RESTOCKORDERITEM_TABLE AS ROIT, RESTOCKORDERITEMSRESTOCKORDER_LIST AS ROIROL, ITEM_TABLE AS IT " +
-                        "WHERE IT.ID = ROIT.ID_ITEM AND ROIROL.ID_RESTOCKORDERITEM = ROIT.ID AND ROIROL.ID_RESTOCKORDER = ?";
+            const sql = "SELECT * " +
+                        "FROM RESTOCKORDERITEM_TABLE " +
+                        "WHERE ID_RESTOCKORDER = ?";
             this.db.all(sql, [ID], (err, rows) => {
                 if(err){
                     reject(err);
@@ -136,7 +149,7 @@ class RestockOrderDAO {
                         resolve(undefined);
                     } else {
                         const productsList = rows.map(row => {
-                            return { SKUId : row.SKUID, description : row.DESCRIPTION, price : row.PRICE, qty : row.QUANTITY };
+                            return { SKUId : row.SKU_ID, itemId : row.ITEM_ID, description : row.DESCRIPTION, price : row.PRICE, qty : row.QUANTITY };
                         });
                         resolve(productsList);
                     }
@@ -145,23 +158,32 @@ class RestockOrderDAO {
         });
     }
 
-    addRestockOrderItem(itemID, quantity){
+    getRestockOrderItems(ID){
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO RESTOCKORDERITEM_TABLE(ID_ITEM, QUANTITY) VALUES(?,?)";
-            this.db.run(sql, [itemID, quantity], function(err){
+            const sql = "SELECT * " +
+                        "FROM SKUITEMSRESTOCKORDER_LIST " +
+                        "WHERE ID_RESTOCKORDER = ?";
+            this.db.all(sql, [ID], (err, rows) => {
                 if(err){
                     reject(err);
                 } else {
-                    resolve(this.lastID);
+                    if(rows === undefined){
+                        resolve(undefined);
+                    } else {
+                        const itemList = rows.map(row => {
+                            return { SKUId : row.SKU_ID, itemId : row.ID_ITEM, rfid : row.ID_SKUITEM};
+                        });
+                        resolve(itemList);
+                    }
                 }
             });
         });
     }
 
-    addRestockOrderItemToList(restockOrderID, restockOrderItemID){
+    addRestockOrderItem(ID, prod){
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO RESTOCKORDERITEMSRESTOCKORDER_LIST(ID_RESTOCKORDER, ID_RESTOCKORDERITEM) VALUES(?,?)";
-            this.db.run(sql, [restockOrderID, restockOrderItemID], function(err){
+            const sql = "INSERT INTO RESTOCKORDERITEM_TABLE(ID_RESTOCKORDER, ITEM_ID, SKU_ID, DESCRIPTION, PRICE, QUANTITY) VALUES(?,?,?,?,?,?)";
+            this.db.run(sql, [ID, prod.itemId, prod.SKUId, prod.description, prod.price, prod.qty], function(err){
                 if(err){
                     reject(err);
                 } else {
@@ -184,10 +206,10 @@ class RestockOrderDAO {
         });
     }
 
-    editRestockOrderSkuItems(restockOrderID, RFID){
+    editRestockOrderSkuItems(restockOrderID, RFID, ItemID, SKUID){
         return new Promise((resolve, reject) => {
-            const sql = "INSERT INTO SKUITEMSRESTOCKORDER_LIST(ID_SKUITEM, ID_RESTOCKORDER) VALUES(?,?)";
-            this.db.run(sql, [RFID, restockOrderID], function(err){
+            const sql = "INSERT INTO SKUITEMSRESTOCKORDER_LIST(ID_SKUITEM, ID_RESTOCKORDER, ID_ITEM, SKU_ID) VALUES(?,?,?,?)";
+            this.db.run(sql, [RFID, restockOrderID, ItemID, SKUID], function(err){
                 if(err){
                     reject(err);
                 } else {

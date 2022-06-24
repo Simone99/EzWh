@@ -25,7 +25,7 @@ describe('Tests on ItemDAO.js', () => {
 	test('add item', async () => {
 		let item = new Item('Item description', 100, 1, 1);
 		let res = await DAO_test.addItem(item);
-		expect(res).toEqual(201);
+		expect(res).toEqual(2);
 	});
 
 	test('add duplicate item', async () => {
@@ -35,7 +35,7 @@ describe('Tests on ItemDAO.js', () => {
 	});
 
 	test('get an item by id', async () => {
-		let res = await DAO_test.getItemById(2);
+		let res = await DAO_test.getItemById(2, 1);
 		expect(res).toEqual({
 			id: 2,
 			price: 100,
@@ -71,18 +71,18 @@ describe('Tests on ItemDAO.js', () => {
 	});
 
 	test('Edit an existing item', async () => {
-		let res = await DAO_test.editItem(2, 'Item description 7', 90);
+		let res = await DAO_test.editItem(2, 1, 'Item description 7', 90);
 		expect(res).toEqual('ok');
 	});
 
 	test('Edit an existing item empty description', async () => {
-		let res = await DAO_test.editItem(2, '', 90);
+		let res = await DAO_test.editItem(2, 1, '', 90);
 		expect(res).toEqual('ok');
 	});
 
 	test('Control content after editing an existing item', async () => {
-		await DAO_test.editItem(2, 'Item description 7', 90);
-		let res = await DAO_test.getItemById(2);
+		await DAO_test.editItem(2, 1, 'Item description 7', 90);
+		let res = await DAO_test.getItemById(2, 1);
 		expect(res).toEqual({
 			id: 2,
 			price: 90,
@@ -103,7 +103,7 @@ describe('Tests on ItemDAO.js', () => {
 	});
 
 	test('check existance of deleted item', async () => {
-		await DAO_test.deleteItem(2);
+		await DAO_test.deleteItem(2, 1);
 		let res = await DAO_test.getAllItems();
 		expect(res).toEqual([
 			{
